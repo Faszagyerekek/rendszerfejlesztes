@@ -20,11 +20,15 @@ namespace UNO
     /// </summary>
     public partial class MainWindow : Window
     {
+        public void Starting()
+        {
+            MSGBOX.Text = "CLIENT";
+        }
+
         public MainWindow()
         {
             InitializeComponent();
-            int s = 0;
-            //Szallagos burgonya
+            Starting();
         }
     }
 }
