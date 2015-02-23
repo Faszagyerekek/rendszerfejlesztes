@@ -24,6 +24,7 @@ namespace UNO
         {
             InitializeComponent();
             int s = 0;
+            //Szallagos burgonya
         }
     }
 }
