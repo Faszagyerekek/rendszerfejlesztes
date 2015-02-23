@@ -23,6 +23,7 @@ namespace UNO
         public MainWindow()
         {
             InitializeComponent();
+            int s = 0;
         }
     }
 }
