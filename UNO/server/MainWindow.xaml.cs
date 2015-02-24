@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net;
+using System.Net.Sockets;
 
 namespace server
 {
@@ -21,14 +23,11 @@ namespace server
     /// </summary>
     public partial class MainWindow : Window
     {
-        public void Starting()
-        {
-            MSGBOX.Text = "SERVER ###";
-        }
+
         public MainWindow()
         {
             InitializeComponent();
-            Starting();
+            new MainController(MSGBOX);
         }
     }
 }

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net;
+using System.Net.Sockets;
 
 namespace UNO
 {
@@ -20,15 +22,11 @@ namespace UNO
     /// </summary>
     public partial class MainWindow : Window
     {
-        public void Starting()
-        {
-            MSGBOX.Text = "CLIENT";
-        }
 
         public MainWindow()
         {
             InitializeComponent();
-            Starting();
+            new MainController(MSGBOX);
         }
     }
 }
