@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace server
+namespace server // EZ A KLIEN OLDAL, CSAK HÜLYE VOLTAM (Krisztián)
 {
     class DebugMessageClass
     {
-        private MainWindow win;
+        private UNO.MainWindow win;
 
-        public DebugMessageClass(MainWindow mainWindow)
+        public DebugMessageClass(UNO.MainWindow mainWindow)
         {
+            // TODO: Complete member initialization
             this.win = mainWindow;
         }
 
@@ -36,6 +37,10 @@ namespace server
         internal void ClientStart()
         {
             win.MSGBOX.Text += System.Environment.NewLine + "### Connecting to the server ###" + System.Environment.NewLine;
+        }
+
+        internal void Client_ClientConnected()
+        {
             win.MSGBOX.Text += "### Connected to the server ###" + System.Environment.NewLine;
         }
 

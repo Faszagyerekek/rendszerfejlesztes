@@ -15,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net;
 using System.Net.Sockets;
+using server;
+
 
 namespace UNO
 {
@@ -27,14 +29,27 @@ namespace UNO
         private Thread JatekSzal;
         private TcpClient client = new TcpClient();
         private IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 3000);
+        private DebugMessageClass Log;
 
 
         public MainWindow()
         {
             InitializeComponent();
-            MSGBOX.Text += System.Environment.NewLine + "### Connecting to the server ###" + System.Environment.NewLine;
-            client.Connect(serverEndPoint);
-            MSGBOX.Text += "### Connected to the server ###" + System.Environment.NewLine;
+            Log = new DebugMessageClass(this);
+            try
+            {
+                ///<summary>
+                ///Kivételes eset, itt most a kapcsolódást a szerverhez is
+                ///ez a debugos osztály végzi
+                ///</summary>
+                Log.ClientStart();
+                client.Connect(serverEndPoint);
+                Log.Client_ClientConnected();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
 

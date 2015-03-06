@@ -27,12 +27,13 @@ namespace server
         private Thread JatekSzal;
         private Thread BroadcastSzal;
         private int connectedClients = 0;
+        private DebugMessageClass Log;
 
 
         public MainWindow()
         {
             InitializeComponent();
-            new DebugMessageClass().ServerStart(MSGBOX);
+            Log = new DebugMessageClass(this);
             Server();
         }
 
@@ -46,6 +47,11 @@ namespace server
         private void ListenForClients()
         {
             this.tcpListener.Start();
+            //new DebugMessageClass().ServerStart(MSGBOX);
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                Log.ServerStart();
+            }));
 
             while (true) // Never ends until the Server is closed.
             {
@@ -55,7 +61,13 @@ namespace server
                 //create a thread to handle communication 
                 //with connected client
                 connectedClients++; // Increment the number of clients that have communicated with us.
-                new DebugMessageClass().ClientConnected(MSGBOX, connectedClients);
+                
+                //new DebugMessageClass().ClientConnected(MSGBOX, connectedClients);
+                
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    Log.ClientConnected(connectedClients);
+                }));
 
                 Thread clientThread = new Thread(new ParameterizedThreadStart(HandleClientComm));
                 clientThread.Start(client);
