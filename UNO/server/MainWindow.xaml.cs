@@ -76,6 +76,7 @@ namespace server
 
         private void HandleClientComm(object obj)
         {
+            // asdf
             throw new NotImplementedException();
         }
 
