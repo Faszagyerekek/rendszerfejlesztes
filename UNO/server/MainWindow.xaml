@@ -3,6 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Server" Height="350" Width="525">
     <Grid>
-        <TextBox Name="MSGBOX"></TextBox>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30px"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBox Name="MSGBOX"      Background="Black" Foreground="YellowGreen" FontSize="14" Text="### SERVER ###"
+                 Grid.Row="0" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto"></TextBox>
+        <Label   Name="DebugLabel"  Background="Black" Foreground="YellowGreen" FontSize="14" Content="Command:"
+                 Grid.Row="1" BorderBrush="Green" BorderThickness="1"
+                 Width="90" HorizontalAlignment="Left" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+        <TextBox Name="Input_field" Background="Black" Foreground="YellowGreen" FontSize="14" Text=""
+                 Grid.Row="1" BorderBrush="Green" BorderThickness="1"
+                 Margin="90,0,0,0" VerticalContentAlignment="Center" KeyDown="Input_field_KeyDown"></TextBox>
     </Grid>
 </Window>
