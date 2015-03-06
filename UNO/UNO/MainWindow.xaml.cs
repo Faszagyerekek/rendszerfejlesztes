@@ -26,7 +26,7 @@ namespace UNO
         public MainWindow()
         {
             InitializeComponent();
-            new MainController(MSGBOX);
+            //new MainController(MSGBOX);
         }
     }
 }

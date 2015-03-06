@@ -25,5 +25,7 @@ namespace server
             InitializeComponent();
             new MainController(MSGBOX);
         }
+
+
     }
 }
