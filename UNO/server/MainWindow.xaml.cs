@@ -28,6 +28,7 @@ namespace server
         private Thread BroadcastSzal;
         private int connectedClients = 0;
         private DebugMessageClass Log;
+        private delegate void WriteMessageDelegate(string msg);
 
 
         public MainWindow()
@@ -35,6 +36,14 @@ namespace server
             InitializeComponent();
             Log = new DebugMessageClass(this);
             Server();
+        }
+
+        private void _Log(string s)
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                Log.Message(s);
+            }));
         }
 
         private void Server()
@@ -74,12 +83,62 @@ namespace server
             }
         }
 
-        private void HandleClientComm(object obj)
+        private void HandleClientComm(object client)
         {
-            throw new NotImplementedException();
+            TcpClient tcpClient = (TcpClient)client;
+            NetworkStream clientStream = tcpClient.GetStream();
+
+            byte[] message = new byte[4096];
+            int bytesRead;
+
+            while (true)
+            {
+                bytesRead = 0;
+
+                try
+                {
+                    //blocks until a client sends a message
+                    bytesRead = clientStream.Read(message, 0, 4096);
+                }
+                catch
+                {
+                    //a socket error has occured
+                    break;
+                }
+
+                if (bytesRead == 0)
+                {
+                    //the client has disconnected from the server
+                    connectedClients--;
+                    _Log(">> Client disconnected");
+                    break;
+                }
+
+                //message has successfully been received
+                //ASCIIEncoding encoder = new ASCIIEncoding();
+                UTF8Encoding encoder = new UTF8Encoding();
+
+                // Convert the Bytes received to a string and display it on the Server Screen
+                string msg = encoder.GetString(message, 0, bytesRead);
+                _Log(msg);
+
+                // Now Echo the message back
+
+                Echo(msg, encoder, clientStream);
+            }
+
+            tcpClient.Close();
         }
 
+        
+        private void Echo(string msg, UTF8Encoding encoder, NetworkStream clientStream)
+        {
+            // Now Echo the message back
+            byte[] buffer = encoder.GetBytes(msg);
 
+            clientStream.Write(buffer, 0, buffer.Length);
+            clientStream.Flush();
+        }
 
 
         /// <summary>

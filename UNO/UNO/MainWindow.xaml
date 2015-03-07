@@ -1,7 +1,7 @@
 ﻿<Window x:Name="CLIENT" x:Class="UNO.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Client" Height="350" Width="525">
+        Title="Client" Height="350" Width="525" Closed="CLIENT_Closed">
 	<Window.Background>
 		<SolidColorBrush Color="White" Opacity="0.5"/>
 	</Window.Background>

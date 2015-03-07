@@ -52,6 +52,24 @@ namespace UNO
             }
         }
 
+        private void _Log(string s)
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                Log.Message(s);
+            }));
+        }
+
+        private void SendMessage(string msg)
+        {
+            NetworkStream clientStream = client.GetStream();
+
+            UTF8Encoding encoder = new UTF8Encoding();
+            byte[] buffer = encoder.GetBytes(msg);
+
+            clientStream.Write(buffer, 0, buffer.Length);
+            clientStream.Flush();
+        }
 
         /// <summary>
         /// Itt kellene majd megoldani, hogy ne kiírja az MSGBOX-ba, hanem egy szálon felírja a szervernek. Ez a szál lesz majd a Játék szál!
@@ -63,8 +81,9 @@ namespace UNO
             // e.KeyData != Keys.Enter || e.KeyData != Keys.Return
             if (e.Key == Key.Enter)
             {
-                MSGBOX.Text += Input_field.Text;
-                MSGBOX.Text += System.Environment.NewLine;
+                _Log(Input_field.Text);
+                _Log(System.Environment.NewLine);
+                SendMessage(Input_field.Text);
                 Input_field.Text = "";
             }
             else
@@ -81,8 +100,9 @@ namespace UNO
 
         }
 
-        
-
-
+        private void CLIENT_Closed(object sender, EventArgs e)
+        {
+            SendMessage("Client disconnected");
+        }
     }
 }

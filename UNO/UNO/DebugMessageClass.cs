@@ -51,7 +51,7 @@ namespace server // EZ A KLIEN OLDAL, CSAK HÜLYE VOLTAM (Krisztián)
 
         internal void Message(string text)
         {
-            win.MSGBOX.Text += System.Environment.NewLine + ">>" + text;
+            win.MSGBOX.Text += text;
         }
     }
 }
