@@ -21,7 +21,6 @@ namespace server
             string s = System.Environment.NewLine + ">> Client connected!" + System.Environment.NewLine
                 + ">> Amount of connected clients: " + c + System.Environment.NewLine;
             win.MSGBOX.Text += s;
-            MessageBox.Show(s);
         }
 
         

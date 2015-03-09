@@ -25,8 +25,7 @@ namespace UNO
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Thread BroadcastSzal;
-        private Thread JatekSzal;
+        private Thread ChatSzal;
         private TcpClient client = new TcpClient();
         private IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 3000);
         private DebugMessageClass Log;
@@ -49,6 +48,23 @@ namespace UNO
             catch (Exception)
             {
                 throw;
+            }
+            this.ChatSzal = new Thread(new ThreadStart(ChatComm));
+            ChatSzal.Start();
+        }
+
+        private void ChatComm()
+        {
+            byte[] message = new byte[4096];
+            int bytesRead;
+            NetworkStream clientStream = client.GetStream();
+
+            while (true)
+            {
+                bytesRead = clientStream.Read(message, 0, 4096);
+                UTF8Encoding encoder = new UTF8Encoding();
+                string msg = encoder.GetString(message, 0, bytesRead);
+                _Log(msg + System.Environment.NewLine);
             }
         }
 
@@ -81,8 +97,6 @@ namespace UNO
             // e.KeyData != Keys.Enter || e.KeyData != Keys.Return
             if (e.Key == Key.Enter)
             {
-                _Log(Input_field.Text);
-                _Log(System.Environment.NewLine);
                 SendMessage(Input_field.Text);
                 Input_field.Text = "";
             }
@@ -92,17 +106,13 @@ namespace UNO
             }
         }
 
-        /// <summary>
-        /// Ez lesz az a függvény, ami majd a szerverre hallgatózik, hogy az valamikor broadcastol-e
-        /// </summary>
-        private void ServerReading()
-        {
-
-        }
-
         private void CLIENT_Closed(object sender, EventArgs e)
         {
-            SendMessage("Client disconnected");
+            if (ChatSzal.IsAlive)
+            {
+                ChatSzal.Abort();
+            }
+            SendMessage("##<quit>##");
         }
     }
 }

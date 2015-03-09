@@ -29,11 +29,14 @@ namespace server
         private int connectedClients = 0;
         private DebugMessageClass Log;
         private delegate void WriteMessageDelegate(string msg);
+        private List<TcpClient> clients;
+        Thread clientThread;
 
 
         public MainWindow()
         {
             InitializeComponent();
+            clients = new List<TcpClient>();
             Log = new DebugMessageClass(this);
             Server();
         }
@@ -66,6 +69,10 @@ namespace server
             {
                 //blocks until a client has connected to the server
                 TcpClient client = this.tcpListener.AcceptTcpClient();
+                clients.Add(client);
+                foreach(TcpClient _client in clients){
+                    _Log(_client.Client.Handle.ToString());
+                }
 
                 //create a thread to handle communication 
                 //with connected client
@@ -78,7 +85,7 @@ namespace server
                     Log.ClientConnected(connectedClients);
                 }));
 
-                Thread clientThread = new Thread(new ParameterizedThreadStart(HandleClientComm));
+                clientThread = new Thread(new ParameterizedThreadStart(HandleClientComm));
                 clientThread.Start(client);
             }
         }
@@ -90,6 +97,8 @@ namespace server
 
             byte[] message = new byte[4096];
             int bytesRead;
+            //_Log(tcpClient.Client.Handle.ToString());
+            
 
             while (true)
             {
@@ -120,13 +129,22 @@ namespace server
 
                 // Convert the Bytes received to a string and display it on the Server Screen
                 string msg = encoder.GetString(message, 0, bytesRead);
+
+                if (msg.Equals("##<quit>##"))
+                {
+                    connectedClients--;
+                    _Log(">> Client disconnected");
+                    break;
+                }
+
                 _Log(msg);
 
                 // Now Echo the message back
-
-                Echo(msg, encoder, clientStream);
+                Broadcast(msg);
+                //Echo(msg, encoder, clientStream);
             }
 
+            clients.Remove(tcpClient);
             tcpClient.Close();
         }
 
@@ -148,11 +166,11 @@ namespace server
         /// <param name="e">Milyen billentyűt ütött le a szerver a Commandhoz</param>
         private void Input_field_KeyDown(object sender, KeyEventArgs e)
         {
-            // e.KeyData != Keys.Enter || e.KeyData != Keys.Return
+
             if (e.Key == Key.Enter)
             {
-                MSGBOX.Text += Input_field.Text;
-                MSGBOX.Text += System.Environment.NewLine;
+                _Log(Input_field.Text + System.Environment.NewLine);
+                Broadcast(Input_field.Text);
                 Input_field.Text = "";
             }
             else
@@ -165,9 +183,23 @@ namespace server
         /// Ez lesz az a függvény, ami majd az egyes kliensekre hallgatózik, vagyis a játszó szál
         /// lényeges megemlíteni, hogy kell-e és milyen argumentumok (valószínűleg szál, vagy kliens azonosító) ebbe a függvénybe
         /// </summary>
-        private void ClientReading()
+        private void Broadcast(string msg)
         {
+            foreach (TcpClient client in clients)
+            {
+                NetworkStream clientStream = client.GetStream();
 
+                UTF8Encoding encoder = new UTF8Encoding();
+                byte[] buffer = encoder.GetBytes(msg);
+
+                clientStream.Write(buffer, 0, buffer.Length);
+                clientStream.Flush();
+            }
+        }
+
+        private void SERVER_Closed(object sender, EventArgs e)
+        {
+            JatekSzal.Abort();
         }
     }
 }
