@@ -97,7 +97,6 @@ namespace server
 
             byte[] message = new byte[4096];
             int bytesRead;
-            //_Log(tcpClient.Client.Handle.ToString());
             
 
             while (true)
@@ -109,17 +108,10 @@ namespace server
                     //blocks until a client sends a message
                     bytesRead = clientStream.Read(message, 0, 4096);
                 }
-                catch
+                catch (Exception ex)
                 {
                     //a socket error has occured
-                    break;
-                }
-
-                if (bytesRead == 0)
-                {
-                    //the client has disconnected from the server
-                    connectedClients--;
-                    _Log(">> Client disconnected");
+                    MessageBox.Show(ex.Message);
                     break;
                 }
 
@@ -199,7 +191,10 @@ namespace server
 
         private void SERVER_Closed(object sender, EventArgs e)
         {
-            JatekSzal.Abort();
+            if (JatekSzal.IsAlive){
+                JatekSzal.Abort();
+            }
+            
         }
     }
 }
