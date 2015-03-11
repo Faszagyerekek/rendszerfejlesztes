@@ -70,9 +70,6 @@ namespace server
                 //blocks until a client has connected to the server
                 TcpClient client = this.tcpListener.AcceptTcpClient();
                 clients.Add(client);
-                foreach(TcpClient _client in clients){
-                    _Log(_client.Client.Handle.ToString());
-                }
 
                 //create a thread to handle communication 
                 //with connected client

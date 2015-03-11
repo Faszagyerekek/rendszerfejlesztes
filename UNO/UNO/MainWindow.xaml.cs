@@ -68,14 +68,6 @@ namespace UNO
             }
         }
 
-        private void _Log(string s)
-        {
-            this.Dispatcher.Invoke((Action)(() =>
-            {
-                Log.Message(s);
-            }));
-        }
-
         private void SendMessage(string msg)
         {
             NetworkStream clientStream = client.GetStream();
@@ -87,6 +79,15 @@ namespace UNO
             clientStream.Flush();
         }
 
+
+
+
+
+
+
+
+
+// Events -------------------------------------------------------------------------------------------------------
         /// <summary>
         /// Itt kellene majd megoldani, hogy ne kiírja az MSGBOX-ba, hanem egy szálon felírja a szervernek. Ez a szál lesz majd a Játék szál!
         /// </summary>
@@ -100,10 +101,6 @@ namespace UNO
                 SendMessage(Input_field.Text);
                 Input_field.Text = "";
             }
-            else
-            {
-
-            }
         }
 
         private void CLIENT_Closed(object sender, EventArgs e)
@@ -114,5 +111,16 @@ namespace UNO
             }
             SendMessage("##<quit>##");
         }
+
+
+//Misc -----------------------------------------------------------------------------------------
+        private void _Log(string s)
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                Log.Message(s);
+            }));
+        }
+
     }
 }
