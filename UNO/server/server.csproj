@@ -71,6 +71,7 @@
     <Compile Include="Card.cs" />
     <Compile Include="DataLinkLayer.cs" />
     <Compile Include="DebugMessageClass.cs" />
+    <Compile Include="DeckStorageAncestor.cs" />
     <Compile Include="InputMessagePreprocessor.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

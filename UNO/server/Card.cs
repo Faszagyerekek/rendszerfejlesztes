@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace server
+namespace game
 {
     class Card
     {
@@ -20,7 +20,7 @@ namespace server
         /// <param name="color">A kártya színe</param>
         /// <param name="symbol">A kártya száma, vagy szimbóluma</param>
         /// <param name="penaltyPont">A kártyához tartozó hibapont</param>
-        public Card(string type, string color, string symbol, int penaltyPont)
+        public Card(string type, string color, string symbol, int penaltyPont = 0)
         {
             this.type = type;
             this.color = color;
@@ -50,6 +50,17 @@ namespace server
         {
             set { this._penaltyPoint = value; }
             get { return this._penaltyPoint; }
+        }
+
+        public bool Equals(Card card)
+        {
+            if (this.color == card.color && this.type == card.type && this.symbol == card.symbol){
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
