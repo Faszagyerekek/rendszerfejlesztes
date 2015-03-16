@@ -12,12 +12,14 @@ namespace game
         private List<Player> players;
         private DeckStorageAncestor dropCards;
         private DeckStorageAncestor pullCards;
+        private int sameDropCards;
 
         public Game(List<Player> players)
         {
             this.players = players;
             this.dropCards = new DeckStorageAncestor();
             this.pullCards = new DeckStorageAncestor();
+            this.sameDropCards = 1;
         }
 
         /*
@@ -59,6 +61,16 @@ namespace game
         */
         public void dropCard(Player player, Card card)
         {
+            Card topDropCard = topCard();
+            if (card.symEquals(topDropCard))
+            {
+                sameDropCards++;
+            }
+            else
+            {
+                sameDropCards = 1;
+            }
+
             player.dropCard(card);
             dropCards.addCard(card);
         }
