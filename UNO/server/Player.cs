@@ -65,7 +65,7 @@ namespace server
 
         public void dropCard(Card card)
         {
-            Hand.dropCard(card.color,card.symbol);
+            Hand.dropCard(card);
         }
 
         public int getCardNum()
