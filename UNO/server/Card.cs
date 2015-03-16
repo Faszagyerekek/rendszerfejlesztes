@@ -62,5 +62,16 @@ namespace game
                 return false;
             }
         }
+
+        public bool symEquals(Card card)
+        {
+            if (this.symbol == card.symbol){
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
