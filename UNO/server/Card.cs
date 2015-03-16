@@ -63,6 +63,12 @@ namespace game
             }
         }
 
+
+        /// <summary>
+        /// Szimbólum eqvivalencia vizsgálat
+        /// </summary>
+        /// <param name="card"> paraméter kártya</param>
+        /// <returns>ha a szimbólum egyezik, akkor true, amúgy false</returns>
         public bool symEquals(Card card)
         {
             if (this.symbol == card.symbol){
