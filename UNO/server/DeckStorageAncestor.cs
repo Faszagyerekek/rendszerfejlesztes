@@ -169,6 +169,10 @@ namespace game
             return CardList.Count;
         }
 
+        public Card topCard (){
+            return CardList[-1];
+        }
+
         /// <summary>
         /// része-e a megadott "név" annak, amiből építkezünk?
         /// </summary>
