@@ -25,11 +25,11 @@ namespace server
             string line;
 
             System.IO.StreamReader file =
-               new System.IO.StreamReader("deck.txt");
+               new System.IO.StreamReader("Deck.txt");//hát, öh, nemtom ez így jó-e
             while ((line = file.ReadLine()) != null)
             {
                 string [] tmp=line.Split('|');
-
+                ret.addCard(new Card(tmp[0], tmp[1], tmp[2], int.Parse(tmp[3])));
 
             }
 
