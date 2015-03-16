@@ -29,6 +29,18 @@ namespace game
             pullCards = new DataLinkLayer().loadDeck();
         }
 
+
+        /// <summary>
+        /// Játékos x-edik kártyájának lekérése
+        /// </summary>
+        /// <param name="player">játékos</param>
+        /// <param name="index">lap sorszáma</param>
+        /// <returns></returns>
+        public Card cardIndex(Player player, int index)
+        {
+            player.cardIndex(index);
+        }
+
         /// <summary>
         /// Minden játékos kap 8 véletlen lapot a húzópakliból
         /// </summary>
