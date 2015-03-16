@@ -70,7 +70,7 @@ namespace server
 
         public int getCardNum()
         {
-            Hand.getCardNum();
+            return Hand.getCardNum();
         }
 
     }
