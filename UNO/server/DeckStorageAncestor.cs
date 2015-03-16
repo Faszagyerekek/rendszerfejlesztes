@@ -27,6 +27,7 @@ namespace game
             CardList.Add(card);
         }
 
+        /*
         public Card dropCard(string color, string symbol)
         {
             string [] p4        = Enum.GetNames(typeof(plus4));
@@ -152,7 +153,7 @@ namespace game
                     return null;
             }
         }
-
+        */
         public Card deal()
         {
             Random x = new Random();
@@ -182,7 +183,7 @@ namespace game
         private bool partOfEnum(string sym, string[] t)
         {
             foreach(string s in t){
-                if (s.Equals("sym")){
+                if (s.Equals(sym)){
                     return true;
                 }
             }
@@ -194,7 +195,7 @@ namespace game
         /// </summary>
         /// <param name="card">ezt a dropCard-tól kapja, arra létrehozva, amit a tárolóban keresek</param>
         /// <returns>ha kártyát ad vissza, bent a pakliban, ha nem akkor null-t</returns>
-        private Card drpCard(Card card)
+        private Card dropCard(Card card)
         {
             foreach (Card c in CardList)
             {
