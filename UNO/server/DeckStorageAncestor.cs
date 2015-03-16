@@ -207,6 +207,11 @@ namespace game
             return null;
         }
 
+        public Card cardIndex( int index )
+        {
+            return CardList[index];
+        }
+
 
         /// <summary>
         /// A játéktól megkapja, hogy a letenni kívánt lap szabályos-e, majd ki is szedi a tárolóból a kártyát

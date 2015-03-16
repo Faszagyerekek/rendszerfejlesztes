@@ -73,5 +73,10 @@ namespace server
             return Hand.getCardNum();
         }
 
+        public Card cardIndex(int index)
+        {
+            return Hand.cardIndex(index);
+        }
+
     }
 }
