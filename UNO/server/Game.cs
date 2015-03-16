@@ -22,16 +22,16 @@ namespace game
             this.sameDropCards = 1;
         }
 
-        /*
-         * Kártyalapok betöltése a húzópakliba
-        */
+        /// <summary>
+        /// Kártyalapok betöltése a húzópakliba
+        /// </summary>
         public void loadDeck() {
             pullCards = new DataLinkLayer().loadDeck();
         }
 
-        /*
-         * Osztás: Minden játékos kap 8 véletlen lapot a húzópakliból
-        */
+        /// <summary>
+        /// Minden játékos kap 8 véletlen lapot a húzópakliból
+        /// </summary>
         public void cardDealing() {
             foreach (Player player in players) {
                 for (int i = 0; i < 8; i++) {
@@ -40,25 +40,29 @@ namespace game
             }
         }
 
-        /*
-         * A dobópakli legfelső lapjának megadása
-        */
+        /// <summary>
+        /// A dobópakli legfelső lapját adja vissza
+        /// </summary>
+        /// <returns></returns>
         public Card topCard()
         {
             return dropCards.topCard();
         }
 
-        /*
-         * Kártya húzása: Játékos húz egy véletlen lapot a húzópakliból
-        */
+        /// <summary>
+        /// Játékos húz egy véletlen lapot a húzópakliból
+        /// </summary>
+        /// <param name="player">húzó játékos</param>
         public void pullCard(Player player)
         {
             player.addCard(pullCards.deal());
         }
 
-        /*
-         * Kártya dobása: Játékos eldob egy lapot, ami a dobópakliba kerül
-        */
+        /// <summary>
+        /// Játékos eldob egy lapot, ami a dobópakliba kerül
+        /// </summary>
+        /// <param name="player">a lap dobója</param>
+        /// <param name="card">dobni kívánt lap</param>
         public void dropCard(Player player, Card card)
         {
             Card topDropCard = topCard();
