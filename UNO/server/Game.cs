@@ -38,7 +38,7 @@ namespace game
         /// <returns></returns>
         public Card cardIndex(Player player, int index)
         {
-            player.cardIndex(index);
+            return player.cardIndex(index);
         }
 
         /// <summary>
