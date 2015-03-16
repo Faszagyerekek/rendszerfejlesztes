@@ -195,7 +195,7 @@ namespace game
         /// </summary>
         /// <param name="card">ezt a dropCard-tól kapja, arra létrehozva, amit a tárolóban keresek</param>
         /// <returns>ha kártyát ad vissza, bent a pakliban, ha nem akkor null-t</returns>
-        private Card dropCard(Card card)
+        public Card dropCard(Card card)
         {
             foreach (Card c in CardList)
             {
