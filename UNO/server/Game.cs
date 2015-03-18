@@ -12,7 +12,9 @@ namespace game
         private List<Player> players;
         private DeckStorageAncestor dropCards;
         private DeckStorageAncestor pullCards;
+        private bool _clockWise;
         private int sameDropCards;
+        private int _nextPlayerIndex;
 
         public Game(List<Player> players)
         {
@@ -20,6 +22,7 @@ namespace game
             this.dropCards = new DeckStorageAncestor();
             this.pullCards = new DeckStorageAncestor();
             this.sameDropCards = 1;
+            this.clockWise = true;
         }
 
         /// <summary>
@@ -40,6 +43,7 @@ namespace game
         {
             return player.cardIndex(index);
         }
+
 
         /// <summary>
         /// Minden játékos kap 8 véletlen lapot a húzópakliból
@@ -89,6 +93,65 @@ namespace game
 
             player.dropCard(card);
             dropCards.addCard(card);
+        }
+
+        /// <summary>
+        /// Lépés a következő játékosra
+        /// </summary>
+        public Player nextPlayer()
+        {
+            if (nextPlayerIndex < 3)
+            {
+                nextPlayerIndex++;
+            }
+            else
+            {
+                nextPlayerIndex = 0;
+            }
+
+            return players[nextPlayerIndex];
+        }
+
+
+        /// <summary>
+        /// Lépés az előző játékosra
+        /// </summary>
+        /// <returns></returns>
+        public Player previousPlayer()
+        {
+            if (nextPlayerIndex > 1)
+            {
+                nextPlayerIndex--;
+            }
+            else
+            {
+                nextPlayerIndex = 3;
+            }
+
+            return players[nextPlayerIndex];
+        }
+
+        public bool clockWise
+        {
+            set { this._clockWise = value; }
+            get { return this._clockWise; }
+        }
+
+        public int nextPlayerIndex
+        {
+            set { this._nextPlayerIndex = value; }
+            get { return this._nextPlayerIndex; }
+        }
+
+        public void toggleClockWise() {
+            if (this.clockWise == true)
+            {
+                this.clockWise = false;
+            }
+            else
+            {
+                this.clockWise = true;
+            }
         }
 
         /*
