@@ -130,9 +130,10 @@ namespace server
                 _Log(msg);
                 
                 //
-
-                //   Itt kell megírni, hogy a bejövő üzenetet majd feldolgozza, aztán, hogy mit küldjön tovább
-
+                    // --- konkrétan, hogy amit kaptam hogy dolgozzam fel
+          //   Itt kell megírni, hogy a bejövő üzenetet majd feldolgozza, aztán, hogy mit küldjön tovább
+                    // --- konkrétan, hogy majd a szerver mit fog szétküldeni, nameg, hogy kinek, de az a jövő szele
+                    // --- egyelőre még majd mindenkinek... erre lesz függvény
                 //
                 // Now Echo the message back
                 Broadcast(msg);
