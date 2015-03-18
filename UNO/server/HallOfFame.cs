@@ -20,6 +20,13 @@ namespace server
         {
             records.Add(record);
         }
+
+        public List<Record> getResults()
+        {
+            return records;
+        }
+
+
         //most nem írok remove-ot, mert eléletileg nem kell, talán majd extraként
         // egyébként is: THE LEGEND NEVER DIES!
     }
