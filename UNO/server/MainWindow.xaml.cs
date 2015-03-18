@@ -128,7 +128,12 @@ namespace server
                 }
 
                 _Log(msg);
+                
+                //
 
+                //   Itt kell megírni, hogy a bejövő üzenetet majd feldolgozza, aztán, hogy mit küldjön tovább
+
+                //
                 // Now Echo the message back
                 Broadcast(msg);
                 //Echo(msg, encoder, clientStream);
