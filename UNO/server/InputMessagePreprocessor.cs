@@ -14,5 +14,11 @@ namespace server
         {
             
         }
+
+        public InputMessagePreprocessor()
+        {
+
+        }
+
     }
 }
