@@ -25,7 +25,6 @@ namespace server
             _body = new Body(card);
         }
 
-
         /// <summary>
         /// Üzenetet tartalmazó üzenet :D
         /// </summary>

@@ -29,18 +29,20 @@ namespace UNO
         private TcpClient client = new TcpClient();
         private IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 3000);
         private DebugMessageClass Log;
+        static private string username;
+        static private bool login = false;
+        static private string toWho = "*";
 
 
         public MainWindow()
         {
             InitializeComponent();
             Log = new DebugMessageClass(this);
+
+            Log.Message("Enter a username!" + System.Environment.NewLine);
+
             try
             {
-                ///<summary>
-                ///Kivételes eset, itt most a kapcsolódást a szerverhez is
-                ///ez a debugos osztály végzi
-                ///</summary>
                 Log.ClientStart();
                 client.Connect(serverEndPoint);
                 Log.Client_ClientConnected();
@@ -68,15 +70,59 @@ namespace UNO
             }
         }
 
+        /// <summary>
+        /// A felhasználótól érkező stringet előfeldolhozza, majd meghívja rá a küldést
+        /// </summary>
+        /// <param name="msg"></param>
         private void SendMessage(string msg)
         {
             NetworkStream clientStream = client.GetStream();
+
+            Message message = MessagePreprocessor(msg);
 
             UTF8Encoding encoder = new UTF8Encoding();
             byte[] buffer = encoder.GetBytes(msg);
 
             clientStream.Write(buffer, 0, buffer.Length);
             clientStream.Flush();
+        }
+
+
+        /// <summary>
+        /// A felhasználótól érkező karaktersorozatot
+        /// előfeldolgozza, majd üzenet típusú objektummá alakítja
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        private Message MessagePreprocessor(string msg)
+        {
+            Message message;
+            // Megnézem, hogy a kapott string, az miféle üzenet
+            // 0. indexen milyen módosító van
+            // 1. indextől következik a szöved, az mi...
+
+            // 0. indexű módosító vizsgálata:
+
+            if (msg.Substring(0, 1) == "#")
+            {
+                msg = msg.Substring(1, msg.Length-2);
+                message = new Message("MSG", username, toWho, msg);
+            }
+            else if (msg.Substring(0, 1) == "!")
+            {
+                msg = msg.Substring(1, msg.Length - 2);
+                message = new Message("COMMAND", username, toWho, msg);
+            }
+            else if (msg.Substring(0, 1) == "?")
+            {
+                msg = msg.Substring(1, msg.Length - 2);
+                message = new Message("HELP", username, toWho, msg);
+            }
+            else
+            {
+
+            }
+            return null;
         }
 
 
@@ -98,6 +144,9 @@ namespace UNO
             // e.KeyData != Keys.Enter || e.KeyData != Keys.Return
             if (e.Key == Key.Enter)
             {
+                if (!login){
+                    username = Input_field.Text;
+                }
                 SendMessage(Input_field.Text);
                 Input_field.Text = "";
             }
