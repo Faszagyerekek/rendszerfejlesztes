@@ -7,114 +7,52 @@ using game;
 
 namespace server
 {
-    class Message
+    public class Head
     {
-        Head _head;
-        Body _body;
+        public string STATUS { get; set; }
+        public string STATUSCODE { get; set; }
+        public string FROM { get; set; }
+        public string TO { get; set; }
+    }
 
-        /// <summary>
-        /// Kártyás konstruktor
-        /// </summary>
-        /// <param name="status">Milyen típusú üzenet</param>
-        /// <param name="from">Kitől jön?</param>
-        /// <param name="to">Kinek megy?</param>
-        /// <param name="card">A kártya</param>
-        public Message(string status, string from, string to, Card card)
+    public class Body
+    {
+        public game.Card CARD { get; set; }
+        public string MESSAGE { get; set; }
+    }
+
+    public class Message
+    {
+
+        public Message(string p, string username, string toWho, string msg)
         {
-            _head = new Head(status, from, to);
-            _body = new Body(card);
+            this.head = new Head();
+            this.body = new Body();
+            // TODO: Complete member initialization
+            this.head.STATUS = p;
+            this.head.FROM = username;
+            this.head.TO = toWho;
+            this.body.MESSAGE = msg;
         }
 
-        /// <summary>
-        /// Üzenetet tartalmazó üzenet :D
-        /// </summary>
-        /// <param name="status">Milyen típusú üzenet</param>
-        /// <param name="from">Kitől jön?</param>
-        /// <param name="to">Kinek megy?</param>
-        /// <param name="message">Üzenet szövege</param>
-        public Message(string status, string from, string to, string message)
+        public Message(string p, string username, string toWho, Card card)
         {
-            _head = new Head(status, from, to);
-            _body = new Body(message);
+            this.head = new Head();
+            this.body = new Body();
+            // TODO: Complete member initialization
+            this.head.STATUS = p;
+            this.head.FROM = username;
+            this.head.TO = toWho;
+            this.body.CARD = card;
         }
 
-        /// <summary>
-        /// body - visszaadka a body elemet, de ITT body()-ként kell használni!!!
-        /// </summary>
-        /// <returns></returns>
-        public Body body()
+
+        public Message()
         {
-            return this._body;
+            this.head = null;
+            this.body = null;
         }
-
-        /// <summary>
-        /// head - visszaadja a head elemet, de ITT head()-ként kell használni!!!
-        /// </summary>
-        /// <returns>visszaadja a message head elemét</returns>
-        public Head head()
-        {
-            return this._head;
-        }
-
-        public class Head
-        {
-            private string _STATUS, _FROM, _TO;
-
-            public Head(string status, string from, string to)
-            {
-                this.status = status;
-                this.from = from;
-                this.to = to;
-            }
-
-            public Head() { }
-
-            public string status
-            {
-                set { this._STATUS = value; }
-                get { return this._STATUS; }
-            }
-
-            public string from
-            {
-                set { this._FROM = value; }
-                get { return this._FROM; }
-            }
-
-            public string to
-            {
-                set { this._TO = value; }
-                get { return this._TO; }
-            }
-        }
-
-        public class Body
-        {
-            private Card _card = null;
-            private string _message = "";
-
-            public Body(Card card)
-            {
-                this._card = card;
-            }
-
-            public Body(string message)
-            {
-                this._message = message;
-            }
-
-            public Body() { }
-
-            public Card card
-            {
-                set { this._card = value; }
-                get { return this._card; }
-            }
-            public string message
-            {
-                set { this._message = value; }
-                get { return this._message; }
-            }
-        }
+        public Head head { get; set; }
+        public Body body { get; set; }
     }
 }

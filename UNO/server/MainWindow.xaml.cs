@@ -15,6 +15,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net;
 using System.Net.Sockets;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.Converters;
 using game;
 
 namespace server
@@ -43,6 +46,14 @@ namespace server
         }
 
         private void _Log(string s)
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                Log.Message(s);
+            }));
+        }
+
+        private void _Log(Message s)
         {
             this.Dispatcher.Invoke((Action)(() =>
             {
@@ -93,7 +104,7 @@ namespace server
             TcpClient tcpClient = (TcpClient)client;
             NetworkStream clientStream = tcpClient.GetStream();
 
-            byte[] message = new byte[4096];
+            byte[] fromClient = new byte[4096];
             int bytesRead;
             
 
@@ -104,7 +115,7 @@ namespace server
                 try
                 {
                     //blocks until a client sends a message
-                    bytesRead = clientStream.Read(message, 0, 4096);
+                    bytesRead = clientStream.Read(fromClient, 0, 4096);
                 }
                 catch (Exception ex)
                 {
@@ -118,25 +129,29 @@ namespace server
                 UTF8Encoding encoder = new UTF8Encoding();
 
                 // Convert the Bytes received to a string and display it on the Server Screen
-                string msg = encoder.GetString(message, 0, bytesRead);
+                string json = encoder.GetString(fromClient, 0, bytesRead);
+                Message message = JsonConvert.DeserializeObject<Message>(json);
 
-                if (msg.Equals("##<quit>##"))
+                if (message.head != null && message.body != null &&
+                    message.head.STATUS.Equals("COMMAND") && message.body.MESSAGE.Equals("quit"))
                 {
                     connectedClients--;
                     _Log(">> Client disconnected");
                     break;
                 }
 
-                _Log(msg);
+                _Log(message);
                 
-                //
                     // --- konkrétan, hogy amit kaptam hogy dolgozzam fel
+
           //   Itt kell megírni, hogy a bejövő üzenetet majd feldolgozza, aztán, hogy mit küldjön tovább
                     // --- konkrétan, hogy majd a szerver mit fog szétküldeni, nameg, hogy kinek, de az a jövő szele
                     // --- egyelőre még majd mindenkinek... erre lesz függvény
                 //
                 // Now Echo the message back
-                Broadcast(msg);
+                
+                Broadcast(JsonConvert.SerializeObject(message));
+
                 //Echo(msg, encoder, clientStream);
             }
 
@@ -166,7 +181,7 @@ namespace server
             if (e.Key == Key.Enter)
             {
                 _Log(Input_field.Text + System.Environment.NewLine);
-                Broadcast(Input_field.Text);
+                Broadcast(JsonConvert.SerializeObject(new Message("MSG", "SERVER", "*", Input_field.Text)));
                 Input_field.Text = "";
             }
             else

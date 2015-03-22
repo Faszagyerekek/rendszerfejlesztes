@@ -24,7 +24,7 @@ namespace server
 
         public Message ConvertToMessage (string inpuString, Card card = null)
         {
-            Message message;
+            Message msg;
             if (card != null){
                 
 

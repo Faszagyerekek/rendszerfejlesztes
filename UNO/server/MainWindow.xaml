@@ -8,7 +8,7 @@
             <RowDefinition Height="30px"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBox Name="MSGBOX"      Background="Black" Foreground="YellowGreen" FontSize="14" Text="### SERVER ###"
-                 Grid.Row="0" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto"></TextBox>
+                 Grid.Row="0" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" FontFamily="Courier New"></TextBox>
         <Label   Name="DebugLabel"  Background="Black" Foreground="YellowGreen" FontSize="14" Content="Command:"
                  Grid.Row="1" BorderBrush="Green" BorderThickness="1"
                  Width="90" HorizontalAlignment="Left" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace game
 {
-    class Card
+    public class Card
     {
         private string _type, _color, _symbol;
         private int _penaltyPoint;
