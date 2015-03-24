@@ -174,5 +174,10 @@ namespace UNO
             }));
         }
 
+        private void MSGBOX_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            MSGBOX.ScrollToEnd();
+        }
+
     }
 }

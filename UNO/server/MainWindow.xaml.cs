@@ -215,5 +215,10 @@ namespace server
             }
             
         }
+
+        private void MSGBOX_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            MSGBOX.ScrollToEnd();
+        }
     }
 }
