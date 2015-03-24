@@ -1,4 +1,5 @@
-﻿using server;
+﻿using game;
+using server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace UNO
 
         public Message preprocessing(string username, string toWho, string msg)
         {
+            Card card = null;
             Message message = null;
             // Megnézem, hogy a kapott string, az miféle üzenet
             // 0. indexen milyen módosító van
@@ -37,9 +39,36 @@ namespace UNO
                 msg = msg.Substring(1, msg.Length - 1);
                 message = new Message("HELP", username, toWho, msg);
             }
+            else if (msg.Substring(0, 5) == "card:")
+            {
+                msg = msg.Substring(5, msg.Length - 5);
+                card = new WhichCard().thats(msg);
+                if (card != null)
+                {
+                    message = new Message("CARD", username, toWho, card);
+                }
+                else
+                {
+                    message = new Message("ERROR", username, "SERVER", "Card doesn't exists");
+                }
+                
+            }
+            else if (msg.Substring(0, 4) == "uno:")
+            {
+                msg = msg.Substring(4, msg.Length - 4);
+                card = new WhichCard().thats(msg);
+                if (card != null)
+                {
+                    message = new Message("UNO", username, toWho, card);
+                }
+                else
+                {
+                    message = new Message("ERROR", username, "SERVER", "Card doesn't exists");
+                }
+            }
             else
             {
-                MessageBox.Show("Kártya letétele még nem definiált");
+                MessageBox.Show("Type help, to get help... {(;)}");
                 message = new Message();
             }
             return message;

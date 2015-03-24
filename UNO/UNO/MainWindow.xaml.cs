@@ -94,7 +94,6 @@ namespace UNO
             catch (Exception ex)
             {
                 _Log(ex.Message);
-                throw;
             }
             
             

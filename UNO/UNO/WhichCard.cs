@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using game;
+using System.Windows;
 
 namespace UNO
 {
@@ -33,10 +34,21 @@ namespace UNO
             Card card = null;
             string color  = asdf[0]
                 ,  symbol = asdf[1];
-
             switch (color)
             {
                 case "black":
+                    if (partOfEnum(symbol, p4))
+                    {
+                        card = new Card("SPEC", "BLACK", "p4");
+                        return card;
+                    }
+                    else if (partOfEnum(symbol, colorc))
+                    {
+                        card = new Card("SPEC", "BLACK", "csw");
+                        return card;
+                    }
+                    return null;
+                case "fekete":
                     if (partOfEnum(symbol, p4))
                     {
                         card = new Card("SPEC", "BLACK", "p4");
@@ -53,6 +65,58 @@ namespace UNO
                     {
                         if (symbol.Equals(i.ToString()))
                         card = new Card("COMM", "GREEN", i.ToString());
+                        if (card != null)
+                        {
+                            return card;
+                        }
+                    }
+                    if (partOfEnum(symbol, p2))
+                    {
+                        card = new Card("SPEC", "GREEN", "p2");
+                        return card;
+                    }
+                    else if (partOfEnum(symbol, sw))
+                    {
+                        card = new Card("SPEC", "GREEN", "sw");
+                        return card;
+                    }
+                    else if (partOfEnum(symbol, ju))
+                    {
+                        card = new Card("SPEC", "GREEN", "ju");
+                        return card;
+                    }
+                    return null;
+                case "zold":
+                    for (int i = 0; i < 10; i++)
+                    {
+                        if (symbol.Equals(i.ToString()))
+                            card = new Card("COMM", "GREEN", i.ToString());
+                        if (card != null)
+                        {
+                            return card;
+                        }
+                    }
+                    if (partOfEnum(symbol, p2))
+                    {
+                        card = new Card("SPEC", "GREEN", "p2");
+                        return card;
+                    }
+                    else if (partOfEnum(symbol, sw))
+                    {
+                        card = new Card("SPEC", "GREEN", "sw");
+                        return card;
+                    }
+                    else if (partOfEnum(symbol, ju))
+                    {
+                        card = new Card("SPEC", "GREEN", "ju");
+                        return card;
+                    }
+                    return null;
+                case "zöld":
+                    for (int i = 0; i < 10; i++)
+                    {
+                        if (symbol.Equals(i.ToString()))
+                            card = new Card("COMM", "GREEN", i.ToString());
                         if (card != null)
                         {
                             return card;
@@ -100,6 +164,32 @@ namespace UNO
                         return card;
                     }
                     return null;
+                case "piros":
+                    for (int i = 0; i < 10; i++)
+                    {
+                        if (symbol.Equals(i.ToString()))
+                            card = new Card("COMM", "RED", i.ToString());
+                        if (card != null)
+                        {
+                            return card;
+                        }
+                    }
+                    if (partOfEnum(symbol, p2))
+                    {
+                        card = new Card("SPEC", "RED", "p2");
+                        return card;
+                    }
+                    else if (partOfEnum(symbol, sw))
+                    {
+                        card = new Card("SPEC", "RED", "sw");
+                        return card;
+                    }
+                    else if (partOfEnum(symbol, ju))
+                    {
+                        card = new Card("SPEC", "RED", "ju");
+                        return card;
+                    }
+                    return null;
                 case "blue":
                     for (int i = 0; i < 10; i++)
                     {
@@ -126,11 +216,115 @@ namespace UNO
                         return card;
                     }
                     return null;
+                case "kék":
+                    for (int i = 0; i < 10; i++)
+                    {
+                        if (symbol.Equals(i.ToString()))
+                            card = new Card("COMM", "BLUE", i.ToString());
+                        if (card != null)
+                        {
+                            return card;
+                        }
+                    }
+                    if (partOfEnum(symbol, p2))
+                    {
+                        card = new Card("SPEC", "BLUE", "p2");
+                        return card;
+                    }
+                    else if (partOfEnum(symbol, sw))
+                    {
+                        card = new Card("SPEC", "BLUE", "sw");
+                        return card;
+                    }
+                    else if (partOfEnum(symbol, ju))
+                    {
+                        card = new Card("SPEC", "BLUE", "ju");
+                        return card;
+                    }
+                    return null;
+                case "kek":
+                    for (int i = 0; i < 10; i++)
+                    {
+                        if (symbol.Equals(i.ToString()))
+                            card = new Card("COMM", "BLUE", i.ToString());
+                        if (card != null)
+                        {
+                            return card;
+                        }
+                    }
+                    if (partOfEnum(symbol, p2))
+                    {
+                        card = new Card("SPEC", "BLUE", "p2");
+                        return card;
+                    }
+                    else if (partOfEnum(symbol, sw))
+                    {
+                        card = new Card("SPEC", "BLUE", "sw");
+                        return card;
+                    }
+                    else if (partOfEnum(symbol, ju))
+                    {
+                        card = new Card("SPEC", "BLUE", "ju");
+                        return card;
+                    }
+                    return null;
                 case "yellow":
                     for (int i = 0; i < 10; i++)
                     {
                         if (symbol.Equals(i.ToString()))
                         card = new Card("COMM", "YELLOW", i.ToString());
+                        if (card != null)
+                        {
+                            return card;
+                        }
+                    }
+                    if (partOfEnum(symbol, p2))
+                    {
+                        card = new Card("SPEC", "YELLOW", "p2");
+                        return card;
+                    }
+                    else if (partOfEnum(symbol, sw))
+                    {
+                        card = new Card("SPEC", "YELLOW", "sw");
+                        return card;
+                    }
+                    else if (partOfEnum(symbol, ju))
+                    {
+                        card = new Card("SPEC", "YELLOW", "ju");
+                        return card;
+                    }
+                    return null;
+                case "sarga":
+                    for (int i = 0; i < 10; i++)
+                    {
+                        if (symbol.Equals(i.ToString()))
+                            card = new Card("COMM", "YELLOW", i.ToString());
+                        if (card != null)
+                        {
+                            return card;
+                        }
+                    }
+                    if (partOfEnum(symbol, p2))
+                    {
+                        card = new Card("SPEC", "YELLOW", "p2");
+                        return card;
+                    }
+                    else if (partOfEnum(symbol, sw))
+                    {
+                        card = new Card("SPEC", "YELLOW", "sw");
+                        return card;
+                    }
+                    else if (partOfEnum(symbol, ju))
+                    {
+                        card = new Card("SPEC", "YELLOW", "ju");
+                        return card;
+                    }
+                    return null;
+                case "sárga":
+                    for (int i = 0; i < 10; i++)
+                    {
+                        if (symbol.Equals(i.ToString()))
+                            card = new Card("COMM", "YELLOW", i.ToString());
                         if (card != null)
                         {
                             return card;
