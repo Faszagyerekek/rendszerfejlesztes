@@ -178,7 +178,7 @@ namespace game
         }
 
         public Card topCard (){
-            return CardList[-1];
+            return CardList[CardList.Count-1];
         }
 
         /// <summary>

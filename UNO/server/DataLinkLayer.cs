@@ -33,10 +33,6 @@ namespace server
                 string[] tmp = sor.Split('|');
                 ret.addCard(new Card(tmp[0], tmp[1], tmp[2], int.Parse(tmp[3])));
             }
-                
-               
-            
-            System.Windows.MessageBox.Show("lel");
            
             //olvasas vege
 

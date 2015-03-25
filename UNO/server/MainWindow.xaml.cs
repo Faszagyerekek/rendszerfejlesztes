@@ -144,11 +144,18 @@ namespace server
                 }
 
 // megnézi mit olvasott
-
+                Player player = Identify((TcpClient)client);
 
                 if (message.head.STATUS.Equals("CARD"))
                 {
-                    
+                    if (message.head.STATUSCODE.Equals("CARD"))
+                    {
+                        game.dropCard(player, message.body.CARD);
+                    }
+                    else if (message.head.STATUSCODE.Equals("UNO"))
+                    {
+
+                    }
                 }
                 else if (message.head.STATUS.Equals("MSG"))
                 {
@@ -162,9 +169,10 @@ namespace server
                 {
                     if (message.head.STATUSCODE.Equals("HAND"))
                     {
-                        Player player = Identify((TcpClient)client);
+                        
                         foreach(Card card in player.getCardList()){
                             sendMessage(new Message("CARD", "SERVER", player.username, card), player);
+                            Thread.Sleep(50);
                         }
                     }
                 }
