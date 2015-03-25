@@ -140,9 +140,28 @@ namespace server
                     break;
                 }
 
-                _Log(message);
-                
-                    // --- konkrétan, hogy amit kaptam hogy dolgozzam fel
+                DeckStorageAncestor asdf = new DataLinkLayer().loadDeck();
+
+                if (message.head.STATUS.Equals("CARD"))
+                {
+
+                }
+                else if (message.head.STATUS.Equals("MSG"))
+                {
+                    Broadcast(JsonConvert.SerializeObject(message));
+                }
+                else if (message.head.STATUS.Equals("ERROR"))
+                {
+
+                }
+                else if (message.head.STATUS.Equals("COMMAND"))
+                {
+
+                }
+                else if (message.head.STATUS.Equals("HELP"))
+                {
+
+                }
 
           //   Itt kell megírni, hogy a bejövő üzenetet majd feldolgozza, aztán, hogy mit küldjön tovább
                     // --- konkrétan, hogy majd a szerver mit fog szétküldeni, nameg, hogy kinek, de az a jövő szele
