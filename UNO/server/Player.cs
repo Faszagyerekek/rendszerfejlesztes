@@ -33,6 +33,7 @@ namespace server
             this.password = password;
             this.ID = ID;
             this.errPoint = errPoint;
+            Hand = new DeckStorageAncestor();
         }
 
         public bool ready2play
