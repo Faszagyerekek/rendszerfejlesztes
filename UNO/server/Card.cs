@@ -20,12 +20,13 @@ namespace game
         /// <param name="color">A kártya színe</param>
         /// <param name="symbol">A kártya száma, vagy szimbóluma</param>
         /// <param name="penaltyPont">A kártyához tartozó hibapont</param>
-        public Card(string type, string color, string symbol, int penaltyPont = 0)
+        public Card(string type, string color, string symbol, int penaltyPoint = 0)
         {
             this.type = type;
             this.color = color;
-            this.symbol = symbol;
             this.penaltyPoint = penaltyPoint;
+            this.symbol = symbol;
+            
         }
 
         public string type

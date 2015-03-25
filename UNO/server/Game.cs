@@ -21,6 +21,7 @@ namespace game
             this.players = players;
             this.dropCards = new DeckStorageAncestor();
             this.pullCards = new DeckStorageAncestor();
+            loadDeck();
             this.sameDropCards = 1;
             this.clockWise = true;
         }

@@ -66,6 +66,10 @@ namespace UNO
                     message = new Message("ERROR", username, "SERVER", "Card doesn't exists");
                 }
             }
+            else if (msg.Equals("LOGIN"))
+            {
+                message = new Message("LOGIN", username, "SERVER", username);
+            }
             else
             {
                 MessageBox.Show("Type help, to get ?help... {(;)}");

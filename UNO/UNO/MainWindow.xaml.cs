@@ -42,8 +42,6 @@ namespace UNO
             InitializeComponent();
             Log = new DebugMessageClass(this);
 
-            
-
             try
             {
                 Log.ClientStart();
@@ -81,7 +79,7 @@ namespace UNO
         /// A felhasználótól érkező stringet előfeldolhozza, majd meghívja rá a küldést
         /// </summary>
         /// <param name="msg"></param>
-        private void SendMessage(string msg)
+        private void SendMessage(string msg, bool login_b = false)
         {
             NetworkStream clientStream = client.GetStream();
             Message message = new Message();
@@ -90,6 +88,10 @@ namespace UNO
             {
                 // összeállítja az üzenetet
                 message = new MessagePreprocessor().preprocessing(username, toWho, msg);
+                if (login_b)
+                {
+                    message = new MessagePreprocessor().preprocessing(username, "SERVER", "LOGIN");
+                }
             }
             catch (Exception ex)
             {
@@ -144,6 +146,7 @@ namespace UNO
                         login = true;
                         Input_field.Text = "";
                         _Log("--->   " + username + " logged in");
+                        SendMessage(username, true);
                     }
                 }
             }

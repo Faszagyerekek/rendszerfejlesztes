@@ -35,6 +35,8 @@ namespace server
         private delegate void WriteMessageDelegate(string msg);
         private List<TcpClient> clients;
         Thread clientThread;
+        Game game;
+        List<Player> playerList;
 
 
         public MainWindow()
@@ -42,6 +44,7 @@ namespace server
             InitializeComponent();
             clients = new List<TcpClient>();
             Log = new DebugMessageClass(this);
+            playerList = new List<Player>();
             Server();
         }
 
@@ -86,8 +89,8 @@ namespace server
                 //create a thread to handle communication 
                 //with connected client
                 connectedClients++; // Increment the number of clients that have communicated with us.
-                
-                //new DebugMessageClass().ClientConnected(MSGBOX, connectedClients);
+
+
                 
                 this.Dispatcher.Invoke((Action)(() =>
                 {
@@ -99,7 +102,7 @@ namespace server
             }
         }
 
-        private void HandleClientComm(object client)
+        private void HandleClientComm(object client) // ez lesz maga a játékos
         {
             TcpClient tcpClient = (TcpClient)client;
             NetworkStream clientStream = tcpClient.GetStream();
@@ -110,8 +113,8 @@ namespace server
 
             while (true)
             {
+// olvas a klienstől -----
                 bytesRead = 0;
-
                 try
                 {
                     //blocks until a client sends a message
@@ -140,11 +143,12 @@ namespace server
                     break;
                 }
 
-                DeckStorageAncestor asdf = new DataLinkLayer().loadDeck();
+// megnézi mit olvasott
+
 
                 if (message.head.STATUS.Equals("CARD"))
                 {
-
+                    
                 }
                 else if (message.head.STATUS.Equals("MSG"))
                 {
@@ -156,26 +160,32 @@ namespace server
                 }
                 else if (message.head.STATUS.Equals("COMMAND"))
                 {
-
+                    
                 }
                 else if (message.head.STATUS.Equals("HELP"))
                 {
 
                 }
+                else if (message.head.STATUS.Equals("LOGIN"))
+                {
+                    playerList.Add(new Player(true, message.head.FROM, "password", clients[-1].Client.Handle.ToInt32);
+                    gamePlay();
+                }
 
-          //   Itt kell megírni, hogy a bejövő üzenetet majd feldolgozza, aztán, hogy mit küldjön tovább
-                    // --- konkrétan, hogy majd a szerver mit fog szétküldeni, nameg, hogy kinek, de az a jövő szele
-                    // --- egyelőre még majd mindenkinek... erre lesz függvény
-                //
-                // Now Echo the message back
+          
                 
                 Broadcast(JsonConvert.SerializeObject(message));
 
-                //Echo(msg, encoder, clientStream);
             }
 
             clients.Remove(tcpClient);
             tcpClient.Close();
+        }
+
+        private void gamePlay()
+        {
+            game = new Game(playerList);
+            game.cardDealing();
         }
 
         
@@ -224,6 +234,23 @@ namespace server
 
                 clientStream.Write(buffer, 0, buffer.Length);
                 clientStream.Flush();
+            }
+        }
+
+        private void sendMessage(Player player)
+        {
+            foreach (TcpClient client in clients)
+            {
+                if (client.Client.Handle.ToInt32 == player.ID)
+                {
+                    NetworkStream clientStream = client.GetStream();
+
+                    UTF8Encoding encoder = new UTF8Encoding();
+                    byte[] buffer = encoder.GetBytes(msg);
+
+                    clientStream.Write(buffer, 0, buffer.Length);
+                    clientStream.Flush();
+                }
             }
         }
 
