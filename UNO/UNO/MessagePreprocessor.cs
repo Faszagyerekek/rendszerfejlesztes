@@ -32,7 +32,14 @@ namespace UNO
             else if (msg.Substring(0, 1) == "!")
             {
                 msg = msg.Substring(1, msg.Length - 1);
-                message = new Message("COMMAND", username, toWho, msg);
+                if (msg.Equals("hand") || msg.Equals("kez") || msg.Equals("kéz"))
+                {
+                    message = new Message("COMMAND", "HAND" ,username, toWho, msg);
+                }
+                else
+                {
+                    message = new Message("COMMAND", username, toWho, msg);
+                }
             }
             else if (msg.Substring(0, 1) == "?")
             {

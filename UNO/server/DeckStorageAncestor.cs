@@ -166,6 +166,12 @@ namespace game
             return card;
         }
 
+        public List<Card> getCardList()
+        {
+            List<Card> cpy = new List<Card>(CardList);
+            return cpy;
+        }
+
         public int getCardNum()
         {
             return CardList.Count;

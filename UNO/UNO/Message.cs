@@ -58,6 +58,18 @@ namespace server
             this.body.CARD = card;
         }
 
+        public Message(string p, string statuscode, string username, string toWho, string msg)
+        {
+            this.head = new Head();
+            this.body = new Body();
+            // TODO: Complete member initialization
+            this.head.STATUS = p;
+            this.head.STATUSCODE = statuscode;
+            this.head.FROM = username;
+            this.head.TO = toWho;
+            this.body.MESSAGE = msg;
+        }
+
 
         public Message()
         {

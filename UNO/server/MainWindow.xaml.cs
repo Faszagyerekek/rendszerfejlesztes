@@ -160,7 +160,12 @@ namespace server
                 }
                 else if (message.head.STATUS.Equals("COMMAND"))
                 {
-                    
+                    if (message.head.STATUSCODE.Equals("HAND"))
+                    {
+                        foreach(Card card in ){
+
+                        }
+                    }
                 }
                 else if (message.head.STATUS.Equals("HELP"))
                 {
@@ -168,7 +173,7 @@ namespace server
                 }
                 else if (message.head.STATUS.Equals("LOGIN"))
                 {
-                    playerList.Add(new Player(true, message.head.FROM, "password", clients[-1].Client.Handle.ToInt32);
+                    playerList.Add(new Player(true, message.head.FROM, "password", clients[-1].Client.Handle.ToInt32()));
                     gamePlay();
                 }
 
@@ -237,16 +242,18 @@ namespace server
             }
         }
 
-        private void sendMessage(Player player)
+        private void sendMessage(Message message , Player player)
         {
             foreach (TcpClient client in clients)
             {
-                if (client.Client.Handle.ToInt32 == player.ID)
+                if (client.Client.Handle.ToInt32() == player.ID)
                 {
                     NetworkStream clientStream = client.GetStream();
 
+                    string json = JsonConvert.SerializeObject(message);
+
                     UTF8Encoding encoder = new UTF8Encoding();
-                    byte[] buffer = encoder.GetBytes(msg);
+                    byte[] buffer = encoder.GetBytes(json);
 
                     clientStream.Write(buffer, 0, buffer.Length);
                     clientStream.Flush();
