@@ -54,7 +54,7 @@ namespace server
             {
                 win.MSGBOX.Text += System.Environment.NewLine + ">>>>";
                 win.MSGBOX.Text += System.Environment.NewLine + ">> STATUS:  " + message.head.STATUS;
-                win.MSGBOX.Text += System.Environment.NewLine + ">> STATUS:  " + message.head.STATUSCODE;
+                win.MSGBOX.Text += System.Environment.NewLine + ">> STATUSC:  " + message.head.STATUSCODE;
                 win.MSGBOX.Text += System.Environment.NewLine + ">> FROM:    " + message.head.FROM;
                 win.MSGBOX.Text += System.Environment.NewLine + ">> TO:      " + message.head.TO;
                 if (message.head.STATUS.Equals("UNO") || message.head.STATUS.Equals("CARD"))

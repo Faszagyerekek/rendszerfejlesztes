@@ -82,15 +82,19 @@ namespace UNO
         private void SendMessage(string msg, bool login_b = false)
         {
             NetworkStream clientStream = client.GetStream();
-            Message message = new Message();
+            Message message = null;
             
             try
             {
                 // összeállítja az üzenetet
-                message = new MessagePreprocessor().preprocessing(username, toWho, msg);
+                
                 if (login_b)
                 {
                     message = new MessagePreprocessor().preprocessing(username, "SERVER", "LOGIN");
+                }
+                else
+                {
+                    message = new MessagePreprocessor().preprocessing(username, toWho, msg);
                 }
             }
             catch (Exception ex)

@@ -34,9 +34,9 @@ namespace server
         private DebugMessageClass Log;
         private delegate void WriteMessageDelegate(string msg);
         private List<TcpClient> clients;
-        Thread clientThread;
-        Game game;
-        List<Player> playerList;
+        private Thread clientThread;
+        private Game game;
+        private List<Player> playerList;
 
 
         public MainWindow()
@@ -162,8 +162,9 @@ namespace server
                 {
                     if (message.head.STATUSCODE.Equals("HAND"))
                     {
-                        foreach(Card card in ){
-
+                        Player player = Identify((TcpClient)client);
+                        foreach(Card card in player.getCardList()){
+                            sendMessage(new Message("CARD", "SERVER", player.username, card), player);
                         }
                     }
                 }
@@ -173,7 +174,7 @@ namespace server
                 }
                 else if (message.head.STATUS.Equals("LOGIN"))
                 {
-                    playerList.Add(new Player(true, message.head.FROM, "password", clients[-1].Client.Handle.ToInt32()));
+                    playerList.Add(new Player(true, message.head.FROM, "password", clients[clients.Count-1].Client.Handle.ToInt32()));
                     gamePlay();
                 }
 
@@ -191,6 +192,18 @@ namespace server
         {
             game = new Game(playerList);
             game.cardDealing();
+        }
+
+        private Player Identify(TcpClient client)
+        {
+            foreach (Player player in playerList)
+            {
+                if (client.Client.Handle.ToInt32() == player.ID)
+                {
+                    return player;
+                }
+            }
+            return null;
         }
 
         
