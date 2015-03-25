@@ -39,13 +39,13 @@ namespace UNO
                 msg = msg.Substring(1, msg.Length - 1);
                 message = new Message("HELP", username, toWho, msg);
             }
-            else if (msg.Substring(0, 5) == "card:")
+            else if (msg.Length >= 5 && msg.Substring(0, 5) == "card:")
             {
                 msg = msg.Substring(5, msg.Length - 5);
                 card = new WhichCard().thats(msg);
                 if (card != null)
                 {
-                    message = new Message("CARD", username, toWho, card);
+                    message = new Message("CARD", "CARD", username, "SERVER", card);
                 }
                 else
                 {
@@ -53,13 +53,13 @@ namespace UNO
                 }
                 
             }
-            else if (msg.Substring(0, 4) == "uno:")
+            else if (msg.Length >= 4 && msg.Substring(0, 4) == "uno:")
             {
                 msg = msg.Substring(4, msg.Length - 4);
                 card = new WhichCard().thats(msg);
                 if (card != null)
                 {
-                    message = new Message("UNO", username, toWho, card);
+                    message = new Message("CARD", "UNO" , username, "SERVER", card);
                 }
                 else
                 {
@@ -68,7 +68,7 @@ namespace UNO
             }
             else
             {
-                MessageBox.Show("Type help, to get help... {(;)}");
+                MessageBox.Show("Type help, to get ?help... {(;)}");
                 message = new Message();
             }
             return message;

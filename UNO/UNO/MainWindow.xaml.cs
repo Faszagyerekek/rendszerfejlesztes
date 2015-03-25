@@ -131,18 +131,21 @@ namespace UNO
             // e.KeyData != Keys.Enter || e.KeyData != Keys.Return
             if (e.Key == Key.Enter)
             {
-                if (login)
+                if (Input_field.Text.Length > 0)
                 {
-                    SendMessage(Input_field.Text);
-                    Input_field.Text = "";
+                    if (login)
+                    {
+                        SendMessage(Input_field.Text);
+                        Input_field.Text = "";
+                    }
+                    if (!login)
+                    {
+                        username = Input_field.Text;
+                        login = true;
+                        Input_field.Text = "";
+                        _Log("--->   " + username + " logged in");
+                    }
                 }
-                if (!login){
-                    username = Input_field.Text;
-                    login = true;
-                    Input_field.Text = "";
-                    _Log("--->   " + username + " logged in");
-                }
-                
             }
         }
 
