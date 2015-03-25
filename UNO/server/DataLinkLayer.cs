@@ -22,18 +22,22 @@ namespace server
         {
             DeckStorageAncestor ret = new DeckStorageAncestor();
             //olvasas
-            string line;
-            var valami =server.Properties.Resources.Deck;
-            System.IO.StreamReader file =
-               new System.IO.StreamReader(valami);//hát, öh, nemtom ez így jó-e
-            while ((line = file.ReadLine()) != null)
+            var text =server.Properties.Resources.Deck;// a valami egy egesz string
+           
+
+
+            string[] sorok = text.Split('#');
+
+            foreach (string sor in sorok)
             {
-                string [] tmp=line.Split('|');
+                string[] tmp = sor.Split('|');
                 ret.addCard(new Card(tmp[0], tmp[1], tmp[2], int.Parse(tmp[3])));
-               
             }
+                
+               
+            
             System.Windows.MessageBox.Show("lel");
-            file.Close();
+           
             //olvasas vege
 
 
