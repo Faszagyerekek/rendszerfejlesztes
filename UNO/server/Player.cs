@@ -85,5 +85,9 @@ namespace server
             return Hand.cardIndex(index);
         }
 
+        public List<Card> getCardList(){
+            return Hand.getCardList();
+        }
+
     }
 }
