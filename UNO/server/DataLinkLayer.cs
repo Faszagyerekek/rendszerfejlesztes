@@ -23,10 +23,10 @@ namespace server
             DeckStorageAncestor ret = new DeckStorageAncestor();
             //olvasas
             var text =server.Properties.Resources.Deck;// a valami egy egesz string
-           
 
 
-            string[] sorok = text.Split('#');
+
+            string[] sorok = text.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
 
             foreach (string sor in sorok)
             {
