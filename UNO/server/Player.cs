@@ -11,7 +11,7 @@ namespace server
     {
         private bool _ready2play;
         private string _username, _password;
-        private int _errPoint;
+        private int _errPoint,_ID;
 
         private DeckStorageAncestor Hand;
 
@@ -26,11 +26,12 @@ namespace server
         /// <param name="errPoint">A játszmák során felhalmozódott hibapont</param>
         /// <param name="Hand">A játékos által birtokolt lapok</param>
 
-        public Player(bool ready2play, string username, string password, int errPoint = 0)
+        public Player(bool ready2play, string username, string password, int ID,int errPoint = 0)
         {
             this.ready2play = ready2play;
             this.username = username;
             this.password = password;
+            this.ID = ID;
             this.errPoint = errPoint;
         }
 
@@ -50,6 +51,12 @@ namespace server
         {
             set { this._password = value; }
             get { return this._password; }
+        }
+
+        public int ID
+        {
+            set { this._ID = value; }
+            get { return this._ID; }
         }
 
         public int errPoint
