@@ -71,7 +71,14 @@ namespace UNO
                 UTF8Encoding encoder = new UTF8Encoding();
                 string json = encoder.GetString(msg, 0, bytesRead);
                 Message message = JsonConvert.DeserializeObject<Message>(json);
-                _Log(message);
+                if (message.head.STATUS.Equals("MSG"))
+                {
+                    _Log(message.body.MESSAGE);
+                }
+                else
+                {
+                    _Log(message);
+                }
             }
         }
 

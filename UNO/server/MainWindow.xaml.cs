@@ -159,7 +159,7 @@ namespace server
                 }
                 else if (message.head.STATUS.Equals("MSG"))
                 {
-                    Broadcast(JsonConvert.SerializeObject(message));
+                    Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", message.head.FROM+": "+message.body.MESSAGE)));
                 }
                 else if (message.head.STATUS.Equals("ERROR"))
                 {
@@ -183,12 +183,13 @@ namespace server
                 else if (message.head.STATUS.Equals("LOGIN"))
                 {
                     playerList.Add(new Player(true, message.head.FROM, "password", clients[clients.Count-1].Client.Handle.ToInt32()));
+                    _Log(System.Environment.NewLine + ">>" + message.head.FROM + " connected" + System.Environment.NewLine);
                     gamePlay();
                 }
 
           
                 
-                Broadcast(JsonConvert.SerializeObject(message));
+                //Broadcast(JsonConvert.SerializeObject(message));
 
             }
 
