@@ -77,7 +77,7 @@ namespace UNO
                 }
                 else
                 {
-                    _Log(message);
+                    _Log(message); 
                 }
             }
         }
@@ -111,6 +111,8 @@ namespace UNO
             
             
             string json = JsonConvert.SerializeObject(message);
+
+            _Log(json);
 
             UTF8Encoding encoder = new UTF8Encoding();
             byte[] buffer = encoder.GetBytes(json);

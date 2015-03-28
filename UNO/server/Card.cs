@@ -26,7 +26,6 @@ namespace game
             this.color = color;
             this.penaltyPoint = penaltyPoint;
             this.symbol = symbol;
-            
         }
 
         public string type
@@ -55,7 +54,11 @@ namespace game
 
         public bool Equals(Card card)
         {
-            if (this.color == card.color && this.type == card.type && this.symbol == card.symbol){
+            if (this.color == card.color
+                && this.type == card.type
+                && this.symbol == card.symbol
+                )
+            {
                 return true;
             }
             else

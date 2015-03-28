@@ -71,9 +71,9 @@ namespace server
             Hand.addCard(card);
         }
 
-        public void dropCard(Card card)
+        public Card dropCard(Card card)
         {
-            Hand.dropCard(card);
+            return Hand.dropCard(card);
         }
 
         public int getCardNum()
@@ -90,5 +90,8 @@ namespace server
             return Hand.getCardList();
         }
 
+        public void removeCard(bool regular){
+            Hand.removeCard(regular);
+        }
     }
 }
