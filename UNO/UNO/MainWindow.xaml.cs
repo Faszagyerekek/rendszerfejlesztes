@@ -77,7 +77,7 @@ namespace UNO
                 }
                 else
                 {
-                    _Log(message);
+                    _Log(message); 
                 }
             }
         }
