@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace game
 {
@@ -178,7 +179,14 @@ namespace game
         }
 
         public Card topCard (){
-            return CardList[CardList.Count-1];
+            if (CardList.Count > 0)
+            {
+                return CardList[CardList.Count-1];
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>

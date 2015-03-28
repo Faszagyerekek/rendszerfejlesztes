@@ -36,6 +36,10 @@ namespace UNO
                 {
                     message = new Message("COMMAND", "HAND" ,username, toWho, msg);
                 }
+                else if (msg.Equals("top") || msg.Equals("utolso") || msg.Equals("utolsó") || msg.Equals("felso") || msg.Equals("felső"))
+                {
+                    message = new Message("COMMAND", "TOP", username, toWho, msg);
+                }
                 else
                 {
                     message = new Message("COMMAND", username, toWho, msg);

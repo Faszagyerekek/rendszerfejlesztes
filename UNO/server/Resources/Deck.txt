@@ -94,6 +94,14 @@ SPEC|RED|switcher|25
 SPEC|BLUE|switcher|25
 SPEC|YELLOW|switcher|25
 SPEC|GREEN|switcher|25
+SPEC|RED|switcher|25
+SPEC|BLUE|switcher|25
+SPEC|YELLOW|switcher|25
+SPEC|GREEN|switcher|25
+SPEC|RED|jump|25
+SPEC|BLUE|jump|25
+SPEC|YELLOW|jump|25
+SPEC|GREEN|jump|25
 SPEC|RED|jump|25
 SPEC|BLUE|jump|25
 SPEC|YELLOW|jump|25

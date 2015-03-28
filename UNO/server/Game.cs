@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using server;
+using System.Windows;
 
 namespace game
 {
@@ -22,6 +23,7 @@ namespace game
             this.dropCards = new DeckStorageAncestor();
             this.pullCards = new DeckStorageAncestor();
             loadDeck();
+            dropCards.addCard(pullCards.deal());
             this.sameDropCards = 1;
             this.clockWise = true;
         }
@@ -92,8 +94,15 @@ namespace game
                 sameDropCards = 1;
             }
 
-            player.dropCard(card);
-            dropCards.addCard(card);
+            if (player.dropCard(card) != null)
+            {
+                // van nála, szabályossági vizsgálat:
+                //--------> 2. iteráció
+                // ha szabályos, szedje ki
+                player.removeCard(true);
+                dropCards.addCard(card);
+                MessageBox.Show("success");
+            }
         }
 
         /// <summary>
@@ -153,6 +162,16 @@ namespace game
             {
                 this.clockWise = true;
             }
+        }
+
+
+        /// <summary>
+        /// dobópakli tetején lévő lapot adja vissza
+        /// </summary>
+        /// <returns></returns>
+        public Card topDroppedCard()
+        {
+            return dropCards.topCard();
         }
 
         /*

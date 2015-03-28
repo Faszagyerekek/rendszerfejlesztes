@@ -29,7 +29,6 @@ namespace server
     {
         private TcpListener tcpListener;
         private Thread JatekSzal;
-        private Thread BroadcastSzal;
         private int connectedClients = 0;
         private DebugMessageClass Log;
         private delegate void WriteMessageDelegate(string msg);
@@ -150,11 +149,14 @@ namespace server
                 {
                     if (message.head.STATUSCODE.Equals("CARD"))
                     {
+                        MessageBox.Show(player.username);
                         game.dropCard(player, message.body.CARD);
                     }
                     else if (message.head.STATUSCODE.Equals("UNO"))
                     {
-
+                        sendMessage(new Message(
+                            "MSG", "SERVER", player.username, "This function is not ready yet"
+                        ), player);
                     }
                 }
                 else if (message.head.STATUS.Equals("MSG"))
@@ -169,11 +171,14 @@ namespace server
                 {
                     if (message.head.STATUSCODE.Equals("HAND"))
                     {
-                        
                         foreach(Card card in player.getCardList()){
                             sendMessage(new Message("CARD", "SERVER", player.username, card), player);
                             Thread.Sleep(50);
                         }
+                    }
+                    else if (message.head.STATUSCODE.Equals("TOP"))
+                    {
+                        sendMessage(new Message("CARD", "SERVER", player.username, game.topDroppedCard()), player);
                     }
                 }
                 else if (message.head.STATUS.Equals("HELP"))
@@ -183,7 +188,17 @@ namespace server
                 else if (message.head.STATUS.Equals("LOGIN"))
                 {
                     playerList.Add(new Player(true, message.head.FROM, "password", clients[clients.Count-1].Client.Handle.ToInt32()));
+                    
                     _Log(System.Environment.NewLine + ">>" + message.head.FROM + " connected" + System.Environment.NewLine);
+                    try
+                    {
+                        sendMessage(new Message(
+                            "MSG",
+                            "SERVER",
+                            playerList[playerList.Count - 1].username,
+                            "If you want to play:" + System.Environment.NewLine + new Help().Generals()
+                        ), playerList[playerList.Count-1]);
+                    }catch(Exception exc){}
                     gamePlay();
                 }
 
