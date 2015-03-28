@@ -112,7 +112,7 @@ namespace server
 
             while (true)
             {
-// olvas a klienstől -----
+// olvas a klienstől ----- 
                 bytesRead = 0;
                 try
                 {
