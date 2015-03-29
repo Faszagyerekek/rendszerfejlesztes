@@ -73,7 +73,19 @@ namespace UNO
                 Message message = JsonConvert.DeserializeObject<Message>(json);
                 if (message.head.STATUS.Equals("MSG"))
                 {
-                    _Log(message.body.MESSAGE);
+                    if (message.head.FROM.Equals("SERVER"))
+                    {
+                        _Log("SERVER MESSAGE: " + message.body.MESSAGE);
+                    }
+                    else
+                    {
+                        _Log(message.body.MESSAGE);
+                    }
+                    
+                }
+                else if (message.head.STATUS.Equals("CARD"))
+                {
+                    _Log("   " + message.body.CARD.color + ",\t" + message.body.CARD.symbol);
                 }
                 else
                 {
@@ -112,7 +124,7 @@ namespace UNO
             
             string json = JsonConvert.SerializeObject(message);
 
-            _Log(json);
+            //_Log(json);
 
             UTF8Encoding encoder = new UTF8Encoding();
             byte[] buffer = encoder.GetBytes(json);

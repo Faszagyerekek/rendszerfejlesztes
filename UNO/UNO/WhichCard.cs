@@ -39,24 +39,24 @@ namespace UNO
                 case "black":
                     if (partOfEnum(symbol, p4))
                     {
-                        card = new Card("SPEC", "BLACK", "p4");
+                        card = new Card("SPEC", "BLACK", "plus4");
                         return card;
                     }
                     else if (partOfEnum(symbol, colorc))
                     {
-                        card = new Card("SPEC", "BLACK", "csw");
+                        card = new Card("SPEC", "BLACK", "colorchanger");
                         return card;
                     }
                     return null;
                 case "fekete":
                     if (partOfEnum(symbol, p4))
                     {
-                        card = new Card("SPEC", "BLACK", "p4");
+                        card = new Card("SPEC", "BLACK", "plus4");
                         return card;
                     }
                     else if (partOfEnum(symbol, colorc))
                     {
-                        card = new Card("SPEC", "BLACK", "csw");
+                        card = new Card("SPEC", "BLACK", "colorchanger");
                         return card;
                     }
                     return null;
@@ -72,17 +72,17 @@ namespace UNO
                     }
                     if (partOfEnum(symbol, p2))
                     {
-                        card = new Card("SPEC", "GREEN", "p2");
+                        card = new Card("SPEC", "GREEN", "plus2");
                         return card;
                     }
                     else if (partOfEnum(symbol, sw))
                     {
-                        card = new Card("SPEC", "GREEN", "sw");
+                        card = new Card("SPEC", "GREEN", "switcher");
                         return card;
                     }
                     else if (partOfEnum(symbol, ju))
                     {
-                        card = new Card("SPEC", "GREEN", "ju");
+                        card = new Card("SPEC", "GREEN", "jump");
                         return card;
                     }
                     return null;
@@ -98,17 +98,17 @@ namespace UNO
                     }
                     if (partOfEnum(symbol, p2))
                     {
-                        card = new Card("SPEC", "GREEN", "p2");
+                        card = new Card("SPEC", "GREEN", "plus2");
                         return card;
                     }
                     else if (partOfEnum(symbol, sw))
                     {
-                        card = new Card("SPEC", "GREEN", "sw");
+                        card = new Card("SPEC", "GREEN", "switcher");
                         return card;
                     }
                     else if (partOfEnum(symbol, ju))
                     {
-                        card = new Card("SPEC", "GREEN", "ju");
+                        card = new Card("SPEC", "GREEN", "jump");
                         return card;
                     }
                     return null;
@@ -124,17 +124,17 @@ namespace UNO
                     }
                     if (partOfEnum(symbol, p2))
                     {
-                        card = new Card("SPEC", "GREEN", "p2");
+                        card = new Card("SPEC", "GREEN", "plus2");
                         return card;
                     }
                     else if (partOfEnum(symbol, sw))
                     {
-                        card = new Card("SPEC", "GREEN", "sw");
+                        card = new Card("SPEC", "GREEN", "switcher");
                         return card;
                     }
                     else if (partOfEnum(symbol, ju))
                     {
-                        card = new Card("SPEC", "GREEN", "ju");
+                        card = new Card("SPEC", "GREEN", "jump");
                         return card;
                     }
                     return null;
@@ -150,17 +150,17 @@ namespace UNO
                     }
                     if (partOfEnum(symbol, p2))
                     {
-                        card = new Card("SPEC", "RED", "p2");
+                        card = new Card("SPEC", "RED", "plus2");
                         return card;
                     }
                     else if (partOfEnum(symbol, sw))
                     {
-                        card = new Card("SPEC", "RED", "sw");
+                        card = new Card("SPEC", "RED", "switcher");
                         return card;
                     }
                     else if (partOfEnum(symbol, ju))
                     {
-                        card = new Card("SPEC", "RED", "ju");
+                        card = new Card("SPEC", "RED", "jump");
                         return card;
                     }
                     return null;
@@ -176,17 +176,17 @@ namespace UNO
                     }
                     if (partOfEnum(symbol, p2))
                     {
-                        card = new Card("SPEC", "RED", "p2");
+                        card = new Card("SPEC", "RED", "plus2");
                         return card;
                     }
                     else if (partOfEnum(symbol, sw))
                     {
-                        card = new Card("SPEC", "RED", "sw");
+                        card = new Card("SPEC", "RED", "switcher");
                         return card;
                     }
                     else if (partOfEnum(symbol, ju))
                     {
-                        card = new Card("SPEC", "RED", "ju");
+                        card = new Card("SPEC", "RED", "jump");
                         return card;
                     }
                     return null;
@@ -202,17 +202,17 @@ namespace UNO
                     }
                     if (partOfEnum(symbol, p2))
                     {
-                        card = new Card("SPEC", "BLUE", "p2");
+                        card = new Card("SPEC", "BLUE", "plus2");
                         return card;
                     }
                     else if (partOfEnum(symbol, sw))
                     {
-                        card = new Card("SPEC", "BLUE", "sw");
+                        card = new Card("SPEC", "BLUE", "switcher");
                         return card;
                     }
                     else if (partOfEnum(symbol, ju))
                     {
-                        card = new Card("SPEC", "BLUE", "ju");
+                        card = new Card("SPEC", "BLUE", "jump");
                         return card;
                     }
                     return null;
@@ -228,17 +228,17 @@ namespace UNO
                     }
                     if (partOfEnum(symbol, p2))
                     {
-                        card = new Card("SPEC", "BLUE", "p2");
+                        card = new Card("SPEC", "BLUE", "plus2");
                         return card;
                     }
                     else if (partOfEnum(symbol, sw))
                     {
-                        card = new Card("SPEC", "BLUE", "sw");
+                        card = new Card("SPEC", "BLUE", "switcher");
                         return card;
                     }
                     else if (partOfEnum(symbol, ju))
                     {
-                        card = new Card("SPEC", "BLUE", "ju");
+                        card = new Card("SPEC", "BLUE", "jump");
                         return card;
                     }
                     return null;
@@ -254,17 +254,17 @@ namespace UNO
                     }
                     if (partOfEnum(symbol, p2))
                     {
-                        card = new Card("SPEC", "BLUE", "p2");
+                        card = new Card("SPEC", "BLUE", "plus2");
                         return card;
                     }
                     else if (partOfEnum(symbol, sw))
                     {
-                        card = new Card("SPEC", "BLUE", "sw");
+                        card = new Card("SPEC", "BLUE", "switcher");
                         return card;
                     }
                     else if (partOfEnum(symbol, ju))
                     {
-                        card = new Card("SPEC", "BLUE", "ju");
+                        card = new Card("SPEC", "BLUE", "jump");
                         return card;
                     }
                     return null;
@@ -280,17 +280,17 @@ namespace UNO
                     }
                     if (partOfEnum(symbol, p2))
                     {
-                        card = new Card("SPEC", "YELLOW", "p2");
+                        card = new Card("SPEC", "YELLOW", "plus2");
                         return card;
                     }
                     else if (partOfEnum(symbol, sw))
                     {
-                        card = new Card("SPEC", "YELLOW", "sw");
+                        card = new Card("SPEC", "YELLOW", "switcher");
                         return card;
                     }
                     else if (partOfEnum(symbol, ju))
                     {
-                        card = new Card("SPEC", "YELLOW", "ju");
+                        card = new Card("SPEC", "YELLOW", "jump");
                         return card;
                     }
                     return null;
@@ -306,17 +306,17 @@ namespace UNO
                     }
                     if (partOfEnum(symbol, p2))
                     {
-                        card = new Card("SPEC", "YELLOW", "p2");
+                        card = new Card("SPEC", "YELLOW", "plus2");
                         return card;
                     }
                     else if (partOfEnum(symbol, sw))
                     {
-                        card = new Card("SPEC", "YELLOW", "sw");
+                        card = new Card("SPEC", "YELLOW", "switcher");
                         return card;
                     }
                     else if (partOfEnum(symbol, ju))
                     {
-                        card = new Card("SPEC", "YELLOW", "ju");
+                        card = new Card("SPEC", "YELLOW", "jump");
                         return card;
                     }
                     return null;
@@ -332,17 +332,17 @@ namespace UNO
                     }
                     if (partOfEnum(symbol, p2))
                     {
-                        card = new Card("SPEC", "YELLOW", "p2");
+                        card = new Card("SPEC", "YELLOW", "plus2");
                         return card;
                     }
                     else if (partOfEnum(symbol, sw))
                     {
-                        card = new Card("SPEC", "YELLOW", "sw");
+                        card = new Card("SPEC", "YELLOW", "switcher");
                         return card;
                     }
                     else if (partOfEnum(symbol, ju))
                     {
-                        card = new Card("SPEC", "YELLOW", "ju");
+                        card = new Card("SPEC", "YELLOW", "jump");
                         return card;
                     }
                     return null;

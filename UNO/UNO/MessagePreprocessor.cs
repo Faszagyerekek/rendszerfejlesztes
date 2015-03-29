@@ -42,7 +42,7 @@ namespace UNO
                 }
                 else
                 {
-                    message = new Message("COMMAND", username, toWho, msg);
+                    message = new Message("COMMAND", "UNDEFINED", username, toWho, msg);
                 }
             }
             else if (msg.Substring(0, 1) == "?")
@@ -84,7 +84,7 @@ namespace UNO
             else
             {
                 MessageBox.Show("Type help, to get ?help... {(;)}");
-                message = new Message();
+                message = new Message("UNDEFINED", "UNDEFINED", username, "*", "undefined");
             }
             return message;
         }

@@ -82,7 +82,7 @@ namespace game
         /// </summary>
         /// <param name="player">a lap dobója</param>
         /// <param name="card">dobni kívánt lap</param>
-        public void dropCard(Player player, Card card)
+        public bool dropCard(Player player, Card card)
         {
             Card topDropCard = topCard();
             if (card.symEquals(topDropCard))
@@ -101,8 +101,9 @@ namespace game
                 // ha szabályos, szedje ki
                 player.removeCard(true);
                 dropCards.addCard(card);
-                MessageBox.Show("success");
+                return true;
             }
+            return false;
         }
 
         /// <summary>

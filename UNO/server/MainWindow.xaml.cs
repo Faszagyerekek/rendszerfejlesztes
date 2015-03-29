@@ -149,8 +149,14 @@ namespace server
                 {
                     if (message.head.STATUSCODE.Equals("CARD"))
                     {
-                        MessageBox.Show(player.username);
-                        game.dropCard(player, message.body.CARD);
+                        if (game.dropCard(player, message.body.CARD))
+                        {
+                            sendMessage(new Message("MSG", "SERVER", player.username, "Card droped"), player);
+                        }
+                        else
+                        {
+                            sendMessage(new Message("ERROR", "SERVER", player.username, "You don't have that card"), player);
+                        }
                     }
                     else if (message.head.STATUSCODE.Equals("UNO"))
                     {
@@ -167,7 +173,7 @@ namespace server
                 {
 
                 }
-                else if (message.head.STATUS.Equals("COMMAND"))
+                else if (message.head.STATUS.Equals("COMMAND") && !message.head.STATUSCODE.Equals("UNDEFINED"))
                 {
                     if (message.head.STATUSCODE.Equals("HAND"))
                     {
