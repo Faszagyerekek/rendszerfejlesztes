@@ -74,7 +74,7 @@ namespace UNO
                 }
                 else
                 {
-                    message = new Message("ERROR", username, "SERVER", "Card doesn't exists");
+                    message = new Message("ERROR", username, "SERVER", "Card doesn't exist");
                 }
             }
             else if (msg.Equals("LOGIN"))

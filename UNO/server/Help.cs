@@ -18,7 +18,7 @@ namespace game
                 + System.Environment.NewLine + "   example: ?play"
                 + System.Environment.NewLine + "To drop a card, type card: and your card with color, and symbol"
                 + System.Environment.NewLine + "   example: card:yellow,2"
-                + System.Environment.NewLine + "To drop a card, and be UNO, type uno: and your card with color, and symbol"
+                + System.Environment.NewLine + "To drop a card, and be in UNO state, type uno: and your card with color, and symbol"
                 + System.Environment.NewLine + "   example: uno:blue,jump"
                 + System.Environment.NewLine + System.Environment.NewLine +
                 "Have fun!";

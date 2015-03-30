@@ -171,7 +171,7 @@ namespace server
                 }
                 else if (message.head.STATUS.Equals("ERROR"))
                 {
-
+                    sendMessage(message, player);
                 }
                 else if (message.head.STATUS.Equals("COMMAND") && !message.head.STATUSCODE.Equals("UNDEFINED"))
                 {
