@@ -60,15 +60,6 @@ namespace game
         }
 
         /// <summary>
-        /// A dobópakli legfelső lapját adja vissza
-        /// </summary>
-        /// <returns></returns>
-        public Card topCard()
-        {
-            return dropCards.topCard();
-        }
-
-        /// <summary>
         /// Játékos húz egy véletlen lapot a húzópakliból
         /// </summary>
         /// <param name="player">húzó játékos</param>
@@ -84,7 +75,7 @@ namespace game
         /// <param name="card">dobni kívánt lap</param>
         public bool dropCard(Player player, Card card)
         {
-            Card topDropCard = topCard();
+            Card topDropCard = topDroppedCard();
             if (card.symEquals(topDropCard))
             {
                 sameDropCards++;
