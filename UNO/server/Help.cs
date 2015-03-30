@@ -10,7 +10,8 @@ namespace game
     {
         public string Generals()
         {
-            return System.Environment.NewLine + "To send a message, type # and the message"
+            return System.Environment.NewLine
+                + System.Environment.NewLine + "To send a message, type # and the message"
                 + System.Environment.NewLine + "   example: #hi guys, what's up?"
                 + System.Environment.NewLine + "To send a command, type ! and the command"
                 + System.Environment.NewLine + "   example: !hand (it will show you your cards)"

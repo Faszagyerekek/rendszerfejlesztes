@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="929471ac-dece-41ae-abc3-dd419e13b789" name="Béla" linkedPackageId="6e99a1a5-4314-4095-9115-bc3f1a9c79da" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="65ee88d4-9ccd-4b28-bc83-7bc082d9af84">
+      <profileInstance Id="bedd486c-0531-4463-9306-2d7bd806a967" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="8f53f4ac-9dc7-4d0c-9831-950a52f193b8">
+      <profileInstance Id="f40ff6f4-c9be-45ac-b77a-5464c86c8a2f" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="2ae438ef-4cb1-4bd6-9e44-60ef95c86c50">
+      <profileInstance Id="cbfef71a-fe7d-4c80-8315-35bd7d130ef6" name="CSharpProfile">
+        <elementDefinition Id="4c901440-d82b-412f-96c3-b2fd55106f42" />
+      </profileInstance>
+      <elementDefinition Id="8ef6487d-147d-48f6-ab9b-e4290d90aa2b" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <package Id="6e99a1a5-4314-4095-9115-bc3f1a9c79da" name="Brtók">
+    <elementDefinition Id="4d630c97-c3a3-46e5-8681-a0a56920d527" />
+  </package>
+</logicalClassDesignerModel>

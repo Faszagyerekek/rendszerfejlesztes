@@ -186,6 +186,11 @@ namespace server
                     {
                         sendMessage(new Message("CARD", "SERVER", player.username, game.topDroppedCard()), player);
                     }
+                    else if (message.head.STATUSCODE.Equals("DRAW"))
+                    {
+                        game.pullCard(player);
+                        sendMessage(new Message("MSG", "SERVER", player.username, "Card added"), player);
+                    }
                 }
                 else if (message.head.STATUS.Equals("HELP"))
                 {

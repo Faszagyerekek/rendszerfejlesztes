@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="8eb23014-3a74-4599-9700-25155be92b9f"
+  name="UNO"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="dd76d04e-27eb-4bed-9447-6c6c040563ac"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DUNO"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="2b79d150-2963-4b95-9b80-8fe1f2fca1ec"
+        LastKnownName="Properties"
+        LastKnownLocation="Package6_1540.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="0e628b5d-26c1-4b0e-9f9f-3fac218e1882"
+        name="MainWindow"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="d14f364d-2ee8-4709-8e0f-594e2f020602"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FLajos%2FSource%2FRepos%2Frendszerfejlesztes%2FUNO%2FUNO%2Fbin%2FDebug%2FUNO.exe Namespace%3DUNO Type%3DMainWindow"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="7e244be6-05b9-4a25-9d9e-f70191baaf52"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d7ba3ce0-1a3b-4d48-8a31-3651b36b2dbe">
+                <propertyInstance
+                  Id="766bae79-279e-42da-8e84-618166f363ed"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="026b25e6-7d3a-4300-b549-4a572e2bfb9f">
+                <propertyInstance
+                  Id="eddc664c-65a3-4711-ba70-21d4dbf1b311"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="206d2af9-71c9-4d41-a63b-fbceceb1c8ab">
+                <propertyInstance
+                  Id="4f39bbac-502b-4190-87a5-b934c2124cc6"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="95a26d54-23a7-405e-ae29-4dd66d0dd56a">
+                <propertyInstance
+                  Id="d8664789-20c1-44d2-a9df-075aa6ee0e3c"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d834bcc7-dd46-491e-aa7f-2d8c197676df">
+                <propertyInstance
+                  Id="775e0461-7db5-4c22-854b-1363816d744b"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <enumeration
+        Id="6858febd-d3fc-476e-bf07-203a7444a0b0"
+        name="colorchanger"
+        visibility="Private"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="a4f6a1a8-ff88-4487-a73f-2e1337358d60"
+            handle="viewcode://./CodeSchema_Enum?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FLajos%2FSource%2FRepos%2Frendszerfejlesztes%2FUNO%2FUNO%2Fbin%2FDebug%2FUNO.exe Namespace%3DUNO Type%3D(Name%3Dcolorchanger ParentType%3DWhichCard)"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="3169f87c-ae3d-40c1-b6b1-8bdd078daf64"
+            name="enum"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="216f2673-ba60-4b73-9c75-faaf9561ba24">
+                <propertyInstance
+                  Id="587dacd2-45ac-4647-bff9-a7f908d6af8c"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="fd26c484-997e-4658-9d7b-3f31b9ef39c3">
+                <propertyInstance
+                  Id="d992f479-a921-466d-86a2-db759f10446e"
+                  name="BaseType"
+                  value="int" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="8ca6f709-dc1b-4fa2-a03b-0cf2897d98ba">
+                <propertyInstance
+                  Id="546f1ade-dfdd-4e64-a4f7-c50ffc587012"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <ownedLiterals>
+          <enumerationLiteral
+            Id="374ebade-a07a-4421-93c2-568636632ce8"
+            name="colorchanger">
+            <referencesInternal>
+              <reference
+                Id="c616f8e2-5773-4109-9371-ac9966907313"
+                handle="viewcode://./CodeSchema_Field?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FLajos%2FSource%2FRepos%2Frendszerfejlesztes%2FUNO%2FUNO%2Fbin%2FDebug%2FUNO.exe Namespace%3DUNO Type%3D(Name%3Dcolorchanger ParentType%3DWhichCard) Member%3Dcolorchanger"
+                tag="ViewCode" />
+            </referencesInternal>
+          </enumerationLiteral>
+          <enumerationLiteral
+            Id="a8397abe-30b4-469d-bd3f-c3e4ba5e8cd9"
+            name="szinvalto">
+            <referencesInternal>
+              <reference
+                Id="28a88efe-77e0-4a00-af1b-95790a71ded3"
+                handle="viewcode://./CodeSchema_Field?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FLajos%2FSource%2FRepos%2Frendszerfejlesztes%2FUNO%2FUNO%2Fbin%2FDebug%2FUNO.exe Namespace%3DUNO Type%3D(Name%3Dcolorchanger ParentType%3DWhichCard) Member%3Dszinvalto"
+                tag="ViewCode" />
+            </referencesInternal>
+          </enumerationLiteral>
+          <enumerationLiteral
+            Id="7e9b4710-bd08-44e7-ad18-4abcfe70408b"
+            name="Literal1" />
+          <enumerationLiteral
+            Id="bf0e7dd7-48fe-4c96-b293-318c8bba7a2f"
+            name="color_changer">
+            <referencesInternal>
+              <reference
+                Id="cd700641-752d-40f8-a80a-e5e080c87919"
+                handle="viewcode://./CodeSchema_Field?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FLajos%2FSource%2FRepos%2Frendszerfejlesztes%2FUNO%2FUNO%2Fbin%2FDebug%2FUNO.exe Namespace%3DUNO Type%3D(Name%3Dcolorchanger ParentType%3DWhichCard) Member%3Dcolor_changer"
+                tag="ViewCode" />
+            </referencesInternal>
+          </enumerationLiteral>
+          <enumerationLiteral
+            Id="3e5113cf-9244-4aa5-95bd-6c9ad03dd610"
+            name="Literal2" />
+        </ownedLiterals>
+      </enumeration>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

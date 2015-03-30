@@ -40,6 +40,10 @@ namespace UNO
                 {
                     message = new Message("COMMAND", "TOP", username, toWho, msg);
                 }
+                else if (msg.Equals("draw") || msg.Equals("huz") || msg.Equals("húz") || msg.Equals("huzas") || msg.Equals("húzás"))
+                {
+                    message = new Message("COMMAND", "DRAW", username, toWho, msg);
+                }
                 else
                 {
                     message = new Message("COMMAND", "UNDEFINED", username, toWho, msg);

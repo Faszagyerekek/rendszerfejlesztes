@@ -1,0 +1,793 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="2b79d150-2963-4b95-9b80-8fe1f2fca1ec"
+  name="Properties"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="2fdc4402-ba40-4e7f-8f9d-62307f2b9415"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DUNO.Properties"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="0c7f2f5d-8b32-4ddd-98b6-381ada4a8c75"
+        name="Resources"
+        visibility="Package"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="191f42c1-2a26-4941-b3f8-bc70b2eb4914"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FLajos%2FSource%2FRepos%2Frendszerfejlesztes%2FUNO%2FUNO%2Fbin%2FDebug%2FUNO.exe Namespace%3DUNO.Properties Type%3DResources"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="297be9c8-80f4-42ea-aeeb-1778a2945fcd"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="2cf13785-ebe6-4413-936f-86af3e6ceefb">
+                <propertyInstance
+                  Id="11c6105d-a769-4605-957f-e9e390c6a8c7"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="03d4554b-dfc7-4734-9cde-779e33ae46b0">
+                <propertyInstance
+                  Id="efad4dc2-b62e-4f42-a3a3-0504bc4cf685"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="c8fb77ce-02cf-4488-a39a-a3c0b1d3bc55">
+                <propertyInstance
+                  Id="ad43ff33-e18c-4fd2-a991-6051ac022ee8"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="7589cabf-4a62-44af-a902-3bdef82aeba9">
+                <propertyInstance
+                  Id="1ee230d8-8d4a-4e3b-a55e-822db960a730"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="f93de6a8-70d0-46b5-b184-0563f1bd646f">
+                <propertyInstance
+                  Id="dae25ce0-db31-4d8c-89db-863a3986aac4"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="0fc517fd-cd94-43cc-983d-d9f8f9f361bc"
+            name="ResourceManager"
+            visibility="Package"
+            isLeaf="false"
+            isStatic="true"
+            isReadOnly="true"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="def9f9be-78d1-45c1-bd2d-ec5770a1e943"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FLajos%2FSource%2FRepos%2Frendszerfejlesztes%2FUNO%2FUNO%2Fbin%2FDebug%2FUNO.exe Namespace%3DUNO.Properties Type%3DResources Member%3DResourceManager"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="dd9b9f7d-06c3-4ea1-89e8-f7bffb41d2aa"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="999acfda-f31d-4522-ba1c-8f2771281947">
+                    <propertyInstance
+                      Id="8e1a9ba3-bbd4-4183-b02b-eeb2f13652c3"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="74a47f79-c79c-4681-b129-5334ca1d0c48">
+                    <propertyInstance
+                      Id="f22a4402-77ae-4665-9474-3ab78485c5de"
+                      name="Get"
+                      value="package" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d90dc802-49ef-4c1d-9a0c-ea5e9ec1af80">
+                    <propertyInstance
+                      Id="241b6c74-0779-4fde-a47c-6b70deb42eed"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="98e7c828-6e1e-4078-9403-bad9d1f13e99">
+                    <propertyInstance
+                      Id="82fa46bd-e294-4f0c-bf8a-038a2a9a8d9a"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="85441d46-74ce-4a53-9030-56f24b3f1717">
+                    <propertyInstance
+                      Id="aaece8bb-e532-4ecf-a83b-626707bb87c8"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="720c546a-20be-4fb0-80ab-0ddcede97fe0">
+                    <propertyInstance
+                      Id="fb3a1509-5b32-41c1-b1b3-d9ac03afb680"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d7300954-0aa5-42a3-92b1-b99cf519ed94">
+                    <propertyInstance
+                      Id="d60125f0-58a5-449b-9164-79b7c9801e8d"
+                      name="Set"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="2bc8ba83-e900-4535-9811-183a60b3a6fd"
+                LastKnownName="ResourceManager"
+                LastKnownLocation="Package7_1540.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="a4d64557-d82e-4604-bc45-fa1c459d33aa"
+            name="Culture"
+            visibility="Package"
+            isLeaf="false"
+            isStatic="true"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="19660f3a-8b0e-4fbb-a954-1b73e5650c92"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FLajos%2FSource%2FRepos%2Frendszerfejlesztes%2FUNO%2FUNO%2Fbin%2FDebug%2FUNO.exe Namespace%3DUNO.Properties Type%3DResources Member%3DCulture"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="84969702-a227-4138-98d6-83441e8f495c"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4a3ef1da-8a1b-46c7-bdde-0fa731284b54">
+                    <propertyInstance
+                      Id="d4783bd3-6325-490d-949e-4826711e88e4"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2566bbe9-9dba-479b-adb1-acdde0632ed0">
+                    <propertyInstance
+                      Id="d0232279-70a8-4f4c-9d58-3a9a51998b13"
+                      name="Get"
+                      value="package" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5f8fb5af-839c-40ea-9dd9-aaab8a4349f2">
+                    <propertyInstance
+                      Id="6b411f72-2586-4878-97d2-16f6d3e95b70"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="04af6007-ac3c-4010-a9a1-b6b2396c6d99">
+                    <propertyInstance
+                      Id="6118baf1-2d8d-4879-9d67-2701b7b8374d"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f3a6b6d7-1a43-4baf-991c-248e58c34e9e">
+                    <propertyInstance
+                      Id="39d3140f-a777-4584-a41d-0cef35f471e6"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e8f4ad3d-d921-4509-9641-5139c9f6b7b3">
+                    <propertyInstance
+                      Id="c1d63a7a-5618-4e66-bbc1-dc9759aeae33"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="af11ecd9-c1c8-4f69-9a7a-4f8e50dbd326">
+                    <propertyInstance
+                      Id="b9f0da9b-5f7c-40b2-b9e4-236344ab7cc9"
+                      name="Set"
+                      value="package" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="adfbe66e-53bb-4907-81ee-dfa4982be73e"
+                LastKnownName="CultureInfo"
+                LastKnownLocation="Package8_1540.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="d5066b3f-e059-4e0d-ab6b-c397d053cb12"
+            name="resourceMan"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="true"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="cfdf54cd-2fcf-4ddf-b02b-3221d3beac2f"
+                handle="viewcode://./CodeSchema_Field?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FLajos%2FSource%2FRepos%2Frendszerfejlesztes%2FUNO%2FUNO%2Fbin%2FDebug%2FUNO.exe Namespace%3DUNO.Properties Type%3DResources Member%3DresourceMan"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="da6deaaf-c613-4c3d-bb58-45b086e3c3c5"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8e7f4e11-6868-4e7d-a798-7f06acb92fb0">
+                    <propertyInstance
+                      Id="40b30d7d-9e95-4e20-8d64-5918f17e3689"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9dd3e487-72d4-4305-853c-d39686041970">
+                    <propertyInstance
+                      Id="d9cdf43b-c780-49ca-a30d-36576cff83ab"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9b7ed9e3-536b-4b6c-921c-8e2d39d0569d">
+                    <propertyInstance
+                      Id="9338c528-3255-46de-bd0f-8a6cbda058be"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f578ba11-bcc0-422b-bf79-4b89fa52cbd2">
+                    <propertyInstance
+                      Id="c86e5f23-b3df-445f-93e0-304f86f619c9"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6982a69f-27fa-43cc-a70b-2523f34c59be">
+                    <propertyInstance
+                      Id="64c20e04-e9d2-4be2-8535-5999392f7e8f"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="2bc8ba83-e900-4535-9811-183a60b3a6fd"
+                LastKnownName="ResourceManager"
+                LastKnownLocation="Package7_1540.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="01d4b21b-0700-423d-bdf2-0caebefe955a"
+            name="resourceCulture"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="true"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="c1385daa-430b-4f1f-bafb-33087c0bb9de"
+                handle="viewcode://./CodeSchema_Field?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FLajos%2FSource%2FRepos%2Frendszerfejlesztes%2FUNO%2FUNO%2Fbin%2FDebug%2FUNO.exe Namespace%3DUNO.Properties Type%3DResources Member%3DresourceCulture"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="75801610-eb3d-4364-b156-329873f0e8ad"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="33ac376b-710d-4818-affa-232d06d8be22">
+                    <propertyInstance
+                      Id="31e2528e-3bac-479c-864b-55ee89d943cc"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="42aef390-13ef-4588-b9df-2350aff1e10c">
+                    <propertyInstance
+                      Id="50d49b82-6095-4708-afa1-e75df8bd49e2"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a55b8016-cf61-4a77-ac09-39df4f27a4b0">
+                    <propertyInstance
+                      Id="56599e50-a908-4c62-86ee-132588e0da31"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="34c6641d-1185-4eef-b8b7-d5710556ed0d">
+                    <propertyInstance
+                      Id="789df64f-fc81-4f41-ad49-19834406817a"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5b4a8bf9-247a-48d3-a39e-bc1ada8f6ec4">
+                    <propertyInstance
+                      Id="449abd42-9e09-4976-a2d0-2bc6247a1a89"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="adfbe66e-53bb-4907-81ee-dfa4982be73e"
+                LastKnownName="CultureInfo"
+                LastKnownLocation="Package8_1540.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="e8f526e3-5360-434d-b31f-40b1e527e2b5"
+            name="Resources"
+            visibility="Package"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="4dd8e6d2-86bd-4c08-89df-8b342916ae73"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FLajos%2FSource%2FRepos%2Frendszerfejlesztes%2FUNO%2FUNO%2Fbin%2FDebug%2FUNO.exe Namespace%3DUNO.Properties Type%3DResources Member%3D.ctor"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="35695ecb-53f1-4aa8-979a-7fd3b984466e"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ff827449-2a9e-4712-bfe9-5cca97417b74">
+                    <propertyInstance
+                      Id="a9d87cd5-755f-4891-993a-8ac0a317c480"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1484490a-4c77-4a84-bbcd-045687a25708">
+                    <propertyInstance
+                      Id="d774b9eb-6b0e-4747-b62a-782a61ebfbf4"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bfbd0d04-400b-453b-93a3-549b557495dc">
+                    <propertyInstance
+                      Id="99f73bad-6dc0-432d-a3ec-04aec2df6541"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="091e8eb1-7d9a-412b-afca-859858b84290">
+                    <propertyInstance
+                      Id="13a0feb1-f968-46e2-8a7e-fd5cd451c466"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="60c218ac-e4e9-4868-a9c2-80f0dea7e98a">
+                    <propertyInstance
+                      Id="d3a05040-cdb9-488a-9b25-d2d4c8d0a6f8"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="cb652e63-9c6e-4c44-a6c3-0135139fdaac">
+                    <propertyInstance
+                      Id="3e0ab5c4-e8a5-43fb-92d2-c78c2ac7f712"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="33e7327a-33f3-4d4f-b9cd-56311bdadd6c"
+        name="Settings"
+        visibility="Package"
+        isAbstract="false"
+        isLeaf="true"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="e5dab9a9-42a7-45ac-8c62-996037336c16"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FLajos%2FSource%2FRepos%2Frendszerfejlesztes%2FUNO%2FUNO%2Fbin%2FDebug%2FUNO.exe Namespace%3DUNO.Properties Type%3DSettings"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="5ddc3842-e790-4c25-b7d8-94fcd1d25ad1"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="c2b63b89-e43c-4b9b-9428-d75c14fa17dd">
+                <propertyInstance
+                  Id="152be649-f88f-4a56-a439-c893f8f60cf8"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="1b2b2a36-b5b8-49ab-8a98-15160f439195">
+                <propertyInstance
+                  Id="2e471409-160b-4bf3-aaa9-123ed6fe434d"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="636aab98-0a79-4175-bf31-81caab31465e">
+                <propertyInstance
+                  Id="b07291ba-9866-4200-b0c7-47adc06326d3"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="7e991043-aed5-4a82-80ee-b99ddca2f696">
+                <propertyInstance
+                  Id="d0860fbe-2d94-4135-b998-c2fc5cfc707d"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d0684d02-38fa-4c60-a63e-c6bb82b866f4">
+                <propertyInstance
+                  Id="7b1eab42-feb6-46e1-a80f-70f9f694e69d"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <generalsInternal>
+          <generalization
+            Id="cec77549-420d-4237-b842-26a202b61306"
+            isSubstitutable="false">
+            <classMoniker
+              Id="2446a321-37e4-48ed-8d39-ad379a9777f2"
+              LastKnownName="ApplicationSettingsBase"
+              LastKnownLocation="Package9_1540.uml" />
+          </generalization>
+        </generalsInternal>
+        <targetEnds>
+          <association
+            Id="a6bf63e1-c345-42cd-9c10-d026d1d40c5a"
+            isDerived="false"
+            sourceEndRoleName="Settings"
+            targetEndRoleName="Default"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="33e7327a-33f3-4d4f-b9cd-56311bdadd6c"
+              LastKnownName="Settings"
+              LastKnownLocation="Package6_1540.uml" />
+            <description>Property Default references type Settings.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="28f406b8-b714-4d92-ae09-32a86967c72d"
+                  name="Settings"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="40e78e73-e93a-47c3-b0ae-bd00138c1db3"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="b078e887-1536-4562-be31-68045dd89b02"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="f58477e6-ce06-4a93-9b3b-7f963cbf91fd"
+                  name="Default"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="3a833eed-882a-4503-9ffa-b39f21c54651"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="08076c43-24b6-4195-8a3d-19d363ffab0e"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="6946dcff-6bcb-4ab0-9ccd-83c483bc88a6"
+            name="Default"
+            isLeaf="false"
+            isStatic="true"
+            isReadOnly="true"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="2ca583ce-1c9b-4f6b-a3c1-dfd435c49440"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FLajos%2FSource%2FRepos%2Frendszerfejlesztes%2FUNO%2FUNO%2Fbin%2FDebug%2FUNO.exe Namespace%3DUNO.Properties Type%3DSettings Member%3DDefault"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="3a6e03ca-e069-401e-9920-1a9f3ea83983"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b3cd0b24-a431-4ca4-8654-3a7e073917e9">
+                    <propertyInstance
+                      Id="2b4f6dc6-ecc7-44f8-b73b-19a4c9b4fd4c"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fe4d3aa3-6f66-4a66-836c-5d74301524ea">
+                    <propertyInstance
+                      Id="9f30be46-172e-46c2-a9b1-cc66185b95f4"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="638179c6-f577-44de-b106-2eaf87012e36">
+                    <propertyInstance
+                      Id="088df181-6349-42be-889a-b004bc9b1b7b"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fd3364d4-9948-40aa-9c1c-7477691e3e68">
+                    <propertyInstance
+                      Id="603e3206-9b40-40b6-b02d-86627bc69038"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f0943df6-d9c2-49c5-ab85-044cce403298">
+                    <propertyInstance
+                      Id="0087bd25-6b5c-456a-8e00-d3357999bf2b"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="11ae42e5-e0d2-4c16-89d6-7e20fa67fe96">
+                    <propertyInstance
+                      Id="bc9d1e04-d317-4709-807e-9f006e8b3d5a"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="60c55cd8-917b-45b6-8a73-95c38b80ea88">
+                    <propertyInstance
+                      Id="1ee6af62-1fcc-49ab-9fd3-fca1de947e97"
+                      name="Set"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="33e7327a-33f3-4d4f-b9cd-56311bdadd6c"
+                LastKnownName="Settings"
+                LastKnownLocation="Package6_1540.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="2852e93c-6785-4e9c-813d-263f17b0e565"
+            name="defaultInstance"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="true"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="4e864a42-abff-475a-bea5-c04850d663e1"
+                handle="viewcode://./CodeSchema_Field?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FLajos%2FSource%2FRepos%2Frendszerfejlesztes%2FUNO%2FUNO%2Fbin%2FDebug%2FUNO.exe Namespace%3DUNO.Properties Type%3DSettings Member%3DdefaultInstance"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="2ba89103-1580-40fa-ad82-5d94ada69e94"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="20bb108f-215d-47aa-94ca-607f6597010c">
+                    <propertyInstance
+                      Id="a8da1c20-e29c-412c-a155-bbc94f952a1d"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dfdfb4da-5c61-49de-b152-cb9d1a0b24de">
+                    <propertyInstance
+                      Id="cf2698d7-5c87-457b-b681-d8da73a3afed"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5746efe6-3c65-404e-9df0-b71d6a3835bb">
+                    <propertyInstance
+                      Id="f042b40d-3f50-449e-ab96-df9e378c9d7b"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6406f3d9-7e45-4a81-9029-031e5820538a">
+                    <propertyInstance
+                      Id="1886d3ea-2865-4b11-8955-e8b1b7e3d88f"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e12fbf39-5f26-4931-80a6-177a6bef11c6">
+                    <propertyInstance
+                      Id="ae282ee4-cc69-414d-9b94-19d8b400411a"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="33e7327a-33f3-4d4f-b9cd-56311bdadd6c"
+                LastKnownName="Settings"
+                LastKnownLocation="Package6_1540.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="1f42b39f-9c59-4b71-9b46-3ce51acedcad"
+            name="Settings"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="5ec38ad8-1b3a-4420-a361-ede72a20283f"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FLajos%2FSource%2FRepos%2Frendszerfejlesztes%2FUNO%2FUNO%2Fbin%2FDebug%2FUNO.exe Namespace%3DUNO.Properties Type%3DSettings Member%3D.ctor"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="8da711b8-99cd-452d-bbaf-f4a96df5afa0"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="270898a9-ae12-4fda-bdfe-da9269d9a695">
+                    <propertyInstance
+                      Id="b0ecdf21-5c84-49a0-857e-47360613a32c"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ce66209a-eea5-480e-afe5-2bf9e46b09c8">
+                    <propertyInstance
+                      Id="2b26e2e0-8395-4de6-baad-fd5d40bbca13"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="04b00416-9241-4bf3-962f-bf7daa2fd68f">
+                    <propertyInstance
+                      Id="c464a98c-63e6-4e33-8352-b757677f7133"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="582ce36b-3789-4b47-af4c-d030b60e7b88">
+                    <propertyInstance
+                      Id="5a01b69b-73e7-42db-b47b-fd74e2b54891"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a8b0d18f-9284-458f-9449-dfb4ca6520f5">
+                    <propertyInstance
+                      Id="e189c800-381c-49d3-940e-77ab87ce687a"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c3f25c85-82f2-4f3a-adcd-d620569da038">
+                    <propertyInstance
+                      Id="58d8d9f0-e8d2-4375-ad0e-bf7d56e87c92"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>
