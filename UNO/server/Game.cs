@@ -90,6 +90,7 @@ namespace game
                 // van nála, szabályossági vizsgálat:
                 //--------> 2. iteráció
                 // ha szabályos, szedje ki
+                //Lac: Szóval, akkor
                 player.removeCard(true);
                 dropCards.addCard(card);
                 return true;
