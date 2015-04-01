@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using server;
 using System.Windows;
-using System.Threading;
 
 namespace game
 {
@@ -17,6 +16,7 @@ namespace game
         private bool _clockWise;
         private int sameDropCards;
         private int _nextPlayerIndex;
+        private RuleChecker ruleChecker;
 
         public Game(List<Player> players)
         {
@@ -27,6 +27,7 @@ namespace game
             dropCards.addCard(pullCards.deal());
             this.sameDropCards = 1;
             this.clockWise = true;
+            this.ruleChecker = new RuleChecker();
         }
 
         /// <summary>
@@ -56,7 +57,6 @@ namespace game
             foreach (Player player in players) {
                 for (int i = 0; i < 8; i++) {
                     player.addCard(pullCards.deal());
-                    Thread.Sleep(50);
                 }
             }
         }
@@ -92,11 +92,18 @@ namespace game
                 // van nála, szabályossági vizsgálat:
                 //--------> 2. iteráció
                 // ha szabályos, szedje ki
-                player.removeCard(true);
-                dropCards.addCard(card);
-                return true;
+                if(ruleChecker.symColCheck(topDropCard,card)){//szinre szin szamra szam check
+                    player.removeCard(true);
+                    dropCards.addCard(card);
+                    return true;
+                }
             }
             return false;
+        }
+
+        public void unoState(Player player)
+        {
+            player.uno = true;
         }
 
         /// <summary>

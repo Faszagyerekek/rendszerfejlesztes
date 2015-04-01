@@ -36,6 +36,7 @@ namespace server
         private Thread clientThread;
         private Game game;
         private List<Player> playerList;
+        private List<Player> readyPlayers;
 
 
         public MainWindow()
@@ -47,22 +48,7 @@ namespace server
             Server();
         }
 
-        private void _Log(string s)
-        {
-            this.Dispatcher.Invoke((Action)(() =>
-            {
-                Log.Message(s);
-            }));
-        }
-
-        private void _Log(Message s)
-        {
-            this.Dispatcher.Invoke((Action)(() =>
-            {
-                Log.Message(s);
-            }));
-        }
-
+        
         private void Server()
         {
             this.tcpListener = new TcpListener(IPAddress.Loopback, 3000); // Change to IPAddress.Any for internet wide Communication
@@ -155,7 +141,7 @@ namespace server
                         }
                         else
                         {
-                            sendMessage(new Message("ERROR", "SERVER", player.username, "You don't have that card"), player);
+                            sendMessage(new Message("ERROR", "SERVER", player.username, "You can not place that card"), player);
                         }
                     }
                     else if (message.head.STATUSCODE.Equals("UNO"))
@@ -190,6 +176,10 @@ namespace server
                     {
                         game.pullCard(player);
                         sendMessage(new Message("MSG", "SERVER", player.username, "Card added"), player);
+                    }
+                    else if (message.head.STATUSCODE.Equals("READY"))
+                    {
+                        readyPlayers.Add(player);
                     }
                 }
                 else if (message.head.STATUS.Equals("HELP"))
@@ -242,16 +232,6 @@ namespace server
         }
 
         
-        private void Echo(string msg, UTF8Encoding encoder, NetworkStream clientStream)
-        {
-            // Now Echo the message back
-            byte[] buffer = encoder.GetBytes(msg);
-
-            clientStream.Write(buffer, 0, buffer.Length);
-            clientStream.Flush();
-        }
-
-
         /// <summary>
         /// Itt fog megtörténni (billentyűzetről) a broadcastolás, ergo, amit a szerver ide beír, az megy mindenkinek
         /// </summary>
@@ -309,6 +289,8 @@ namespace server
             }
         }
 
+//MISC ------------------------------------------------------------------------------------------------------
+
         private void SERVER_Closed(object sender, EventArgs e)
         {
             if (JatekSzal.IsAlive){
@@ -320,6 +302,22 @@ namespace server
         private void MSGBOX_TextChanged(object sender, TextChangedEventArgs e)
         {
             MSGBOX.ScrollToEnd();
+        }
+
+        private void _Log(string s)
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                Log.Message(s);
+            }));
+        }
+
+        private void _Log(Message s)
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                Log.Message(s);
+            }));
         }
     }
 }

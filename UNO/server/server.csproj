@@ -66,12 +66,14 @@
     <Compile Include="HallOfFame.cs" />
     <Compile Include="Help.cs" />
     <Compile Include="Message.cs" />
+    <Compile Include="PlayRoom.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Record.cs" />
+    <Compile Include="RuleChecker.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
