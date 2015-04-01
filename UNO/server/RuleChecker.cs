@@ -8,5 +8,9 @@ namespace server
 {
     class RuleChecker
     {
+        public RuleChecker()
+        {
+
+        }
     }
 }
