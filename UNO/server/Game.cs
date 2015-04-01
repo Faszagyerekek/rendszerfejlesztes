@@ -16,6 +16,7 @@ namespace game
         private bool _clockWise;
         private int sameDropCards;
         private int _nextPlayerIndex;
+        private RuleChecker ruleChecker;
 
         public Game(List<Player> players)
         {
@@ -26,6 +27,7 @@ namespace game
             dropCards.addCard(pullCards.deal());
             this.sameDropCards = 1;
             this.clockWise = true;
+            this.ruleChecker = new RuleChecker();
         }
 
         /// <summary>
@@ -90,12 +92,18 @@ namespace game
                 // van nála, szabályossági vizsgálat:
                 //--------> 2. iteráció
                 // ha szabályos, szedje ki
-                //Lac: Szóval, akkor
-                player.removeCard(true);
-                dropCards.addCard(card);
-                return true;
+                if(ruleChecker.symColCheck(topDropCard,card)){//szinre szin szamra szam check
+                    player.removeCard(true);
+                    dropCards.addCard(card);
+                    return true;
+                }
             }
             return false;
+        }
+
+        public void unoState(Player player)
+        {
+            player.uno = true;
         }
 
         /// <summary>
