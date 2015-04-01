@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using server;
 using System.Windows;
+using System.Threading;
 
 namespace game
 {
@@ -55,6 +56,7 @@ namespace game
             foreach (Player player in players) {
                 for (int i = 0; i < 8; i++) {
                     player.addCard(pullCards.deal());
+                    Thread.Sleep(50);
                 }
             }
         }
