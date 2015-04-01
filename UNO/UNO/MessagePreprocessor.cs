@@ -34,15 +34,19 @@ namespace UNO
                 msg = msg.Substring(1, msg.Length - 1);
                 if (msg.Equals("hand") || msg.Equals("kez") || msg.Equals("kéz"))
                 {
-                    message = new Message("COMMAND", "HAND" ,username, toWho, msg);
+                    message = new Message("COMMAND", "HAND" ,username, "SERVER", msg);
                 }
                 else if (msg.Equals("top") || msg.Equals("utolso") || msg.Equals("utolsó") || msg.Equals("felso") || msg.Equals("felső"))
                 {
-                    message = new Message("COMMAND", "TOP", username, toWho, msg);
+                    message = new Message("COMMAND", "TOP", username, "SERVER", msg);
                 }
                 else if (msg.Equals("draw") || msg.Equals("huz") || msg.Equals("húz") || msg.Equals("huzas") || msg.Equals("húzás"))
                 {
-                    message = new Message("COMMAND", "DRAW", username, toWho, msg);
+                    message = new Message("COMMAND", "DRAW", username, "SERVER", msg);
+                }
+                else if (msg.Equals("ready") || msg.Equals("játék") || msg.Equals("jatek") || msg.Equals("kesz") || msg.Equals("kész"))
+                {
+                    message = new Message("COMMAND", "READY", username, "SERVER", msg);
                 }
                 else
                 {
