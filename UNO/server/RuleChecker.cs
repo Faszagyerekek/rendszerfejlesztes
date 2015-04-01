@@ -21,9 +21,10 @@ namespace server
 
         public bool symColCheck(Card onTop, Card toPlace)
         {
-            if (onTop.color.Equals("BLACK") ||
-                onTop.color.Equals(toPlace.color)||
-                onTop.symbol.Equals(toPlace.symbol)
+            if (onTop.color.Equals("BLACK") ||//feketére mindent
+                toPlace.color.Equals("BLACK")||//fekete mindenre
+                onTop.color.Equals(toPlace.color)||//szin egyezik
+                onTop.symbol.Equals(toPlace.symbol)//szimbolum egyezik
                 )
             {
                 return true;
