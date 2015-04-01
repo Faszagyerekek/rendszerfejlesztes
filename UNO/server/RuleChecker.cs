@@ -8,7 +8,7 @@ namespace server
 {
     class RuleChecker//nincs is adattagja
     {
-        RuleChecker()//kell ide egyeltalán valami?
+       public  RuleChecker()//kell ide egyeltalán valami?
         {
 
         }
@@ -19,7 +19,7 @@ namespace server
         /// <param name="onTop">dobópakli felső lapja</param>
         /// <param name="toPlace">eldobni kívánt lap</param>
 
-        bool symColCheck(Card onTop, Card toPlace)
+        public bool symColCheck(Card onTop, Card toPlace)
         {
             if (onTop.color.Equals("BLACK") ||
                 onTop.color.Equals(toPlace.color)||
