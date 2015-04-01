@@ -75,8 +75,6 @@ namespace server
                 //with connected client
                 connectedClients++; // Increment the number of clients that have communicated with us.
 
-
-                
                 this.Dispatcher.Invoke((Action)(() =>
                 {
                     Log.ClientConnected(connectedClients);
@@ -130,7 +128,8 @@ namespace server
 
 // megnézi mit olvasott
                 Player player = Identify((TcpClient)client);
-
+                #region >>> Bejött üzenet feldolgozása <<<
+                #region ### Kártya ###
                 if (message.head.STATUS.Equals("CARD"))
                 {
                     if (message.head.STATUSCODE.Equals("CARD"))
@@ -151,14 +150,20 @@ namespace server
                         ), player);
                     }
                 }
+                #endregion
+                #region ### Üzenet ###
                 else if (message.head.STATUS.Equals("MSG"))
                 {
                     Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", message.head.FROM+": "+message.body.MESSAGE)));
                 }
+                #endregion
+                #region ### Kliens oldali hiba ###
                 else if (message.head.STATUS.Equals("ERROR"))
                 {
                     sendMessage(message, player);
                 }
+                #endregion
+                #region ### Parancs ###
                 else if (message.head.STATUS.Equals("COMMAND") && !message.head.STATUSCODE.Equals("UNDEFINED"))
                 {
                     if (message.head.STATUSCODE.Equals("HAND"))
@@ -182,10 +187,17 @@ namespace server
                         readyPlayers.Add(player);
                     }
                 }
+                # endregion
+                #region ### Segítség ###
                 else if (message.head.STATUS.Equals("HELP"))
                 {
-
+                    if (message.head.STATUSCODE.Equals("COMMAND"))
+                    {
+                        sendMessage(new Message("MSG", "SERVER", player.username, new Help().Commands()), player);
+                    }
                 }
+                #endregion
+                #region ### Bejelentkezés ###
                 else if (message.head.STATUS.Equals("LOGIN"))
                 {
                     playerList.Add(new Player(true, message.head.FROM, "password", clients[clients.Count-1].Client.Handle.ToInt32()));
@@ -202,10 +214,10 @@ namespace server
                     }catch(Exception exc){}
                     gamePlay();
                 }
+                #endregion
 
-          
-                
-                //Broadcast(JsonConvert.SerializeObject(message));
+                #endregion
+
 
             }
 

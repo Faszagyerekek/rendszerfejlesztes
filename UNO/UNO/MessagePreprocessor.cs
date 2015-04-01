@@ -56,7 +56,15 @@ namespace UNO
             else if (msg.Substring(0, 1) == "?")
             {
                 msg = msg.Substring(1, msg.Length - 1);
-                message = new Message("HELP", username, toWho, msg);
+                if (msg.Equals("commands") || msg.Equals("parancsok"))
+                {
+                    message = new Message("HELP", "COMMANDS", username, toWho, msg);
+                }
+                else
+                {
+                    message = new Message("HELP", "UNDEFINED", username, toWho, msg);
+                }
+                
             }
             else if (msg.Length >= 5 && msg.Substring(0, 5) == "card:")
             {

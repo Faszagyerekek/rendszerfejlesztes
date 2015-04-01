@@ -27,7 +27,13 @@ namespace game
 
         public string Commands()
         {
-            return "";
+            return System.Environment.NewLine
+                + System.Environment.NewLine + "The commands are:"
+                + System.Environment.NewLine + "   !hand / !kez / !kéz - with this command, you can get your cards (in your hand)"
+                + System.Environment.NewLine + "   !top / !felso / !felső / !utolso / !utolsó - you can get the last dropped card"
+                + System.Environment.NewLine + "   !draw / !huz / !húz / !huzas / !húzás - you can draw a card, if you have to"
+                + System.Environment.NewLine + "   !ready / !jatek / !játék / !kesz / !kész - you can apply for a game"
+            ;
         }
 
         public string Helps()
