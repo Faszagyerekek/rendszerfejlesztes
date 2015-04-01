@@ -101,6 +101,11 @@ namespace game
             return false;
         }
 
+        public void unoState(Player player)
+        {
+            player.uno = true;
+        }
+
         /// <summary>
         /// Lépés a következő játékosra
         /// </summary>
