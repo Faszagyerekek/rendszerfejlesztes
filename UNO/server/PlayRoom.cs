@@ -21,11 +21,6 @@ namespace server
             gamePlay();
         }
 
-        public void Preprocessor(Message message)
-        {
-
-        }
-
 
         private void gamePlay()
         {

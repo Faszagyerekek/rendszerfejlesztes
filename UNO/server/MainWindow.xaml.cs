@@ -128,6 +128,49 @@ namespace server
 
 // megnézi mit olvasott
                 Player player = Identify((TcpClient)client);
+
+                #region BETATEST FOR PREPROCESSING
+                if (message.head.STATUS.Equals("MSG"))
+                {
+                    Broadcast(JsonConvert.SerializeObject(message));
+                }
+                #region ### Login ###
+                else if (message.head.STATUS.Equals("LOGIN"))
+                {
+                    playerList.Add(new Player(true, message.head.FROM, "password", clients[clients.Count - 1].Client.Handle.ToInt32()));
+
+                    _Log(System.Environment.NewLine + ">>" + message.head.FROM + " connected" + System.Environment.NewLine);
+                    try
+                    {
+                        sendMessage(new Message(
+                            "MSG",
+                            "SERVER",
+                            playerList[playerList.Count - 1].username,
+                            "If you want to play:" + System.Environment.NewLine + new Help().Generals()
+                        ), playerList[playerList.Count - 1]);
+                    }
+                    catch (Exception exc) { }
+                }
+                #endregion
+                #region ### Ready for play ###
+                else if (message.head.STATUS.Equals("COMMAND") && message.head.STATUSCODE.Equals("READY"))
+                {
+                    readyPlayers.Add(player);
+                    gamePlay();
+                }
+                #endregion
+                else
+                {
+                    if (message.head.STATUS.Equals("COMMAND") && message.head.STATUSCODE.Equals("HAND"))
+                    {
+                        sendMessage(new InputMessagePreprocessor(message, player).ResponseL(), player);
+                    }else{
+                        sendMessage(new InputMessagePreprocessor(message, player).Response(), player);
+                    }
+                }
+
+                #endregion
+
                 #region >>> Bejött üzenet feldolgozása <<<
                 #region ### Kártya ###
                 if (message.head.STATUS.Equals("CARD"))
@@ -227,9 +270,10 @@ namespace server
 
         private void gamePlay()
         {
-            game = new Game(playerList);
-            game.cardDealing();
+            PlayRoom playRoom = new PlayRoom(readyPlayers);
         }
+
+        //private Player 
 
         private Player Identify(TcpClient client)
         {
@@ -297,6 +341,27 @@ namespace server
 
                     clientStream.Write(buffer, 0, buffer.Length);
                     clientStream.Flush();
+                }
+            }
+        }
+        private void sendMessage(List<Message> messages, Player player)
+        {
+            foreach (TcpClient client in clients)
+            {
+                if (client.Client.Handle.ToInt32() == player.ID)
+                {
+                    foreach (Message message in messages)
+                    {
+                        NetworkStream clientStream = client.GetStream();
+
+                        string json = JsonConvert.SerializeObject(message);
+
+                        UTF8Encoding encoder = new UTF8Encoding();
+                        byte[] buffer = encoder.GetBytes(json);
+
+                        clientStream.Write(buffer, 0, buffer.Length);
+                        clientStream.Flush();
+                    }
                 }
             }
         }
