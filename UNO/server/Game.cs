@@ -55,7 +55,7 @@ namespace game
         /// </summary>
         public void cardDealing() {
             foreach (Player player in players) {
-                for (int i = 0; i < 8; i++) {
+                for (int i = 0; i < 7; i++) {
                     player.addCard(pullCards.deal());
                 }
             }
