@@ -15,7 +15,7 @@ namespace game
         private DeckStorageAncestor pullCards;
         private bool _clockWise;
         private int sameDropCards;
-        private int _nextPlayerIndex;
+        private int _currentPlayerIndex;
         private RuleChecker ruleChecker;
 
         public Game(List<Player> players)
@@ -120,35 +120,44 @@ namespace game
         }
 
         /// <summary>
+        /// Aktuális játékos lekérése
+        /// </summary>
+        /// <returns></returns>
+        public Player currentPlayer()
+        {
+            return players[currentPlayerIndex];
+        }
+
+        /// <summary>
         /// Lépés a következő játékosra
         /// </summary>
         public Player nextPlayer()
         {
             if (clockWise == true)
             {
-                if (nextPlayerIndex < 3)
+                if (currentPlayerIndex < 3)
                 {
-                    nextPlayerIndex++;
+                    currentPlayerIndex++;
                 }
                 else
                 {
-                    nextPlayerIndex = 0;
+                    currentPlayerIndex = 0;
                 }
 
             }
             else
             {
-                if (nextPlayerIndex > 1)
+                if (currentPlayerIndex > 1)
                 {
-                    nextPlayerIndex--;
+                    currentPlayerIndex--;
                 }
                 else
                 {
-                    nextPlayerIndex = 3;
+                    currentPlayerIndex = 3;
                 }
             }
 
-            return players[nextPlayerIndex];
+            return players[currentPlayerIndex];
         }
 
         public bool clockWise
@@ -157,10 +166,10 @@ namespace game
             get { return this._clockWise; }
         }
 
-        public int nextPlayerIndex
+        public int currentPlayerIndex
         {
-            set { this._nextPlayerIndex = value; }
-            get { return this._nextPlayerIndex; }
+            set { this._currentPlayerIndex = value; }
+            get { return this._currentPlayerIndex; }
         }
 
         public void toggleClockWise() {
