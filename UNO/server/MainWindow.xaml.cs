@@ -145,9 +145,14 @@ namespace server
                     }
                     else if (message.head.STATUSCODE.Equals("UNO"))
                     {
-                        sendMessage(new Message(
-                            "MSG", "SERVER", player.username, "This function is not ready yet"
-                        ), player);
+                        if (game.unoState(player, message.body.CARD))
+                        {
+                            sendMessage(new Message("MSG", "SERVER", player.username, "Card droped, in UNO state"), player);
+                        }
+                        else
+                        {
+                            sendMessage(new Message("ERROR", "SERVER", player.username, "You can not place that card and be in uno state"), player);
+                        }
                     }
                 }
                 #endregion
@@ -181,6 +186,11 @@ namespace server
                     {
                         game.pullCard(player);
                         sendMessage(new Message("MSG", "SERVER", player.username, "Card added"), player);
+                    }
+                    else if (message.head.STATUSCODE.Equals("OK"))
+                    {
+                        //IDE ÍRD, HOGY MI HÍVÓDJON MEG!
+                        sendMessage(new Message("MSG", "SERVER", player.username, "Penalty accepted"), player);
                     }
                     else if (message.head.STATUSCODE.Equals("READY"))
                     {

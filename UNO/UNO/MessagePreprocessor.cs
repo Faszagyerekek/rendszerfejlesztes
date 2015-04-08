@@ -48,6 +48,10 @@ namespace UNO
                 {
                     message = new Message("COMMAND", "READY", username, "SERVER", msg);
                 }
+                else if (msg.Equals("ok") || msg.Equals("rendben") || msg.Equals("jó") || msg.Equals("jo") || msg.Equals("oke") || msg.Equals("oké"))
+                {
+                    message = new Message("COMMAND", "OK", username, "SERVER", msg);
+                }
                 else
                 {
                     message = new Message("COMMAND", "UNDEFINED", username, toWho, msg);
