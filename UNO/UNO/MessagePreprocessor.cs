@@ -28,7 +28,7 @@ namespace UNO
             {
                 msg = msg.Substring(1, msg.Length - 1);
                 message = new Message("MSG", username, toWho, msg);
-            }
+            } 
             else if (msg.Substring(0, 1) == "!")
             {
                 msg = msg.Substring(1, msg.Length - 1);
