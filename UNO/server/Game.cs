@@ -55,19 +55,21 @@ namespace game
         /// </summary>
         public void cardDealing() {
             foreach (Player player in players) {
-                for (int i = 0; i < 8; i++) {
+                for (int i = 0; i < 7; i++) {
                     player.addCard(pullCards.deal());
                 }
             }
         }
 
         /// <summary>
-        /// Játékos húz egy véletlen lapot a húzópakliból
+        /// Játékos húz valahány véletlen lapot a húzópakliból
         /// </summary>
         /// <param name="player">húzó játékos</param>
-        public void pullCard(Player player)
+        public void pullCard(Player player, int quantity = 1)
         {
-            player.addCard(pullCards.deal());
+            for (int i = 0; i < quantity; i++) {
+                player.addCard(pullCards.deal());
+            }
         }
 
         /// <summary>
@@ -92,18 +94,29 @@ namespace game
                 // van nála, szabályossági vizsgálat:
                 //--------> 2. iteráció
                 // ha szabályos, szedje ki
-                if(ruleChecker.symColCheck(topDropCard,card)){//szinre szin szamra szam check
+                if(ruleChecker.symColCheck(topDropCard,card)){  //szinre szin szamra szam check
                     player.removeCard(true);
                     dropCards.addCard(card);
+               
                     return true;
                 }
             }
             return false;
         }
 
-        public void unoState(Player player)
+        public bool unoState(Player player, Card card)
         {
-            player.uno = true;
+            if (player.getCardNum() == 2)
+            {
+                if (dropCard(player, card))
+                {
+                    player.uno = true;
+                    return true;
+                }
+            }
+
+            return false;
+
         }
 
         /// <summary>
@@ -111,32 +124,28 @@ namespace game
         /// </summary>
         public Player nextPlayer()
         {
-            if (nextPlayerIndex < 3)
+            if (clockWise == true)
             {
-                nextPlayerIndex++;
+                if (nextPlayerIndex < 3)
+                {
+                    nextPlayerIndex++;
+                }
+                else
+                {
+                    nextPlayerIndex = 0;
+                }
+
             }
             else
             {
-                nextPlayerIndex = 0;
-            }
-
-            return players[nextPlayerIndex];
-        }
-
-
-        /// <summary>
-        /// Lépés az előző játékosra
-        /// </summary>
-        /// <returns></returns>
-        public Player previousPlayer()
-        {
-            if (nextPlayerIndex > 1)
-            {
-                nextPlayerIndex--;
-            }
-            else
-            {
-                nextPlayerIndex = 3;
+                if (nextPlayerIndex > 1)
+                {
+                    nextPlayerIndex--;
+                }
+                else
+                {
+                    nextPlayerIndex = 3;
+                }
             }
 
             return players[nextPlayerIndex];
