@@ -52,6 +52,40 @@ namespace UNO
                 {
                     message = new Message("COMMAND", "OK", username, "SERVER", msg);
                 }
+                else if (msg.Substring(0, 6).Equals("color:"))
+                {
+                    bool consistent = true;
+                    msg = msg.Substring(6, msg.Length - 6);
+                    if (msg.Equals("sárga") || msg.Equals("sarga") || msg.Equals("yellow"))
+                    {
+                        msg = "YELLOW";
+                    }
+                    else if (msg.Equals("kék") || msg.Equals("kek") || msg.Equals("blue"))
+                    {
+                        msg = "BLUE";
+                    }
+                    else if (msg.Equals("piros") || msg.Equals("red"))
+                    {
+                        msg = "RED";
+                    }
+                    else if (msg.Equals("zold") || msg.Equals("zöld") || msg.Equals("green"))
+                    {
+                        msg = "GREEN";
+                    }
+                    else
+                    {
+                        consistent = false;
+                    }
+
+                    if (consistent)
+                    {
+                        message = new Message("COMMAND", "COLOR", username, "SERVER", msg);
+                    }
+                    else
+                    {
+                        message = new Message("ERROR", "COLOR", username, "SERVER", "Inconsistante color!");
+                    }
+                }
                 else
                 {
                     message = new Message("COMMAND", "UNDEFINED", username, toWho, msg);
