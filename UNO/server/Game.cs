@@ -14,7 +14,7 @@ namespace game
         private DeckStorageAncestor dropCards;
         private DeckStorageAncestor pullCards;
         private bool _clockWise;
-        private int sameDropCards;
+        private int _sameDropCards;
         private int _currentPlayerIndex;
         private RuleChecker ruleChecker;
 
@@ -80,14 +80,6 @@ namespace game
         public bool dropCard(Player player, Card card)
         {
             Card topDropCard = topDroppedCard();
-            if (card.symEquals(topDropCard))
-            {
-                sameDropCards++;
-            }
-            else
-            {
-                sameDropCards = 1;
-            }
 
             if (player.dropCard(card) != null)
             {
@@ -95,6 +87,21 @@ namespace game
                 //--------> 2. iteráció
                 // ha szabályos, szedje ki
                 if(ruleChecker.symColCheck(topDropCard,card)){  //szinre szin szamra szam check
+
+                    if (card.symbol == "plus4" && (topDropCard.symbol == "plus2" || topDropCard.symbol == "plus4"))
+                    {
+                        sameDropCards += 2;
+                    }
+                    else if (card.symEquals(topDropCard))
+                    {
+                        sameDropCards++;
+                    }
+                    else
+                    {
+                        sameDropCards = 1;
+                    }
+
+
                     player.removeCard(true);
                     dropCards.addCard(card);
                
@@ -116,7 +123,6 @@ namespace game
             }
 
             return false;
-
         }
 
         /// <summary>
@@ -160,16 +166,22 @@ namespace game
             return players[currentPlayerIndex];
         }
 
+        public int currentPlayerIndex
+        {
+            set { this._currentPlayerIndex = value; }
+            get { return this._currentPlayerIndex; }
+        }
+
         public bool clockWise
         {
             set { this._clockWise = value; }
             get { return this._clockWise; }
         }
 
-        public int currentPlayerIndex
+        public int sameDropCards
         {
-            set { this._currentPlayerIndex = value; }
-            get { return this._currentPlayerIndex; }
+            set { this._sameDropCards = value; }
+            get { return this._sameDropCards; }
         }
 
         public void toggleClockWise() {
