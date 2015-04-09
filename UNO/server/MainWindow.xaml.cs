@@ -279,6 +279,8 @@ namespace server
                             {
                                 game.nextPlayer();
                             }
+
+                            player.inTrouble = false;
                         }
                         else
                         {
