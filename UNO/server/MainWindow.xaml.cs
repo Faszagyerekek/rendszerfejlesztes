@@ -287,6 +287,10 @@ namespace server
                             sendMessage(new Message("ERROR", "SERVER", player.username, "You can not use this command now"), player);
                         }
                     }
+                    else if (message.head.STATUSCODE.Equals("COLOR"))
+                    {
+                        game.setNewColor(message.body.MESSAGE);
+                    }
                     else if (message.head.STATUSCODE.Equals("READY"))
                     {
                         readyPlayers.Add(player);
