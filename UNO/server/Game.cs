@@ -205,6 +205,13 @@ namespace game
             return dropCards.topCard();
         }
 
+        public void setNewColor(string color)
+        {
+            dropCards.topCard().color = color;
+            nextPlayer();
+        }
+
+
         /*
          * EZ NEM IDE FOG KERÜLNI, DE A JÁTÉKMENET ALAPJA
          * 
