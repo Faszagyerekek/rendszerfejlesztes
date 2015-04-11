@@ -207,7 +207,7 @@ namespace game
 
         public void setNewColor(string color)
         {
-            dropCards.topCard().color = color;
+            dropCards.topCard().color = color.ToLowerInvariant();
             nextPlayer();
         }
 

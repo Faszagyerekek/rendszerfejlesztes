@@ -164,6 +164,11 @@ namespace server
                                         sendMessage(new Message("ERROR", "SERVER", player.username, "You should place a plus card or you have to pull some cards"), player);
                                     }
                                 }
+                                else if (message.body.CARD.symbol == "colorchanger")
+                                {
+                                    sendMessage(new Message("ERROR", "SERVER", player.username, "Please choose a color (red/blue/green/yellow)"), player);
+                                    player.inTrouble = true;
+                                }
                                 else if (message.body.CARD.symbol == "switcher")
                                 {
                                     game.toggleClockWise();
@@ -268,7 +273,7 @@ namespace server
                     }
                     else if (message.head.STATUSCODE.Equals("OK"))
                     {
-                        if (player.ID == game.currentPlayer().ID && player.inTrouble == true)
+                        if (player.ID == game.currentPlayer().ID && player.inTrouble == true && game.topDroppedCard().symbol != "colorchanger")
                         {
                             sendMessage(new Message("MSG", "SERVER", player.username, "Penalty accepted"), player);
                             if (game.topDroppedCard().symbol == "plus2" || game.topDroppedCard().symbol == "plus4")
@@ -289,7 +294,16 @@ namespace server
                     }
                     else if (message.head.STATUSCODE.Equals("COLOR"))
                     {
-                        game.setNewColor(message.body.MESSAGE);
+                        if (player.ID == game.currentPlayer().ID && player.inTrouble == true && game.topDroppedCard().symbol == "colorchanger")
+                        {
+                            game.setNewColor(message.body.MESSAGE);
+                            player.inTrouble = false;
+
+                        }
+                        else
+                        {
+                            sendMessage(new Message("ERROR", "SERVER", player.username, "You can not use this command now"), player);
+                        }
                     }
                     else if (message.head.STATUSCODE.Equals("READY"))
                     {
