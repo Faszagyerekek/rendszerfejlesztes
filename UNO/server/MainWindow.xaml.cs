@@ -184,7 +184,18 @@ namespace server
                                 sendMessage(new Message("ERROR", "SERVER", player.username, "You can not place that card"), player);
                             }
                         }
-                        else
+                        else if (player.ID == game.currentPlayer().ID && player.inTrouble == true)
+                        {
+                            if (message.body.CARD.symbol.Equals(game.topDroppedCard().symbol) || (message.body.CARD.symbol.Equals("plus4") && game.topDroppedCard().symbol.Equals("plus2")))
+                            {
+                                if (game.dropCard(player, message.body.CARD))
+                                {
+                                    game.nextPlayer().inTrouble = true;
+                                    game.currentPlayer().inTrouble = false;
+                                }
+                            }
+                        }
+                        else 
                         {
                             sendMessage(new Message("ERROR", "SERVER", player.username, "It is not your turn"), player);
                         }

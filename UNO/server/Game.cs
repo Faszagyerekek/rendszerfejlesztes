@@ -86,7 +86,7 @@ namespace game
                 // van nála, szabályossági vizsgálat:
                 //--------> 2. iteráció
                 // ha szabályos, szedje ki
-                if(ruleChecker.symColCheck(topDropCard,card)){  //szinre szin szamra szam check
+                if(!player.inTrouble && ruleChecker.symColCheck(topDropCard,card)){  //szinre szin szamra szam check
 
                     if (card.symbol == "plus4" && (topDropCard.symbol == "plus2" || topDropCard.symbol == "plus4"))
                     {
@@ -106,6 +106,21 @@ namespace game
                     dropCards.addCard(card);
                
                     return true;
+                }
+                else if (ruleChecker.symPlusCheck(topDropCard, card))
+                {
+                    if (card.symbol == "plus4" && (topDropCard.symbol == "plus2" || topDropCard.symbol == "plus4"))
+                    {
+                        sameDropCards += 2;
+                    }
+                    else if (card.symEquals(topDropCard))
+                    {
+                        sameDropCards++;
+                    }
+                    
+
+                    player.removeCard(true);
+                    dropCards.addCard(card);
                 }
             }
             return false;

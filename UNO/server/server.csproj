@@ -66,6 +66,7 @@
     <Compile Include="HallOfFame.cs" />
     <Compile Include="Help.cs" />
     <Compile Include="Message.cs" />
+    <Compile Include="PlayerStorage.cs" />
     <Compile Include="PlayRoom.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
