@@ -166,11 +166,11 @@ namespace server
 
                                         if (message.body.CARD.symbol == "jump")
                                         {
-                                            sendMessage(new Message("ERROR", "SERVER", player.username, "You should place a jump card or you will stay out of the turn"), player);
+                                            sendMessage(new Message("ERROR", "SERVER", game.currentPlayer().username, "You should place a jump card or you will stay out of the turn"), game.currentPlayer());
                                         }
                                         else
                                         {
-                                            sendMessage(new Message("ERROR", "SERVER", player.username, "You should place a plus card or you have to pull some cards"), player);
+                                            sendMessage(new Message("ERROR", "SERVER", game.currentPlayer().username, "You should place a plus card or you have to pull some cards"), game.currentPlayer());
                                         }
                                     }
                                     else if (message.body.CARD.symbol == "colorchanger")
