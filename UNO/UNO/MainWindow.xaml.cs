@@ -132,7 +132,7 @@ namespace UNO
             clientStream.Write(buffer, 0, buffer.Length);
             clientStream.Flush();
 
-            if (message.head != null && message.head.STATUS.Equals("COMMAND") && message.body.MESSAGE.Equals("quit")){
+            if (message != null && (message.head.STATUS.Equals("COMMAND") && message.body.MESSAGE.Equals("quit"))){
                 this.Close();
             }
         }

@@ -45,6 +45,7 @@ namespace server
             clients = new List<TcpClient>();
             Log = new DebugMessageClass(this);
             playerList = new List<Player>();
+            readyPlayers = new List<Player>();
             Server();
         }
 
@@ -110,6 +111,13 @@ namespace server
                     break;
                 }
 
+                if (bytesRead == 0)
+                {
+                    connectedClients--;
+                    _Log(">> Client disconnected");
+                    break;
+                }
+
                 //message has successfully been received
                 //ASCIIEncoding encoder = new ASCIIEncoding();
                 UTF8Encoding encoder = new UTF8Encoding();
@@ -118,8 +126,7 @@ namespace server
                 string json = encoder.GetString(fromClient, 0, bytesRead);
                 Message message = JsonConvert.DeserializeObject<Message>(json);
 
-                if (message.head != null && message.body != null &&
-                    message.head.STATUS.Equals("COMMAND") && message.body.MESSAGE.Equals("quit"))
+                if (message != null && message.head.STATUS.Equals("COMMAND") && message.body.MESSAGE.Equals("quit"))
                 {
                     connectedClients--;
                     _Log(">> Client disconnected");
@@ -130,223 +137,234 @@ namespace server
                 Player player = Identify((TcpClient)client);
                 #region >>> Bejött üzenet feldolgozása <<<
                 #region ### Kártya ###
-                if (message.head.STATUS.Equals("CARD"))
+                if (message != null)
                 {
-                    if (message.head.STATUSCODE.Equals("CARD"))
+                    if (message.head.STATUS.Equals("CARD"))
                     {
-                        if (player.ID == game.currentPlayer().ID && player.inTrouble == false)
+                        if (message.head.STATUSCODE.Equals("CARD"))
                         {
-                            if (game.dropCard(player, message.body.CARD))
-                            {
-                                sendMessage(new Message("MSG", "SERVER", player.username, "Card droped"), player);
-
-                                if (player.getCardNum() == 0)
-                                {
-                                    Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", "Game ended. The winner is " + player.username)));
-                                    // JÁTSZMALEZÁRÁS, PONTOZÁS
-                                }
-                                else if (player.getCardNum() == 1)
-                                {
-                                    game.pullCard(player, 2);
-                                    Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", player.username + "has only one card left and did not say uno, so he had to pull 2 cards")));
-                                }
-
-                                if (message.body.CARD.symbol == "plus2" || message.body.CARD.symbol == "plus4" || message.body.CARD.symbol == "jump")
-                                {
-                                    game.nextPlayer().inTrouble = true;
-
-                                    if (message.body.CARD.symbol == "jump")
-                                    {
-                                        sendMessage(new Message("ERROR", "SERVER", player.username, "You should place a jump card or you will stay out of the turn"), player);
-                                    }
-                                    else
-                                    {
-                                        sendMessage(new Message("ERROR", "SERVER", player.username, "You should place a plus card or you have to pull some cards"), player);
-                                    }
-                                }
-                                else if (message.body.CARD.symbol == "colorchanger")
-                                {
-                                    sendMessage(new Message("ERROR", "SERVER", player.username, "Please choose a color (red/blue/green/yellow)"), player);
-                                    player.inTrouble = true;
-                                }
-                                else if (message.body.CARD.symbol == "switcher")
-                                {
-                                    game.toggleClockWise();
-                                    game.nextPlayer();
-                                }
-                                else
-                                {
-                                    game.nextPlayer();
-                                }
-                            }
-                            else
-                            {
-                                sendMessage(new Message("ERROR", "SERVER", player.username, "You can not place that card"), player);
-                            }
-                        }
-                        else if (player.ID == game.currentPlayer().ID && player.inTrouble == true)
-                        {
-                            if (message.body.CARD.symbol.Equals(game.topDroppedCard().symbol) || (message.body.CARD.symbol.Equals("plus4") && game.topDroppedCard().symbol.Equals("plus2")))
+                            if (player.ID == game.currentPlayer().ID && player.inTrouble == false)
                             {
                                 if (game.dropCard(player, message.body.CARD))
                                 {
-                                    game.nextPlayer().inTrouble = true;
-                                    game.currentPlayer().inTrouble = false;
-                                }
-                            }
-                        }
-                        else 
-                        {
-                            sendMessage(new Message("ERROR", "SERVER", player.username, "It is not your turn"), player);
-                        }
-                    }
-                    else if (message.head.STATUSCODE.Equals("UNO"))
-                    {
-                        if (player.ID == game.currentPlayer().ID && player.inTrouble == false)
-                        {
-                            if (game.unoState(player, message.body.CARD))
-                            {
-                                sendMessage(new Message("MSG", "SERVER", player.username, "Card droped, in UNO state"), player);
+                                    sendMessage(new Message("MSG", "SERVER", player.username, "Card droped"), player);
 
-                                if (message.body.CARD.symbol == "plus2" || message.body.CARD.symbol == "plus4" || message.body.CARD.symbol == "jump")
-                                {
-                                    game.nextPlayer().inTrouble = true;
-
-                                    if (message.body.CARD.symbol == "jump")
+                                    if (player.getCardNum() == 0)
                                     {
-                                        sendMessage(new Message("ERROR", "SERVER", player.username, "You should place a jump card or you will stay out of the turn"), player);
+                                        Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", "Game ended. The winner is " + player.username)));
+                                        // JÁTSZMALEZÁRÁS, PONTOZÁS
+                                    }
+                                    else if (player.getCardNum() == 1)
+                                    {
+                                        game.pullCard(player, 2);
+                                        Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", player.username + " has only one card left and did not say uno, so he had to pull 2 cards")));
+                                    }
+
+                                    if (message.body.CARD.symbol == "plus2" || message.body.CARD.symbol == "plus4" || message.body.CARD.symbol == "jump")
+                                    {
+                                        game.nextPlayer().inTrouble = true;
+
+                                        if (message.body.CARD.symbol == "jump")
+                                        {
+                                            sendMessage(new Message("ERROR", "SERVER", player.username, "You should place a jump card or you will stay out of the turn"), player);
+                                        }
+                                        else
+                                        {
+                                            sendMessage(new Message("ERROR", "SERVER", player.username, "You should place a plus card or you have to pull some cards"), player);
+                                        }
+                                    }
+                                    else if (message.body.CARD.symbol == "colorchanger")
+                                    {
+                                        sendMessage(new Message("ERROR", "SERVER", player.username, "Please choose a color (red/blue/green/yellow)"), player);
+                                        player.inTrouble = true;
+                                    }
+                                    else if (message.body.CARD.symbol == "switcher")
+                                    {
+                                        game.toggleClockWise();
+                                        game.nextPlayer();
                                     }
                                     else
                                     {
-                                        sendMessage(new Message("ERROR", "SERVER", player.username, "You should place a plus card or you have to pull some cards"), player);
+                                        game.nextPlayer();
                                     }
-                                }
-                                else if (message.body.CARD.symbol == "switcher")
-                                {
-                                    game.toggleClockWise();
-                                    game.nextPlayer();
                                 }
                                 else
                                 {
-                                    game.nextPlayer();
+                                    sendMessage(new Message("ERROR", "SERVER", player.username, "You can not place that card"), player);
+                                }
+                            }
+                            else if (player.ID == game.currentPlayer().ID && player.inTrouble == true)
+                            {
+                                if (message.body.CARD.symbol.Equals(game.topDroppedCard().symbol) || (message.body.CARD.symbol.Equals("plus4") && game.topDroppedCard().symbol.Equals("plus2")))
+                                {
+                                    if (game.dropCard(player, message.body.CARD))
+                                    {
+                                        game.nextPlayer().inTrouble = true;
+                                        game.currentPlayer().inTrouble = false;
+                                    }
                                 }
                             }
                             else
                             {
-                                sendMessage(new Message("ERROR", "SERVER", player.username, "You can not place that card and be in uno state"), player);
+                                sendMessage(new Message("ERROR", "SERVER", player.username, "It is not your turn"), player);
                             }
                         }
-                        else
+                        else if (message.head.STATUSCODE.Equals("UNO"))
                         {
-                            sendMessage(new Message("ERROR", "SERVER", player.username, "It is not your turn"), player);
-                        }
-                    }
-                }
-                #endregion
-                #region ### Üzenet ###
-                else if (message.head.STATUS.Equals("MSG"))
-                {
-                    Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", message.head.FROM+": "+message.body.MESSAGE)));
-                }
-                #endregion
-                #region ### Kliens oldali hiba ###
-                else if (message.head.STATUS.Equals("ERROR"))
-                {
-                    sendMessage(message, player);
-                }
-                #endregion
-                #region ### Parancs ###
-                else if (message.head.STATUS.Equals("COMMAND") && !message.head.STATUSCODE.Equals("UNDEFINED"))
-                {
-                    if (message.head.STATUSCODE.Equals("HAND"))
-                    {
-                        foreach(Card card in player.getCardList()){
-                            sendMessage(new Message("CARD", "SERVER", player.username, card), player);
-                            Thread.Sleep(50);
-                        }
-                    }
-                    else if (message.head.STATUSCODE.Equals("TOP"))
-                    {
-                        sendMessage(new Message("CARD", "SERVER", player.username, game.topDroppedCard()), player);
-                    }
-                    else if (message.head.STATUSCODE.Equals("DRAW"))
-                    {
-                        if (player.ID == game.currentPlayer().ID && player.inTrouble == false)
-                        {
-                            game.pullCard(player);
-                            sendMessage(new Message("MSG", "SERVER", player.username, "Card added"), player);
-                            game.nextPlayer();
-                        }
-                        else
-                        {
-                            sendMessage(new Message("ERROR", "SERVER", player.username, "It is not your turn"), player);
-                        }
-                    }
-                    else if (message.head.STATUSCODE.Equals("OK"))
-                    {
-                        if (player.ID == game.currentPlayer().ID && player.inTrouble == true && game.topDroppedCard().symbol != "colorchanger")
-                        {
-                            sendMessage(new Message("MSG", "SERVER", player.username, "Penalty accepted"), player);
-                            if (game.topDroppedCard().symbol == "plus2" || game.topDroppedCard().symbol == "plus4")
+                            if (player.ID == game.currentPlayer().ID && player.inTrouble == false)
                             {
-                                game.pullCard(player, 2 * game.sameDropCards);
+                                if (game.unoState(player, message.body.CARD))
+                                {
+                                    sendMessage(new Message("MSG", "SERVER", player.username, "Card droped, in UNO state"), player);
+
+                                    if (message.body.CARD.symbol == "plus2" || message.body.CARD.symbol == "plus4" || message.body.CARD.symbol == "jump")
+                                    {
+                                        game.nextPlayer().inTrouble = true;
+
+                                        if (message.body.CARD.symbol == "jump")
+                                        {
+                                            sendMessage(new Message("ERROR", "SERVER", player.username, "You should place a jump card or you will stay out of the turn"), player);
+                                        }
+                                        else
+                                        {
+                                            sendMessage(new Message("ERROR", "SERVER", player.username, "You should place a plus card or you have to pull some cards"), player);
+                                        }
+                                    }
+                                    else if (message.body.CARD.symbol == "switcher")
+                                    {
+                                        game.toggleClockWise();
+                                        game.nextPlayer();
+                                    }
+                                    else
+                                    {
+                                        game.nextPlayer();
+                                    }
+                                }
+                                else
+                                {
+                                    sendMessage(new Message("ERROR", "SERVER", player.username, "You can not place that card and be in uno state"), player);
+                                }
                             }
-                            else if (game.topDroppedCard().symbol == "jump")
+                            else
                             {
+                                sendMessage(new Message("ERROR", "SERVER", player.username, "It is not your turn"), player);
+                            }
+                        }
+                    }
+                #endregion
+                    #region ### Üzenet ###
+                    else if (message.head.STATUS.Equals("MSG"))
+                    {
+                        Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", message.head.FROM + ": " + message.body.MESSAGE)));
+                    }
+                    #endregion
+                    #region ### Kliens oldali hiba ###
+                    else if (message.head.STATUS.Equals("ERROR"))
+                    {
+                        sendMessage(message, player);
+                    }
+                    #endregion
+                    #region ### Parancs ###
+                    else if (message.head.STATUS.Equals("COMMAND") && !message.head.STATUSCODE.Equals("UNDEFINED"))
+                    {
+                        if (message.head.STATUSCODE.Equals("HAND"))
+                        {
+                            foreach (Card card in player.getCardList())
+                            {
+                                sendMessage(new Message("CARD", "SERVER", player.username, card), player);
+                                Thread.Sleep(50);
+                            }
+                        }
+                        else if (message.head.STATUSCODE.Equals("TOP"))
+                        {
+                            sendMessage(new Message("CARD", "SERVER", player.username, game.topDroppedCard()), player);
+                        }
+                        else if (message.head.STATUSCODE.Equals("DRAW"))
+                        {
+                            if (player.ID == game.currentPlayer().ID && player.inTrouble == false)
+                            {
+                                game.pullCard(player);
+                                sendMessage(new Message("MSG", "SERVER", player.username, "Card added"), player);
                                 game.nextPlayer();
                             }
+                            else
+                            {
+                                sendMessage(new Message("ERROR", "SERVER", player.username, "It is not your turn"), player);
+                            }
+                        }
+                        else if (message.head.STATUSCODE.Equals("OK"))
+                        {
+                            if (player.ID == game.currentPlayer().ID && player.inTrouble == true && game.topDroppedCard().symbol != "colorchanger")
+                            {
+                                sendMessage(new Message("MSG", "SERVER", player.username, "Penalty accepted"), player);
+                                if (game.topDroppedCard().symbol == "plus2" || game.topDroppedCard().symbol == "plus4")
+                                {
+                                    game.pullCard(player, 2 * game.sameDropCards);
+                                }
+                                else if (game.topDroppedCard().symbol == "jump")
+                                {
+                                    game.nextPlayer();
+                                }
 
-                            player.inTrouble = false;
+                                player.inTrouble = false;
+                            }
+                            else
+                            {
+                                sendMessage(new Message("ERROR", "SERVER", player.username, "You can not use this command now"), player);
+                            }
                         }
-                        else
+                        else if (message.head.STATUSCODE.Equals("COLOR"))
                         {
-                            sendMessage(new Message("ERROR", "SERVER", player.username, "You can not use this command now"), player);
-                        }
-                    }
-                    else if (message.head.STATUSCODE.Equals("COLOR"))
-                    {
-                        if (player.ID == game.currentPlayer().ID && player.inTrouble == true && game.topDroppedCard().symbol == "colorchanger")
-                        {
-                            game.setNewColor(message.body.MESSAGE);
-                            player.inTrouble = false;
+                            if (player.ID == game.currentPlayer().ID && player.inTrouble == true && game.topDroppedCard().symbol == "colorchanger")
+                            {
+                                game.setNewColor(message.body.MESSAGE);
+                                player.inTrouble = false;
 
+                            }
+                            else
+                            {
+                                sendMessage(new Message("ERROR", "SERVER", player.username, "You can not use this command now"), player);
+                            }
                         }
-                        else
+                        else if (message.head.STATUSCODE.Equals("READY"))
                         {
-                            sendMessage(new Message("ERROR", "SERVER", player.username, "You can not use this command now"), player);
+                            readyPlayers.Add(player);
+                            sendMessage(new Message("MSG", "SERVER", player.username, "Waiting for other players..."), player);
+                            if (readyPlayers.Count == 2)
+                            {
+                                gamePlay(readyPlayers);
+                                Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", "New game started")));
+                            }
                         }
                     }
-                    else if (message.head.STATUSCODE.Equals("READY"))
+                    # endregion
+                    #region ### Segítség ###
+                    else if (message.head.STATUS.Equals("HELP"))
                     {
-                        readyPlayers.Add(player);
+                        if (message.head.STATUSCODE.Equals("COMMAND"))
+                        {
+                            sendMessage(new Message("MSG", "SERVER", player.username, new Help().Commands()), player);
+                        }
                     }
-                }
-                # endregion
-                #region ### Segítség ###
-                else if (message.head.STATUS.Equals("HELP"))
-                {
-                    if (message.head.STATUSCODE.Equals("COMMAND"))
+                    #endregion
+                    #region ### Bejelentkezés ###
+                    else if (message.head.STATUS.Equals("LOGIN"))
                     {
-                        sendMessage(new Message("MSG", "SERVER", player.username, new Help().Commands()), player);
+                        playerList.Add(new Player(true, message.head.FROM, "password", clients[clients.Count - 1].Client.Handle.ToInt32()));
+
+                        _Log(System.Environment.NewLine + ">>" + message.head.FROM + " connected" + System.Environment.NewLine);
+                        try
+                        {
+                            sendMessage(new Message(
+                                "MSG",
+                                "SERVER",
+                                playerList[playerList.Count - 1].username,
+                                "If you want to play:" + System.Environment.NewLine + new Help().Generals()
+                            ), playerList[playerList.Count - 1]);
+                        }
+                        catch (Exception exc) { }
+
                     }
-                }
-                #endregion
-                #region ### Bejelentkezés ###
-                else if (message.head.STATUS.Equals("LOGIN"))
-                {
-                    playerList.Add(new Player(true, message.head.FROM, "password", clients[clients.Count-1].Client.Handle.ToInt32()));
-                    
-                    _Log(System.Environment.NewLine + ">>" + message.head.FROM + " connected" + System.Environment.NewLine);
-                    try
-                    {
-                        sendMessage(new Message(
-                            "MSG",
-                            "SERVER",
-                            playerList[playerList.Count - 1].username,
-                            "If you want to play:" + System.Environment.NewLine + new Help().Generals()
-                        ), playerList[playerList.Count-1]);
-                    }catch(Exception exc){}
-                    gamePlay();
                 }
                 #endregion
 
@@ -359,7 +377,7 @@ namespace server
             tcpClient.Close();
         }
 
-        private void gamePlay()
+        private void gamePlay(List<Player> playerList)
         {
             game = new Game(playerList);
             game.cardDealing();

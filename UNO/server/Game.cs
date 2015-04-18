@@ -156,7 +156,7 @@ namespace game
         {
             if (clockWise == true)
             {
-                if (currentPlayerIndex < 3)
+                if (currentPlayerIndex < players.Count() - 1)
                 {
                     currentPlayerIndex++;
                 }
@@ -168,13 +168,13 @@ namespace game
             }
             else
             {
-                if (currentPlayerIndex > 1)
+                if (currentPlayerIndex > 0)
                 {
                     currentPlayerIndex--;
                 }
                 else
                 {
-                    currentPlayerIndex = 3;
+                    currentPlayerIndex = players.Count() - 1;
                 }
             }
 
