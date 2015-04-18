@@ -199,9 +199,14 @@ namespace server
                                 {
                                     if (game.dropCard(player, message.body.CARD))
                                     {
-                                        game.nextPlayer().inTrouble = true;
+                                        sendMessage(new Message("MSG", "SERVER", player.username, "Card droped"), player);
                                         game.currentPlayer().inTrouble = false;
+                                        game.nextPlayer().inTrouble = true;
                                     }
+                                }
+                                else
+                                {
+                                    sendMessage(new Message("ERROR", "SERVER", player.username, "You can not place that card"), player);
                                 }
                             }
                             else
