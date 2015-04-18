@@ -49,7 +49,7 @@ namespace server
             Server();
         }
 
-        
+
         private void Server()
         {
             this.tcpListener = new TcpListener(IPAddress.Loopback, 3000); // Change to IPAddress.Any for internet wide Communication
@@ -147,7 +147,7 @@ namespace server
                             {
                                 if (game.dropCard(player, message.body.CARD))
                                 {
-                                    sendMessage(new Message("MSG", "SERVER", player.username, "Card droped"), player);
+                                    sendMessage(new Message("MSG", "SERVER", player.username, "Card dropped"), player);
 
                                     if (player.getCardNum() == 0)
                                     {
@@ -181,6 +181,7 @@ namespace server
                                     else if (message.body.CARD.symbol == "switcher")
                                     {
                                         game.toggleClockWise();
+                                        Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", "The players' order has changed")));
                                         game.nextPlayer();
                                     }
                                     else
@@ -195,23 +196,26 @@ namespace server
                             }
                             else if (player.ID == game.currentPlayer().ID && player.inTrouble == true)
                             {
-                                if (message.body.CARD.symbol.Equals(game.topDroppedCard().symbol) || (message.body.CARD.symbol.Equals("plus4") && game.topDroppedCard().symbol.Equals("plus2")))
+                                if ((message.body.CARD.symbol.Equals("plus4") && (game.topDroppedCard().symbol.Equals("plus2") || game.topDroppedCard().symbol.Equals("plus4"))) || (message.body.CARD.symbol.Equals("plus2") && game.topDroppedCard().symbol.Equals("plus2")))
                                 {
                                     if (game.dropCard(player, message.body.CARD))
                                     {
-                                        sendMessage(new Message("MSG", "SERVER", player.username, "Card droped"), player);
-                                        game.currentPlayer().inTrouble = false;
+                                        sendMessage(new Message("MSG", "SERVER", player.username, "Card dropped"), player);
+                                        player.inTrouble = false;
 
                                         game.nextPlayer().inTrouble = true;
-                                        if (message.body.CARD.symbol == "jump")
-                                        {
-                                            sendMessage(new Message("ERROR", "SERVER", game.currentPlayer().username, "You should place a jump card or you will stay out of the turn"), game.currentPlayer());
-                                        }
-                                        else
-                                        {
-                                            sendMessage(new Message("ERROR", "SERVER", game.currentPlayer().username, "You should place a plus card or you have to pull some cards"), game.currentPlayer());
-                                        }
+                                        sendMessage(new Message("ERROR", "SERVER", game.currentPlayer().username, "You should place a plus card or you have to pull some cards"), game.currentPlayer());
+                                    }
+                                }
+                                else if (message.body.CARD.symbol.Equals(game.topDroppedCard().symbol))
+                                {
+                                    if (game.dropCard(player, message.body.CARD))
+                                    {
+                                        sendMessage(new Message("MSG", "SERVER", player.username, "Card dropped"), player);
+                                        player.inTrouble = false;
 
+                                        game.nextPlayer().inTrouble = true;
+                                        sendMessage(new Message("ERROR", "SERVER", game.currentPlayer().username, "You should place a jump card or you will stay out of the turn"), game.currentPlayer());
                                     }
                                 }
                                 else
@@ -230,7 +234,7 @@ namespace server
                             {
                                 if (game.unoState(player, message.body.CARD))
                                 {
-                                    sendMessage(new Message("MSG", "SERVER", player.username, "Card droped, in UNO state"), player);
+                                    sendMessage(new Message("MSG", "SERVER", player.username, "Card dropped, in UNO state"), player);
 
                                     if (message.body.CARD.symbol == "plus2" || message.body.CARD.symbol == "plus4" || message.body.CARD.symbol == "jump")
                                     {
@@ -238,21 +242,56 @@ namespace server
 
                                         if (message.body.CARD.symbol == "jump")
                                         {
-                                            sendMessage(new Message("ERROR", "SERVER", player.username, "You should place a jump card or you will stay out of the turn"), player);
+                                            sendMessage(new Message("ERROR", "SERVER", game.currentPlayer().username, "You should place a jump card or you will stay out of the turn"), game.currentPlayer());
                                         }
                                         else
                                         {
-                                            sendMessage(new Message("ERROR", "SERVER", player.username, "You should place a plus card or you have to pull some cards"), player);
+                                            sendMessage(new Message("ERROR", "SERVER", game.currentPlayer().username, "You should place a plus card or you have to pull some cards"), game.currentPlayer());
                                         }
+                                    }
+                                    else if (message.body.CARD.symbol == "colorchanger")
+                                    {
+                                        sendMessage(new Message("ERROR", "SERVER", player.username, "Please choose a color (red/blue/green/yellow)"), player);
+                                        player.inTrouble = true;
                                     }
                                     else if (message.body.CARD.symbol == "switcher")
                                     {
                                         game.toggleClockWise();
+                                        Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", "The players' order has changed")));
                                         game.nextPlayer();
                                     }
                                     else
                                     {
                                         game.nextPlayer();
+                                    }
+
+                                    Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", player.username + " said UNO")));
+                                }
+                            }
+                            else if (player.ID == game.currentPlayer().ID && player.inTrouble == true)
+                            {
+                                if ((message.body.CARD.symbol.Equals("plus4") && (game.topDroppedCard().symbol.Equals("plus2") || game.topDroppedCard().symbol.Equals("plus4"))) || (message.body.CARD.symbol.Equals("plus2") && game.topDroppedCard().symbol.Equals("plus2")))
+                                {
+                                    if (game.dropCard(player, message.body.CARD))
+                                    {
+                                        sendMessage(new Message("MSG", "SERVER", player.username, "Card dropped in USO state"), player);
+                                        Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", player.username + " said UNO")));
+                                        player.inTrouble = false;
+
+                                        game.nextPlayer().inTrouble = true;
+                                        sendMessage(new Message("ERROR", "SERVER", game.currentPlayer().username, "You should place a plus card or you have to pull some cards"), game.currentPlayer());
+                                    }
+                                }
+                                else if (message.body.CARD.symbol.Equals("jump") && game.topDroppedCard().symbol.Equals("jump"))
+                                {
+                                    if (game.dropCard(player, message.body.CARD))
+                                    {
+                                        sendMessage(new Message("MSG", "SERVER", player.username, "Card dropped in USO state"), player);
+                                        Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", player.username + " said UNO")));
+                                        player.inTrouble = false;
+
+                                        game.nextPlayer().inTrouble = true;
+                                        sendMessage(new Message("ERROR", "SERVER", game.currentPlayer().username, "You should place a jump card or you will stay out of the turn"), game.currentPlayer());
                                     }
                                 }
                                 else
@@ -315,11 +354,14 @@ namespace server
                                 if (game.topDroppedCard().symbol == "plus2" || game.topDroppedCard().symbol == "plus4")
                                 {
                                     game.pullCard(player, 2 * game.sameDropCards);
+                                    game.sameDropCards = 0;
+                                    game.nextPlayer();
                                 }
                                 else if (game.topDroppedCard().symbol == "jump")
                                 {
                                     game.nextPlayer();
                                 }
+
 
                                 player.inTrouble = false;
                             }
@@ -332,8 +374,9 @@ namespace server
                         {
                             if (player.ID == game.currentPlayer().ID && player.inTrouble == true && game.topDroppedCard().symbol == "colorchanger")
                             {
-                                game.setNewColor(message.body.MESSAGE);
                                 player.inTrouble = false;
+                                game.setNewColor(message.body.MESSAGE);
+                                Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", "New color: " + message.body.MESSAGE)));
 
                             }
                             else
@@ -410,7 +453,7 @@ namespace server
             return null;
         }
 
-        
+
         /// <summary>
         /// Itt fog megtörténni (billentyűzetről) a broadcastolás, ergo, amit a szerver ide beír, az megy mindenkinek
         /// </summary>
@@ -449,7 +492,7 @@ namespace server
             }
         }
 
-        private void sendMessage(Message message , Player player)
+        private void sendMessage(Message message, Player player)
         {
             foreach (TcpClient client in clients)
             {
@@ -468,14 +511,15 @@ namespace server
             }
         }
 
-//MISC ------------------------------------------------------------------------------------------------------
+        //MISC ------------------------------------------------------------------------------------------------------
 
         private void SERVER_Closed(object sender, EventArgs e)
         {
-            if (JatekSzal.IsAlive){
+            if (JatekSzal.IsAlive)
+            {
                 JatekSzal.Abort();
             }
-            
+
         }
 
         private void MSGBOX_TextChanged(object sender, TextChangedEventArgs e)

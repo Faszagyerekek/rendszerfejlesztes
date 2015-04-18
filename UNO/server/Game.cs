@@ -24,7 +24,10 @@ namespace game
             this.dropCards = new DeckStorageAncestor();
             this.pullCards = new DeckStorageAncestor();
             loadDeck();
-            dropCards.addCard(pullCards.deal());
+            do
+            {
+                dropCards.addCard(pullCards.deal());
+            } while (topDroppedCard().type != "COMM");
             this.sameDropCards = 1;
             this.clockWise = true;
             this.ruleChecker = new RuleChecker();
@@ -222,7 +225,7 @@ namespace game
 
         public void setNewColor(string color)
         {
-            dropCards.topCard().color = color.ToLowerInvariant();
+            dropCards.topCard().color = color.ToUpperInvariant();
             nextPlayer();
         }
 
