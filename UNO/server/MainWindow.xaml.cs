@@ -201,7 +201,17 @@ namespace server
                                     {
                                         sendMessage(new Message("MSG", "SERVER", player.username, "Card droped"), player);
                                         game.currentPlayer().inTrouble = false;
+
                                         game.nextPlayer().inTrouble = true;
+                                        if (message.body.CARD.symbol == "jump")
+                                        {
+                                            sendMessage(new Message("ERROR", "SERVER", game.currentPlayer().username, "You should place a jump card or you will stay out of the turn"), game.currentPlayer());
+                                        }
+                                        else
+                                        {
+                                            sendMessage(new Message("ERROR", "SERVER", game.currentPlayer().username, "You should place a plus card or you have to pull some cards"), game.currentPlayer());
+                                        }
+
                                     }
                                 }
                                 else
