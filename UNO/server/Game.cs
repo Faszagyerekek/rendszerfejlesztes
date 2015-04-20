@@ -58,7 +58,7 @@ namespace game
         /// </summary>
         public void cardDealing() {
             foreach (Player player in players) {
-                for (int i = 0; i < 7; i++) {
+                for (int i = 0; i < 15; i++) {
                     player.addCard(pullCards.deal());
                 }
             }
@@ -91,11 +91,11 @@ namespace game
                 // ha szabályos, szedje ki
                 if(!player.inTrouble && ruleChecker.symColCheck(topDropCard,card)){  //szinre szin szamra szam check
 
-                    if (card.symbol == "plus4" && (topDropCard.symbol == "plus2" || topDropCard.symbol == "plus4"))
+                    if (card.symbol == "plus4")
                     {
                         cardToPull += 4;
                     }
-                    else if (card.symbol == "plus2" && topDropCard.symbol == "plus2")
+                    else if (card.symbol == "plus2")
                     {
                         cardToPull += 2;
                     }
@@ -108,11 +108,11 @@ namespace game
                 }
                 else if (ruleChecker.symPlusCheck(topDropCard, card))
                 {
-                    if (card.symbol == "plus4" && (topDropCard.symbol == "plus2" || topDropCard.symbol == "plus4"))
+                    if (card.symbol == "plus4")
                     {
                         cardToPull += 4;
                     }
-                    else if (card.symEquals(topDropCard))
+                    else if (card.symbol == "plus2")
                     {
                         cardToPull += 2;
                     }
