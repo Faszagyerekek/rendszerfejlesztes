@@ -33,6 +33,9 @@ namespace game
                 + System.Environment.NewLine + "   !top / !felso / !felső / !utolso / !utolsó - you can get the last dropped card"
                 + System.Environment.NewLine + "   !draw / !huz / !húz / !huzas / !húzás - you can draw a card, if you have to"
                 + System.Environment.NewLine + "   !ready / !jatek / !játék / !kesz / !kész - you can apply for a game"
+                + System.Environment.NewLine + "   !ok - accept penalty"
+                + System.Environment.NewLine + "   !color - choose a new color, like this: !color:red"
+                + System.Environment.NewLine
             ;
         }
 
