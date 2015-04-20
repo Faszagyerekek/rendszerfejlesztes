@@ -224,7 +224,6 @@ namespace game
         public void setNewColor(string color)
         {
             dropCards.topCard().color = color.ToUpperInvariant();
-            nextPlayer();
         }
 
 
