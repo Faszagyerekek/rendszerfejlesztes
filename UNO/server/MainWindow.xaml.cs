@@ -196,7 +196,7 @@ namespace server
                             }
                             else if (player.ID == game.currentPlayer().ID && player.inTrouble == true)
                             {
-                                if ((message.body.CARD.symbol.Equals("plus4") && (game.topDroppedCard().symbol.Equals("plus2") || game.topDroppedCard().symbol.Equals("plus4"))) || (message.body.CARD.symbol.Equals("plus2") && game.topDroppedCard().symbol.Equals("plus2")))
+                                if ((message.body.CARD.symbol == "plus4" && (game.topDroppedCard().symbol == "plus2" || game.topDroppedCard().symbol == "plus4")) || (message.body.CARD.symbol == "plus2" && game.topDroppedCard().symbol == "plus2"))
                                 {
                                     if (game.dropCard(player, message.body.CARD))
                                     {
@@ -207,12 +207,12 @@ namespace server
                                         sendMessage(new Message("ERROR", "SERVER", game.currentPlayer().username, "You should place a plus card or you have to pull some cards"), game.currentPlayer());
                                     }
                                 }
-                                else if (message.body.CARD.symbol.Equals(game.topDroppedCard().symbol))
+                                else if (message.body.CARD.symbol == "jump" && game.topDroppedCard().symbol == "jump")
                                 {
                                     if (game.dropCard(player, message.body.CARD))
                                     {
                                         sendMessage(new Message("MSG", "SERVER", player.username, "Card dropped"), player);
-                                        player.inTrouble = false;
+                                        player.inTrouble = false;                             
 
                                         game.nextPlayer().inTrouble = true;
                                         sendMessage(new Message("ERROR", "SERVER", game.currentPlayer().username, "You should place a jump card or you will stay out of the turn"), game.currentPlayer());
@@ -270,7 +270,7 @@ namespace server
                             }
                             else if (player.ID == game.currentPlayer().ID && player.inTrouble == true)
                             {
-                                if ((message.body.CARD.symbol.Equals("plus4") && (game.topDroppedCard().symbol.Equals("plus2") || game.topDroppedCard().symbol.Equals("plus4"))) || (message.body.CARD.symbol.Equals("plus2") && game.topDroppedCard().symbol.Equals("plus2")))
+                                if ((message.body.CARD.symbol == "plus4" && (game.topDroppedCard().symbol== "plus2" || game.topDroppedCard().symbol =="plus4")) || (message.body.CARD.symbol == "plus2" && game.topDroppedCard().symbol == "plus2"))
                                 {
                                     if (game.dropCard(player, message.body.CARD))
                                     {
@@ -282,7 +282,7 @@ namespace server
                                         sendMessage(new Message("ERROR", "SERVER", game.currentPlayer().username, "You should place a plus card or you have to pull some cards"), game.currentPlayer());
                                     }
                                 }
-                                else if (message.body.CARD.symbol.Equals("jump") && game.topDroppedCard().symbol.Equals("jump"))
+                                else if (message.body.CARD.symbol == "jump" && game.topDroppedCard().symbol == "jump")
                                 {
                                     if (game.dropCard(player, message.body.CARD))
                                     {
@@ -353,8 +353,8 @@ namespace server
                                 sendMessage(new Message("MSG", "SERVER", player.username, "Penalty accepted"), player);
                                 if (game.topDroppedCard().symbol == "plus2" || game.topDroppedCard().symbol == "plus4")
                                 {
-                                    game.pullCard(player, 2 * game.sameDropCards);
-                                    game.sameDropCards = 0;
+                                    game.pullCard(player, game.cardToPull);
+                                    game.cardToPull = 0;
                                     game.nextPlayer();
                                 }
                                 else if (game.topDroppedCard().symbol == "jump")

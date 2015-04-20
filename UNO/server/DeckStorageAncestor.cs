@@ -32,7 +32,7 @@ namespace game
         public Card deal()
         {
             //Random.Org.Random x = new Random.Org.Random();
-            System.Random x = new System.Random();
+            System.Random x = new System.Random(DateTime.Now.Millisecond);
             int i = x.Next(0, CardList.Count);
             Card card = CardList[i];
             droppableCard = card;
