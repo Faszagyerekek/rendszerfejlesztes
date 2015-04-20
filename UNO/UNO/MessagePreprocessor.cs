@@ -44,7 +44,7 @@ namespace UNO
                 {
                     message = new Message("COMMAND", "DRAW", username, "SERVER", msg);
                 }
-                else if (msg.Equals("ready") || msg.Equals("játék") || msg.Equals("jatek") || msg.Equals("kesz") || msg.Equals("kész"))
+                else if (msg.Equals("ready") || msg.Equals("play") || msg.Equals("játék") || msg.Equals("jatek") || msg.Equals("kesz") || msg.Equals("kész"))
                 {
                     message = new Message("COMMAND", "READY", username, "SERVER", msg);
                 }

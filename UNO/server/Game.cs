@@ -14,7 +14,7 @@ namespace game
         private DeckStorageAncestor dropCards;
         private DeckStorageAncestor pullCards;
         private bool _clockWise;
-        private int _sameDropCards;
+        private int _cardToPull;
         private int _currentPlayerIndex;
         private RuleChecker ruleChecker;
 
@@ -28,7 +28,7 @@ namespace game
             {
                 dropCards.addCard(pullCards.deal());
             } while (topDroppedCard().type != "COMM");
-            this.sameDropCards = 1;
+            this.cardToPull = 0;
             this.clockWise = true;
             this.ruleChecker = new RuleChecker();
         }
@@ -93,15 +93,11 @@ namespace game
 
                     if (card.symbol == "plus4" && (topDropCard.symbol == "plus2" || topDropCard.symbol == "plus4"))
                     {
-                        sameDropCards += 2;
+                        cardToPull += 4;
                     }
-                    else if (card.symEquals(topDropCard))
+                    else if (card.symbol == "plus2" && topDropCard.symbol == "plus2")
                     {
-                        sameDropCards++;
-                    }
-                    else
-                    {
-                        sameDropCards = 1;
+                        cardToPull += 2;
                     }
 
 
@@ -114,16 +110,18 @@ namespace game
                 {
                     if (card.symbol == "plus4" && (topDropCard.symbol == "plus2" || topDropCard.symbol == "plus4"))
                     {
-                        sameDropCards += 2;
+                        cardToPull += 4;
                     }
                     else if (card.symEquals(topDropCard))
                     {
-                        sameDropCards++;
+                        cardToPull += 2;
                     }
                     
 
                     player.removeCard(true);
                     dropCards.addCard(card);
+
+                    return true;
                 }
             }
             return false;
@@ -196,10 +194,10 @@ namespace game
             get { return this._clockWise; }
         }
 
-        public int sameDropCards
+        public int cardToPull
         {
-            set { this._sameDropCards = value; }
-            get { return this._sameDropCards; }
+            set { this._cardToPull = value; }
+            get { return this._cardToPull; }
         }
 
         public void toggleClockWise() {

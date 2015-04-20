@@ -34,7 +34,7 @@ namespace server
 
         public bool symPlusCheck(Card onTop, Card toPlace)
         {
-            if (onTop.symbol.Equals(toPlace.symbol) || (onTop.symbol.Equals("plus2") && toPlace.symbol.Equals("plus4"))) // ezt már a kontroller lekezeli, de az lenne a szép, ha majd csak itt lenne :)
+            if (onTop.symbol == toPlace.symbol || (onTop.symbol.Equals("plus2") && toPlace.symbol.Equals("plus4"))) // ezt már a kontroller lekezeli, de az lenne a szép, ha majd csak itt lenne :)
             {
                 return true;
             }
