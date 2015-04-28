@@ -75,7 +75,14 @@ namespace UNO
                 {
                     if (message.head.FROM.Equals("SERVER"))
                     {
-                        _Log("SERVER MESSAGE: " + message.body.MESSAGE);
+                        if (message.head.STATUSCODE != null && message.head.STATUSCODE.Equals("SILENT"))
+                        {
+                            _Log(System.Environment.NewLine + message.body.MESSAGE);
+                        }
+                        else
+                        {
+                            _Log(System.Environment.NewLine + "SERVER MESSAGE: " + message.body.MESSAGE);
+                        }
                     }
                     else
                     {
