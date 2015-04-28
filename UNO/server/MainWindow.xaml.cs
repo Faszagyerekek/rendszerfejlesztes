@@ -148,6 +148,8 @@ namespace server
                                 if (game.dropCard(player, message.body.CARD))
                                 {
                                     sendMessage(new Message("MSG", "SERVER", player.username, "Card dropped"), player);
+                                    Thread.Sleep(100);
+                                    Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", player.username + " dropped a " + message.body.CARD.color + " " + message.body.CARD.symbol + " card")));
 
                                     if (player.getCardNum() == 0)
                                     {
@@ -207,6 +209,8 @@ namespace server
                                     if (game.dropCard(player, message.body.CARD))
                                     {
                                         sendMessage(new Message("MSG", "SERVER", player.username, "Card dropped"), player);
+                                        Thread.Sleep(100);
+                                        Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", player.username + " dropped a " + message.body.CARD.color + " " + message.body.CARD.symbol + " card")));
 
                                         if (message.body.CARD.symbol == "plus4")
                                         {
@@ -227,6 +231,8 @@ namespace server
                                     if (game.dropCard(player, message.body.CARD))
                                     {
                                         sendMessage(new Message("MSG", "SERVER", player.username, "Card dropped"), player);
+                                        Thread.Sleep(100);
+                                        Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", player.username + " dropped a " + message.body.CARD.color + " " + message.body.CARD.symbol + " card")));
                                         player.inTrouble = false;                             
 
                                         game.nextPlayer().inTrouble = true;
@@ -250,6 +256,8 @@ namespace server
                                 if (game.unoState(player, message.body.CARD))
                                 {
                                     sendMessage(new Message("MSG", "SERVER", player.username, "Card dropped, in UNO state"), player);
+                                    Thread.Sleep(100);
+                                    Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", player.username + " dropped a " + message.body.CARD.color + " " + message.body.CARD.symbol + " card, and said UNO")));
 
                                     if (message.body.CARD.symbol == "plus2" || message.body.CARD.symbol == "jump")
                                     {
@@ -286,7 +294,7 @@ namespace server
                                         game.nextPlayer();
                                     }
 
-                                    Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", player.username + " said UNO")));
+                                    
                                 }
                             }
                             else if (player.ID == game.currentPlayer().ID && player.inTrouble == true)
@@ -297,7 +305,8 @@ namespace server
                                     {
 
                                         sendMessage(new Message("MSG", "SERVER", player.username, "Card dropped in UNO state"), player);
-                                        Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", player.username + " said UNO")));
+                                        Thread.Sleep(100);
+                                        Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", player.username + " dropped a " + message.body.CARD.color + " " + message.body.CARD.symbol + " card, and said UNO")));
 
                                         if (message.body.CARD.symbol == "plus4")
                                         {
@@ -318,7 +327,8 @@ namespace server
                                     if (game.dropCard(player, message.body.CARD))
                                     {
                                         sendMessage(new Message("MSG", "SERVER", player.username, "Card dropped in USO state"), player);
-                                        Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", player.username + " said UNO")));
+                                        Thread.Sleep(100);
+                                        Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", player.username + " dropped a " + message.body.CARD.color + " " + message.body.CARD.symbol + " card, and said UNO")));
                                         player.inTrouble = false;
 
                                         game.nextPlayer().inTrouble = true;
