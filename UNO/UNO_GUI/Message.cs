@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using game;
 
-namespace server
+namespace UNO_GUI
 {
     public class Head
     {
