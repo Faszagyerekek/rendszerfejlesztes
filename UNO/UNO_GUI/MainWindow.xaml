@@ -7,15 +7,7 @@
 	
 	<TabControl x:Name="TabC">
 		
-		<TabControl.ItemContainerStyle>
-			<Style TargetType="{x:Type TabItem}">
-				<Style.Triggers>
-					<DataTrigger Binding="{Binding Items.Count, RelativeSource={RelativeSource AncestorType={x:Type TabControl}, Mode=FindAncestor}}" Value="1">
-						<Setter Property="Visibility" Value="Collapsed"/>
-					</DataTrigger>
-				</Style.Triggers>                
-			</Style>
-		</TabControl.ItemContainerStyle>
+		
 
 
 
@@ -36,15 +28,19 @@
 					<ColumnDefinition Width="2*"/>
 				</Grid.ColumnDefinitions>
 
-				<Label Content="" Name="háttérlabel"
+                <Label Content="" Name="háttérlabel"
 					Grid.ColumnSpan="3" Grid.RowSpan="3" 
 					Background="#FF427BB4" Grid.Row="1" Margin="10,0" Opacity="0.52"/>
 
-				<Label Content="Felhasználónév" Grid.Column="1" Grid.Row="1"
+                <Label Content="Felhasználónév" Grid.Column="1" Grid.Row="1"
 				Background="#FF7D8EA2" BorderBrush="#FF4D4D4D" BorderThickness="5"
 				FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-				<TextBox x:Name="usernameInputTextBox" Grid.Column="1" Grid.Row="3"
+
+
+
+
+                <TextBox x:Name="usernameInputTextBox" Grid.Column="1" Grid.Row="3"
 				        BorderBrush="#FF4D4D4D" Background="#FF7D8EA2" BorderThickness="5"
 				        FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ToolTip="Add meg a felhasználóneved!"
                         KeyDown="usernameInputTextBox_KeyDown" />

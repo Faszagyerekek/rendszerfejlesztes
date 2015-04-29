@@ -18,6 +18,7 @@ using System.Net.Sockets;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Utilities;
+using System.Windows.Threading;
 
 namespace UNO_GUI
 {
@@ -33,21 +34,35 @@ namespace UNO_GUI
         static private string toWho = "*";
         private DebugMessageClass Log;
         private volatile bool STOP = false;
+        DispatcherTimer inpufocus = new DispatcherTimer();
 
         public MainWindow()
         {
             InitializeComponent();
+            usernameInputTextBox.Focus();
+            inpufocus.Interval = new TimeSpan(0, 0, 0, 0, 10);
+            inpufocus.Tick += inpufocus_Tick;
             Log = new DebugMessageClass(this);
+
+            Style s = new Style();
+            s.Setters.Add(new Setter(UIElement.VisibilityProperty, Visibility.Collapsed));
+            TabC.ItemContainerStyle = s;
 
             try
             {
                 client.Connect(serverEndPoint);
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
                 MessageBox.Show(exc.ToString());
             }
             this.ChatSzal = new Thread(new ThreadStart(ChatComm));
+        }
+
+        void inpufocus_Tick(object sender, EventArgs e)
+        {
+            Input_field.Focus();
+            inpufocus.Stop();
         }
 
         private void ChatComm()
@@ -76,7 +91,7 @@ namespace UNO_GUI
                             _Log(System.Environment.NewLine + "SERVER MESSAGE: " + message.body.MESSAGE);
                         }
                     }
-                    
+
                     else
                     {
                         _Log(message.body.MESSAGE);
@@ -157,17 +172,19 @@ namespace UNO_GUI
         #region >>> WelcomeTab <<<
         private void ChatB_Click(object sender, RoutedEventArgs e)
         {
-            if (usernameInputTextBox.Text.Length == 0)
+            if (usernameInputTextBox.Text.Trim().Length == 0)
             {
                 háttérlabel.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE8, 0x20, 0x32));
+                usernameInputTextBox.Text = "";
             }
             else
             {
                 háttérlabel.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x42, 0x7B, 0xB4));
-                UserName = usernameInputTextBox.Text;
+                UserName = usernameInputTextBox.Text.Trim();
                 TabC.SelectedItem = ChatTab;
                 ChatSzal.Start();
                 SendMessage(new Message("LOGIN", UserName, "SERVER", UserName));
+                inpufocus.Start();
             }
             //new GameWindow().Show();
         }
@@ -176,17 +193,19 @@ namespace UNO_GUI
         {
             if (e.Key == Key.Enter)
             {
-                if (usernameInputTextBox.Text.Length > 0)
+                if (usernameInputTextBox.Text.Trim().Length > 0)
                 {
                     háttérlabel.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x42, 0x7B, 0xB4));
-                    UserName = usernameInputTextBox.Text;
+                    UserName = usernameInputTextBox.Text.Trim();
                     TabC.SelectedItem = ChatTab;
                     ChatSzal.Start();
                     SendMessage(new Message("LOGIN", UserName, "SERVER", UserName));
+                    inpufocus.Start();
                 }
                 else
                 {
                     háttérlabel.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE8, 0x20, 0x32));
+                    usernameInputTextBox.Text = "";
                 }
             }
         }
@@ -211,7 +230,7 @@ namespace UNO_GUI
                 }
             }
         }
-        
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -273,6 +292,6 @@ namespace UNO_GUI
             STOP = true;
         }
 
-        
+
     }
 }

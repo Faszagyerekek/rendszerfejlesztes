@@ -1,7 +1,7 @@
 ﻿<Window x:Class="UNO_GUI.GameWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="UNO kárty játék" Height="480" Width="540"
+        Title="UNO kártya játék" Height="480" Width="540"
          MinHeight="300"
         MinWidth="500"
         MaxHeight="700"
