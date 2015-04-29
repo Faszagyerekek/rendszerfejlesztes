@@ -205,6 +205,11 @@ namespace game
             get { return this._cardToPull; }
         }
 
+        public List<Player> getPlayerList()
+        {
+            return players;
+        }
+
         public void toggleClockWise() {
             if (this.clockWise == true)
             {
