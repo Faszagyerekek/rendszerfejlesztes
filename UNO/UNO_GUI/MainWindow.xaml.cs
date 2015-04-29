@@ -98,24 +98,14 @@ namespace UNO_GUI
 
             try
             {
-                if (login_b)
-                {
-                    message = new Message("LOGIN", UserName, "SERVER", UserName);
-                }
-                else
-                {
-                    message = new Message("MSG", UserName, toWho, msg);
-                }
+                message = new Message("MSG", UserName, toWho, msg);
             }
             catch (Exception ex)
             {
                 _Log(ex.Message);
             }
 
-
             string json = JsonConvert.SerializeObject(message);
-
-            //_Log(json);
 
             UTF8Encoding encoder = new UTF8Encoding();
             byte[] buffer = encoder.GetBytes(json);
@@ -127,6 +117,20 @@ namespace UNO_GUI
             {
                 this.Close();
             }
+        }
+
+        private void SendMessage(Message message)
+        {
+            NetworkStream clientStream = client.GetStream();
+            string json = JsonConvert.SerializeObject(message);
+
+            //_Log(json);
+
+            UTF8Encoding encoder = new UTF8Encoding();
+            byte[] buffer = encoder.GetBytes(json);
+
+            clientStream.Write(buffer, 0, buffer.Length);
+            clientStream.Flush();
         }
 
 
@@ -149,6 +153,7 @@ namespace UNO_GUI
                 UserName = usernameInputTextBox.Text;
                 TabC.SelectedItem = ChatTab;
                 ChatSzal.Start();
+                SendMessage(new Message("LOGIN", UserName, "SERVER", UserName));
             }
             //new GameWindow().Show();
         }
@@ -194,12 +199,12 @@ namespace UNO_GUI
 
         private void PlayB_Click(object sender, RoutedEventArgs e)
         {
-
+            SendMessage(new Message("COMMAND", "READY", UserName, "SERVER", ""));
         }
 
         private void HelpB_Click(object sender, RoutedEventArgs e)
         {
-
+            SendMessage(new Message("HELP", "UNDEFINED", UserName, toWho, ""));
         }
         #endregion
 
