@@ -20,7 +20,12 @@ namespace game
 
         public Game(List<Player> players)
         {
-            this.players = players;
+            this.players = new List<Player>();
+            for (int i = 0; i < players.Count(); i++)
+            {
+                this.players.Add(players[i]);
+            }
+
             this.dropCards = new DeckStorageAncestor();
             this.pullCards = new DeckStorageAncestor();
             loadDeck();
