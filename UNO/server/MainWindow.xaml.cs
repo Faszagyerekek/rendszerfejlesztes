@@ -99,7 +99,6 @@ namespace server
                 bytesRead = 0;
 
                 Player player = Identify(tcpClient);
-               Game game = playerInGame(player);
 
                 try
                 {
@@ -138,6 +137,8 @@ namespace server
                     _Log(">> Client disconnected");
                     break;
                 }
+
+                Game game = playerInGame(player);
 
 // megnézi mit olvasott
                 #region >>> Bejött üzenet feldolgozása <<<
