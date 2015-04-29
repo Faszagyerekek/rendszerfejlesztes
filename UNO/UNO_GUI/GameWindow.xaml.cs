@@ -22,7 +22,6 @@ namespace UNO_GUI
     {
         public GameWindow()
         {
-
             InitializeComponent();
         }
     }

@@ -32,6 +32,7 @@ namespace UNO_GUI
         private IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 3000);
         static private string toWho = "*";
         private DebugMessageClass Log;
+        private volatile bool STOP = false;
 
         public MainWindow()
         {
@@ -55,13 +56,14 @@ namespace UNO_GUI
             int bytesRead;
             NetworkStream clientStream = client.GetStream();
 
-            while (true)
+            while (!STOP)
             {
+
                 bytesRead = clientStream.Read(msg, 0, 4096);
                 UTF8Encoding encoder = new UTF8Encoding();
                 string json = encoder.GetString(msg, 0, bytesRead);
                 Message message = JsonConvert.DeserializeObject<Message>(json);
-                if (message.head.STATUS.Equals("MSG"))
+                if (message.head != null && message.head.STATUS.Equals("MSG"))
                 {
                     if (message.head.FROM.Equals("SERVER"))
                     {
@@ -69,16 +71,12 @@ namespace UNO_GUI
                         {
                             _Log(System.Environment.NewLine + message.body.MESSAGE);
                         }
-                        else if (message.head.STATUSCODE != null && message.head.STATUSCODE.Equals("GAMESTARTED"))
-                        {
-                            _Log(System.Environment.NewLine + message.body.MESSAGE);
-                            new GameWindow().Show();
-                        }
                         else
                         {
                             _Log(System.Environment.NewLine + "SERVER MESSAGE: " + message.body.MESSAGE);
                         }
                     }
+                    
                     else
                     {
                         _Log(message.body.MESSAGE);
@@ -89,11 +87,22 @@ namespace UNO_GUI
                 {
                     _Log("   " + message.body.CARD.color + ",\t" + message.body.CARD.symbol);
                 }
+                else if (message.head.STATUS.Equals("GAMESTARTED"))
+                {
+                    _Log(System.Environment.NewLine + message.body.MESSAGE);
+                    GameStart();
+                }
                 else
                 {
                     _Log(message);
                 }
             }
+
+
+            this.Dispatcher.BeginInvoke((Action)(() =>
+                {
+                    this.Close();
+                }));
         }
 
         private void SendMessage(string msg, bool login_b = false)
@@ -224,6 +233,7 @@ namespace UNO_GUI
         private void PlayB_Click(object sender, RoutedEventArgs e)
         {
             SendMessage(new Message("COMMAND", "READY", UserName, "SERVER", ""));
+            TabC.SelectedItem = ChatTab;
         }
 
         private void HelpB_Click(object sender, RoutedEventArgs e)
@@ -248,6 +258,19 @@ namespace UNO_GUI
             {
                 Log.Message(s);
             }));
+        }
+
+        private void GameStart()
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                new GameWindow().Show();
+            }));
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            STOP = true;
         }
 
         
