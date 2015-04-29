@@ -29,6 +29,7 @@ namespace UNO_GUI
         private void ChatB_Click(object sender, RoutedEventArgs e)
         {
             TabC.SelectedItem = ChatTab;
+            new GameWindow().Show();
         }
 
         #endregion
