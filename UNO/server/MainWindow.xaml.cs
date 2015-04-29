@@ -444,8 +444,8 @@ namespace server
                         if (readyPlayers.Count == 2)
                         {
                             gamePlay(readyPlayers);
-                            readyPlayers.Clear();
                             Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", "New game started" + System.Environment.NewLine + "First player is: " + readyPlayers[0].username)));
+                            readyPlayers.Clear();
                         }
                     }
                 }
