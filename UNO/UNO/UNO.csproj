@@ -135,6 +135,171 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\B0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\B1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\B2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\B3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\B4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\B5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\B6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\B7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\B8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\B9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\BJUMP.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\BPLUS2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\BSWITCHER.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\COLORCHNAGER.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\COVER.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\G0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\G1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\G2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\G3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\G4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\G5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\G6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\G7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\G8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\G9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\GJUMP.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\GPLUS2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\GSWITCHER.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\PLUS4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\R0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\R1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\R2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\R3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\R4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\R5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\R6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\R7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\R8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\R9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\RJUMP.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\RPLUS2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\RSWITCHER.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Y0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Y1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Y2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Y3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Y4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Y5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Y6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Y7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Y8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Y9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\YJUMP.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\YPLUS2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\YSWITCHER.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

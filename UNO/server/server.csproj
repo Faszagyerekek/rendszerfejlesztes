@@ -125,65 +125,6 @@
   <ItemGroup>
     <None Include="Resources\Deck.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pictures\B0.png" />
-    <Resource Include="Pictures\B1.png" />
-    <Resource Include="Pictures\B2.png" />
-    <Resource Include="Pictures\B3.png" />
-    <Resource Include="Pictures\B4.png" />
-    <Resource Include="Pictures\B5.png" />
-    <Resource Include="Pictures\B6.png" />
-    <Resource Include="Pictures\B7.png" />
-    <Resource Include="Pictures\B8.png" />
-    <Resource Include="Pictures\B9.png" />
-    <Resource Include="Pictures\BJUMP.png" />
-    <Resource Include="Pictures\BPLUS2.png" />
-    <Resource Include="Pictures\BSWITCHER.png" />
-    <Resource Include="Pictures\COLORCHNAGER.png" />
-    <Resource Include="Pictures\G0.png" />
-    <Resource Include="Pictures\G1.png" />
-    <Resource Include="Pictures\G2.png" />
-    <Resource Include="Pictures\G3.png" />
-    <Resource Include="Pictures\G4.png" />
-    <Resource Include="Pictures\G5.png" />
-    <Resource Include="Pictures\G6.png" />
-    <Resource Include="Pictures\G7.png" />
-    <Resource Include="Pictures\G8.png" />
-    <Resource Include="Pictures\G9.png" />
-    <Resource Include="Pictures\GJUMP.png" />
-    <Resource Include="Pictures\GPLUS2.png" />
-    <Resource Include="Pictures\GSWITCHER.png" />
-    <Resource Include="Pictures\PLUS4.png" />
-    <Resource Include="Pictures\R0.png" />
-    <Resource Include="Pictures\R1.png" />
-    <Resource Include="Pictures\R2.png" />
-    <Resource Include="Pictures\R3.png" />
-    <Resource Include="Pictures\R4.png" />
-    <Resource Include="Pictures\R5.png" />
-    <Resource Include="Pictures\R6.png" />
-    <Resource Include="Pictures\R7.png" />
-    <Resource Include="Pictures\R8.png" />
-    <Resource Include="Pictures\R9.png" />
-    <Resource Include="Pictures\RJUMP.png" />
-    <Resource Include="Pictures\RPLUS2.png" />
-    <Resource Include="Pictures\RSWITCHER.png" />
-    <Resource Include="Pictures\Y0.png" />
-    <Resource Include="Pictures\Y1.png" />
-    <Resource Include="Pictures\Y2.png" />
-    <Resource Include="Pictures\Y3.png" />
-    <Resource Include="Pictures\Y4.png" />
-    <Resource Include="Pictures\Y5.png" />
-    <Resource Include="Pictures\Y6.png" />
-    <Resource Include="Pictures\Y7.png" />
-    <Resource Include="Pictures\Y8.png" />
-    <Resource Include="Pictures\Y9.png" />
-    <Resource Include="Pictures\YJUMP.png" />
-    <Resource Include="Pictures\YPLUS2.png" />
-    <Resource Include="Pictures\YSWITCHER.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pictures\COVER.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
