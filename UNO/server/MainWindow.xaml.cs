@@ -32,8 +32,6 @@ namespace server
         private int connectedClients = 0;
         private DebugMessageClass Log;
         private delegate void WriteMessageDelegate(string msg);
-        private List<TcpClient> clients;
-        private Thread clientThread;
         private Game game;
         private List<Player> playerList;
         private List<Player> readyPlayers;
@@ -42,7 +40,6 @@ namespace server
         public MainWindow()
         {
             InitializeComponent();
-            clients = new List<TcpClient>();
             Log = new DebugMessageClass(this);
             playerList = new List<Player>();
             readyPlayers = new List<Player>();
@@ -70,10 +67,10 @@ namespace server
             {
                 //blocks until a client has connected to the server
                 TcpClient client = this.tcpListener.AcceptTcpClient();
-                clients.Add(client);
 
-                //create a thread to handle communication 
-                //with connected client
+                // Add a player to the list
+                playerList.Add(new Player(client, new Thread(new ParameterizedThreadStart(HandleClientComm))));
+
                 connectedClients++; // Increment the number of clients that have communicated with us.
 
                 this.Dispatcher.Invoke((Action)(() =>
@@ -81,8 +78,7 @@ namespace server
                     Log.ClientConnected(connectedClients);
                 }));
 
-                clientThread = new Thread(new ParameterizedThreadStart(HandleClientComm));
-                clientThread.Start(client);
+
             }
         }
 
@@ -99,6 +95,9 @@ namespace server
             {
 // olvas a klienstől ----- 
                 bytesRead = 0;
+
+                Player player = Identify(tcpClient);
+
                 try
                 {
                     //blocks until a client sends a message
@@ -114,6 +113,8 @@ namespace server
                 if (bytesRead == 0)
                 {
                     connectedClients--;
+                    player.clientThread.Abort();
+                    playerList.Remove(player);
                     _Log(">> Client disconnected");
                     break;
                 }
@@ -129,12 +130,13 @@ namespace server
                 if (message != null && message.head.STATUS.Equals("COMMAND") && message.body.MESSAGE.Equals("quit"))
                 {
                     connectedClients--;
+                    player.clientThread.Abort();
+                    playerList.Remove(player);
                     _Log(">> Client disconnected");
                     break;
                 }
 
 // megnézi mit olvasott
-                Player player = Identify((TcpClient)client);
                 #region >>> Bejött üzenet feldolgozása <<<
                 #region ### Kártya ###
                 if (message != null)
@@ -143,7 +145,7 @@ namespace server
                     {
                         if (message.head.STATUSCODE.Equals("CARD"))
                         {
-                            if (player.ID == game.currentPlayer().ID && player.inTrouble == false)
+                            if (player == game.currentPlayer() && player.inTrouble == false)
                             {
                                 if (game.dropCard(player, message.body.CARD))
                                 {
@@ -202,7 +204,7 @@ namespace server
                                     sendMessage(new Message("ERROR", "SERVER", player.username, "You can not place that card"), player);
                                 }
                             }
-                            else if (player.ID == game.currentPlayer().ID && player.inTrouble == true)
+                            else if (player == game.currentPlayer() && player.inTrouble == true)
                             {
                                 if ((message.body.CARD.symbol == "plus4" && (game.topDroppedCard().symbol == "plus2" || game.topDroppedCard().symbol == "plus4")) || (message.body.CARD.symbol == "plus2" && game.topDroppedCard().symbol == "plus2"))
                                 {
@@ -251,7 +253,7 @@ namespace server
                         }
                         else if (message.head.STATUSCODE.Equals("UNO"))
                         {
-                            if (player.ID == game.currentPlayer().ID && player.inTrouble == false)
+                            if (player == game.currentPlayer() && player.inTrouble == false)
                             {
                                 if (game.unoState(player, message.body.CARD))
                                 {
@@ -297,7 +299,7 @@ namespace server
                                     
                                 }
                             }
-                            else if (player.ID == game.currentPlayer().ID && player.inTrouble == true)
+                            else if (player == game.currentPlayer() && player.inTrouble == true)
                             {
                                 if ((message.body.CARD.symbol == "plus4" && (game.topDroppedCard().symbol== "plus2" || game.topDroppedCard().symbol =="plus4")) || (message.body.CARD.symbol == "plus2" && game.topDroppedCard().symbol == "plus2"))
                                 {
@@ -380,7 +382,7 @@ namespace server
                     }
                     else if (message.head.STATUSCODE.Equals("DRAW"))
                     {
-                        if (player.ID == game.currentPlayer().ID && player.inTrouble == false)
+                        if (player == game.currentPlayer() && player.inTrouble == false)
                         {
                             game.pullCard(player);
                             sendMessage(new Message("MSG", "SERVER", player.username, "Card added"), player);
@@ -393,7 +395,7 @@ namespace server
                     }
                     else if (message.head.STATUSCODE.Equals("OK"))
                     {
-                        if (player.ID == game.currentPlayer().ID && player.inTrouble == true && game.topDroppedCard().symbol != "colorchanger")
+                        if (player == game.currentPlayer() && player.inTrouble == true && game.topDroppedCard().symbol != "colorchanger")
                         {
                             sendMessage(new Message("MSG", "SERVER", player.username, "Penalty accepted, you have drawn " + game.cardToPull + " cards"), player);
                             if (game.topDroppedCard().symbol == "plus2" || game.topDroppedCard().symbol == "plus4")
@@ -417,7 +419,7 @@ namespace server
                     }
                     else if (message.head.STATUSCODE.Equals("COLOR"))
                     {
-                        if (player.ID == game.currentPlayer().ID && player.inTrouble == true && (game.topDroppedCard().symbol == "colorchanger" || game.topDroppedCard().symbol == "plus4"))
+                        if (player == game.currentPlayer() && player.inTrouble == true && (game.topDroppedCard().symbol == "colorchanger" || game.topDroppedCard().symbol == "plus4"))
                         {
                             game.currentPlayer().inTrouble = false;
                             game.setNewColor(message.body.MESSAGE);
@@ -443,6 +445,7 @@ namespace server
                         {
                             gamePlay(readyPlayers);
                             Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", "New game started" + System.Environment.NewLine + "First player is: " + readyPlayers[0].username)));
+                            readyPlayers.Clear();
                         }
                     }
                 }
@@ -459,7 +462,7 @@ namespace server
                 #region ### Bejelentkezés ###
                 else if (message.head.STATUS.Equals("LOGIN"))
                 {
-                    playerList.Add(new Player(true, message.head.FROM, "password", clients[clients.Count - 1].Client.Handle.ToInt32()));
+                    player.username = message.head.FROM;
 
                     _Log(System.Environment.NewLine + ">>" + message.head.FROM + " connected" + System.Environment.NewLine);
                     try
@@ -467,9 +470,9 @@ namespace server
                         sendMessage(new Message(
                             "MSG",
                             "SERVER",
-                            playerList[playerList.Count - 1].username,
+                            player.username,
                             "If you want to play:" + System.Environment.NewLine + new Help().Generals()
-                        ), playerList[playerList.Count - 1]);
+                        ), player);
                     }
                     catch (Exception exc) { }
 
@@ -482,7 +485,7 @@ namespace server
 
             }
 
-            clients.Remove(tcpClient);
+            playerList.Remove(Identify(tcpClient));
             tcpClient.Close();
         }
 
@@ -496,7 +499,7 @@ namespace server
         {
             foreach (Player player in playerList)
             {
-                if (client.Client.Handle.ToInt32() == player.ID)
+                if (client == player.socket)
                 {
                     return player;
                 }
@@ -531,9 +534,9 @@ namespace server
         /// </summary>
         private void Broadcast(string msg)
         {
-            foreach (TcpClient client in clients)
+            foreach (Player player in playerList)
             {
-                NetworkStream clientStream = client.GetStream();
+                NetworkStream clientStream = player.socket.GetStream();
 
                 UTF8Encoding encoder = new UTF8Encoding();
                 byte[] buffer = encoder.GetBytes(msg);
@@ -543,13 +546,13 @@ namespace server
             }
         }
 
-        private void sendMessage(Message message, Player player)
+        private void sendMessage(Message message, Player toWho)
         {
-            foreach (TcpClient client in clients)
+            foreach (Player player in playerList)
             {
-                if (client.Client.Handle.ToInt32() == player.ID)
+                if (player.socket == toWho.socket)
                 {
-                    NetworkStream clientStream = client.GetStream();
+                    NetworkStream clientStream = player.socket.GetStream();
 
                     string json = JsonConvert.SerializeObject(message);
 

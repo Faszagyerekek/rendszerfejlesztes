@@ -4,17 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using game;
+using System.Threading;
+using System.Net.Sockets;
 
 namespace server
 {
     class Player
     {
-        private bool _ready2play;
         private string _username, _password;
-        private int _errPoint,_ID;
+        private int _errPoint;
         private bool _uno;
         private bool _inTrouble;
-
+        private TcpClient _socket;
+        private Thread _clientThread;
         private DeckStorageAncestor Hand;
 
         public Player() { }
@@ -22,28 +24,22 @@ namespace server
         /// <summary>
         /// Felüldefiniált konstruktor (játszani akar-e, felhazsnálónév, jelszó, hibapontszám)
         /// </summary>
-        /// <param name="ready2play">A játékos kész-e a játékra</param>
         /// <param name="username">A játékos felhsználó neve</param>
         /// <param name="password">A játékos jelszava</param>
         /// <param name="errPoint">A játszmák során felhalmozódott hibapont</param>
         /// <param name="Hand">A játékos által birtokolt lapok</param>
 
-        public Player(bool ready2play, string username, string password, int ID, int errPoint = 0)
+        public Player(TcpClient socket, Thread clientThread)
         {
-            this.ready2play = ready2play;
-            this.username = username;
-            this.password = password;
-            this.ID = ID;
-            this.errPoint = errPoint;
+            this.username = "";
+            this.password = "";
+            this.errPoint = 0;
             this.uno = false;
             this.inTrouble = false;
+            this.socket = socket;
+            this.clientThread = clientThread;
+            this.clientThread.Start(socket);
             Hand = new DeckStorageAncestor();
-        }
-
-        public bool ready2play
-        {
-            set {this._ready2play = value; }
-            get {return this._ready2play; }
         }
 
         public string username
@@ -56,12 +52,6 @@ namespace server
         {
             set { this._password = value; }
             get { return this._password; }
-        }
-
-        public int ID
-        {
-            set { this._ID = value; }
-            get { return this._ID; }
         }
 
         public int errPoint
@@ -80,6 +70,18 @@ namespace server
         {
             set { this._inTrouble = value; }
             get { return this._inTrouble; }
+        }
+
+        public TcpClient socket
+        {
+            set { this._socket = value; }
+            get { return this._socket; }
+        }
+
+        public Thread clientThread
+        {
+            set { this._clientThread = value; }
+            get { return this._clientThread; }
         }
 
         public void addCard(Card card)
