@@ -25,9 +25,28 @@ namespace UNO_GUI
             InitializeComponent();
         }
 
+        #region >>> WelcomeTab <<<
         private void ChatB_Click(object sender, RoutedEventArgs e)
         {
-            
+            TabC.SelectedItem = ChatTab;
         }
+
+        #endregion
+
+
+        #region >>> ChatTab <<<
+        private void MSGBOX_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            MSGBOX.ScrollToEnd();
+        }
+
+        private void Input_field_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+
+            }
+        }
+        #endregion
     }
 }
