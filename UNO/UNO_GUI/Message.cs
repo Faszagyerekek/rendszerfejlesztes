@@ -23,7 +23,13 @@ namespace UNO_GUI
 
     public class Message
     {
-
+        /// <summary>
+        /// TÍPUS, USERNAME, KINEK, STRING msg
+        /// </summary>
+        /// <param name="p">param, like MSG, COMMAND, stb...</param>
+        /// <param name="username"></param>
+        /// <param name="toWho"></param>
+        /// <param name="msg"></param>
         public Message(string p, string username, string toWho, string msg)
         {
             this.head = new Head();
@@ -35,6 +41,13 @@ namespace UNO_GUI
             this.body.MESSAGE = msg;
         }
 
+        /// <summary>
+        /// TÍPUS, USERNAME, KINEK, STRING msg
+        /// </summary>
+        /// <param name="p">param, like MSG, COMMAND, stb...</param>
+        /// <param name="username"></param>
+        /// <param name="toWho"></param>
+        /// <param name="card"></param>
         public Message(string p, string username, string toWho, Card card)
         {
             this.head = new Head();

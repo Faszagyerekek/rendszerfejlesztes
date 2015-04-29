@@ -31,10 +31,12 @@ namespace UNO_GUI
         private TcpClient client = new TcpClient();
         private IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 3000);
         static private string toWho = "*";
+        private DebugMessageClass Log;
 
         public MainWindow()
         {
             InitializeComponent();
+            Log = new DebugMessageClass(this);
 
             try
             {
@@ -53,8 +55,6 @@ namespace UNO_GUI
             int bytesRead;
             NetworkStream clientStream = client.GetStream();
 
-            MSGBOX.Text += System.Environment.NewLine + "asdfasdfasdf";
-
             while (true)
             {
                 bytesRead = clientStream.Read(msg, 0, 4096);
@@ -67,30 +67,67 @@ namespace UNO_GUI
                     {
                         if (message.head.STATUSCODE != null && message.head.STATUSCODE.Equals("SILENT"))
                         {
-                            MSGBOX.Text += System.Environment.NewLine + message.body.MESSAGE;
+                            _Log(System.Environment.NewLine + message.body.MESSAGE);
                         }
                         else
                         {
-                            MSGBOX.Text += System.Environment.NewLine + "SERVER MESSAGE: " + message.body.MESSAGE;
+                            _Log(System.Environment.NewLine + "SERVER MESSAGE: " + message.body.MESSAGE);
                         }
                     }
                     else
                     {
-
+                        _Log(message.body.MESSAGE);
                     }
+
                 }
                 else if (message.head.STATUS.Equals("CARD"))
                 {
-
+                    _Log("   " + message.body.CARD.color + ",\t" + message.body.CARD.symbol);
                 }
                 else
                 {
-
+                    _Log(message);
                 }
             }
         }
 
+        private void SendMessage(string msg, bool login_b = false)
+        {
+            NetworkStream clientStream = client.GetStream();
+            Message message = null;
 
+            try
+            {
+                if (login_b)
+                {
+                    message = new Message("LOGIN", UserName, "SERVER", UserName);
+                }
+                else
+                {
+                    message = new Message("MSG", UserName, toWho, msg);
+                }
+            }
+            catch (Exception ex)
+            {
+                _Log(ex.Message);
+            }
+
+
+            string json = JsonConvert.SerializeObject(message);
+
+            //_Log(json);
+
+            UTF8Encoding encoder = new UTF8Encoding();
+            byte[] buffer = encoder.GetBytes(json);
+
+            clientStream.Write(buffer, 0, buffer.Length);
+            clientStream.Flush();
+
+            if (message != null && (message.head.STATUS.Equals("COMMAND") && message.body.MESSAGE.Equals("quit")))
+            {
+                this.Close();
+            }
+        }
 
 
 
@@ -129,7 +166,11 @@ namespace UNO_GUI
         {
             if (e.Key == Key.Enter)
             {
-
+                if (Input_field.Text.Length > 0)
+                {
+                    SendMessage(Input_field.Text);
+                    Input_field.Text = "";
+                }
             }
         }
         
@@ -161,5 +202,22 @@ namespace UNO_GUI
 
         }
         #endregion
+
+        //Misc -----------------------------------------------------------------------------------------
+        private void _Log(string s)
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                Log.Message(s + System.Environment.NewLine);
+            }));
+        }
+
+        private void _Log(Message s)
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                Log.Message(s);
+            }));
+        }
     }
 }

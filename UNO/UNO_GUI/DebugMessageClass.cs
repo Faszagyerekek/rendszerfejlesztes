@@ -15,6 +15,7 @@ namespace UNO_GUI
         {
             // TODO: Complete member initialization
             this.win = mainWindow;
+            win.MSGBOX.Text += System.Environment.NewLine;
         }
 
         internal void ClientConnected(int c)
