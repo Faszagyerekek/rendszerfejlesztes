@@ -69,6 +69,11 @@ namespace UNO_GUI
                         {
                             _Log(System.Environment.NewLine + message.body.MESSAGE);
                         }
+                        else if (message.head.STATUSCODE != null && message.head.STATUSCODE.Equals("GAMESTARTED"))
+                        {
+                            _Log(System.Environment.NewLine + message.body.MESSAGE);
+                            new GameWindow().Show();
+                        }
                         else
                         {
                             _Log(System.Environment.NewLine + "SERVER MESSAGE: " + message.body.MESSAGE);
@@ -158,6 +163,25 @@ namespace UNO_GUI
             //new GameWindow().Show();
         }
 
+        private void usernameInputTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (usernameInputTextBox.Text.Length > 0)
+                {
+                    háttérlabel.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x42, 0x7B, 0xB4));
+                    UserName = usernameInputTextBox.Text;
+                    TabC.SelectedItem = ChatTab;
+                    ChatSzal.Start();
+                    SendMessage(new Message("LOGIN", UserName, "SERVER", UserName));
+                }
+                else
+                {
+                    háttérlabel.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE8, 0x20, 0x32));
+                }
+            }
+        }
+
         #endregion
 
 
@@ -205,6 +229,7 @@ namespace UNO_GUI
         private void HelpB_Click(object sender, RoutedEventArgs e)
         {
             SendMessage(new Message("HELP", "UNDEFINED", UserName, toWho, ""));
+            TabC.SelectedItem = ChatTab;
         }
         #endregion
 
@@ -224,5 +249,7 @@ namespace UNO_GUI
                 Log.Message(s);
             }));
         }
+
+        
     }
 }

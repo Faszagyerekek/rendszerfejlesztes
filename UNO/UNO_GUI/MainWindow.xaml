@@ -44,8 +44,9 @@
 				FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
 				<TextBox x:Name="usernameInputTextBox" Grid.Column="1" Grid.Row="3"
-				BorderBrush="#FF4D4D4D" Background="#FF7D8EA2" BorderThickness="5"
-				FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ToolTip="Add meg a felhasználóneved!"/>
+				        BorderBrush="#FF4D4D4D" Background="#FF7D8EA2" BorderThickness="5"
+				        FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ToolTip="Add meg a felhasználóneved!"
+                        KeyDown="usernameInputTextBox_KeyDown" />
 
 				<Button x:Name="ChatB" Content="Bejelentkezés"
 					Grid.Row="5" Grid.Column="1"
