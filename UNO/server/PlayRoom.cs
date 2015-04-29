@@ -37,7 +37,7 @@ namespace server
         {
             foreach (Player player in playerList)
             {
-                if (client.Client.Handle.ToInt32() == player.ID)
+                if (client == player.socket)
                 {
                     return player;
                 }
