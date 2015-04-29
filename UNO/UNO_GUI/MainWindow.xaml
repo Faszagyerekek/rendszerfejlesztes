@@ -1,0 +1,35 @@
+﻿<Window x:Class="UNO_GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="635" Width="339">
+	
+	<TabControl Name="tabs">
+		<TabItem Name="WelcomeTab">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="30px"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="30px"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="2*"/>
+					<ColumnDefinition Width="6*"/>
+					<ColumnDefinition Width="2*"/>
+				</Grid.ColumnDefinitions>
+
+				<Button Name="ChatB" Content="Játék indítása"
+				Grid.Row="3" Grid.Column="1"
+				Height="30" VerticalAlignment="Top" Click="ChatB_Click"/>
+
+			</Grid>
+		</TabItem>
+		<TabItem Name="ChatTab">
+			<Grid>
+				
+			</Grid>
+		</TabItem>
+	</TabControl>
+
+</Window>
