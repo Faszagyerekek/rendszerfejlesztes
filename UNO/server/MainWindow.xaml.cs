@@ -99,7 +99,7 @@ namespace server
                 bytesRead = 0;
 
                 Player player = Identify(tcpClient);
-                Game game = playerInGame(player);
+               Game game = playerInGame(player);
 
                 try
                 {
@@ -144,8 +144,9 @@ namespace server
                 #region ### Kártya ###
                 if (message != null)
                 {
-                    if (game != null) {
-                        if (message.head.STATUS.Equals("CARD"))
+                    if (message.head.STATUS.Equals("CARD"))
+                    {
+                        if (game != null)
                         {
                             if (message.head.STATUSCODE.Equals("CARD"))
                             {
@@ -354,152 +355,149 @@ namespace server
                         }
                         else
                         {
+                            sendMessage(new Message("ERROR", "SERVER", player.username, "You have to join for a game"), player);
+                        }
+                }
+                #endregion
+                    #region ### Üzenet ###
+                    else if (message.head.STATUS.Equals("MSG"))
+                    {
+                        Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", message.head.FROM + ": " + message.body.MESSAGE)));
+                    }
+                    #endregion
+                    #region ### Kliens oldali hiba ###
+                    else if (message.head.STATUS.Equals("ERROR"))
+                    {
+                        sendMessage(message, player);
+                    }
+                    #endregion
+                    #region ### Parancs ###
+                    else if (message.head.STATUS.Equals("COMMAND") && !message.head.STATUSCODE.Equals("UNDEFINED"))
+                    {
+                        if (game != null)
+                        {
+                            if (message.head.STATUSCODE.Equals("HAND"))
+                            {
+                                foreach (Card card in player.getCardList())
+                                {
+                                    sendMessage(new Message("CARD", "SERVER", player.username, card), player);
+                                    Thread.Sleep(50);
+                                }
+                            }
+                            else if (message.head.STATUSCODE.Equals("TOP"))
+                            {
+                                sendMessage(new Message("MSG", "SILENT", "SERVER", player.username, System.Environment.NewLine + System.Environment.NewLine + "The topcard is: "), player);
+                                Thread.Sleep(100);
+                                sendMessage(new Message("CARD", "SERVER", player.username, game.topDroppedCard()), player);
+                                Thread.Sleep(100);
+                                sendMessage(new Message("MSG", "SILENT", "SERVER", player.username, "_______________" + System.Environment.NewLine), player);
+                            }
+                            else if (message.head.STATUSCODE.Equals("DRAW"))
+                            {
+                                if (player == game.currentPlayer() && player.inTrouble == false)
+                                {
+                                    game.pullCard(player);
+                                    sendMessage(new Message("MSG", "SERVER", player.username, "Card added"), player);
+                                    game.nextPlayer();
+                                }
+                                else
+                                {
+                                    sendMessage(new Message("ERROR", "SERVER", player.username, "It is not your turn"), player);
+                                }
+                            }
+                            else if (message.head.STATUSCODE.Equals("OK"))
+                            {
+                                if (player == game.currentPlayer() && player.inTrouble == true && game.topDroppedCard().symbol != "colorchanger")
+                                {
+                                    sendMessage(new Message("MSG", "SERVER", player.username, "Penalty accepted, you have drawn " + game.cardToPull + " cards"), player);
+                                    if (game.topDroppedCard().symbol == "plus2" || game.topDroppedCard().symbol == "plus4")
+                                    {
+                                        game.pullCard(player, game.cardToPull);
+                                        game.cardToPull = 0;
+                                        game.nextPlayer();
+                                    }
+                                    else if (game.topDroppedCard().symbol == "jump")
+                                    {
+                                        game.nextPlayer();
+                                    }
+
+
+                                    player.inTrouble = false;
+                                }
+                                else
+                                {
+                                    sendMessage(new Message("ERROR", "SERVER", player.username, "You can not use this command now"), player);
+                                }
+                            }
+                            else if (message.head.STATUSCODE.Equals("COLOR"))
+                            {
+                                if (player == game.currentPlayer() && player.inTrouble == true && (game.topDroppedCard().symbol == "colorchanger" || game.topDroppedCard().symbol == "plus4"))
+                                {
+                                    game.currentPlayer().inTrouble = false;
+                                    game.setNewColor(message.body.MESSAGE);
+                                    BroadcastToGame(game.getPlayerList(), JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", "New color: " + message.body.MESSAGE)));
+
+                                    game.nextPlayer();
+                                    if (game.topDroppedCard().symbol == "plus4")
+                                    {
+                                        game.currentPlayer().inTrouble = true;
+                                        sendMessage(new Message("ERROR", "SERVER", game.currentPlayer().username, "You should place a plus card or you have to pull some cards"), game.currentPlayer());
+                                    }
+                                }
+                                else
+                                {
+                                    sendMessage(new Message("ERROR", "SERVER", player.username, "You can not use this command now"), player);
+                                }
+                            }
+                        }
+                        else if (message.head.STATUSCODE.Equals("READY"))
+                        {
+                            readyPlayers.Add(player);
+                            sendMessage(new Message("MSG", "SERVER", player.username, "Waiting for other players..."), player);
+                            if (readyPlayers.Count == 2)
+                            {
+                                gamePlay(readyPlayers);
+                                BroadcastToGame(readyPlayers, JsonConvert.SerializeObject(new Message("GAMESTARTED", message.head.FROM, "*", "New game started" + System.Environment.NewLine + "First player is: " + readyPlayers[0].username)));
+                                readyPlayers.Clear();
+                            }
+                        }
+                        else
+                        {
                             sendMessage(new Message("ERROR", "SERVER", player.username, "You have to join for a game first"), player);
                         }
+
                     }
-                #endregion
-                #region ### Üzenet ###
-                else if (message.head.STATUS.Equals("MSG"))
-                {
-                    Broadcast(JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", message.head.FROM + ": " + message.body.MESSAGE)));
-                }
-                #endregion
-                #region ### Kliens oldali hiba ###
-                else if (message.head.STATUS.Equals("ERROR"))
-                {
-                    sendMessage(message, player);
-                }
-                #endregion
-                #region ### Parancs ###
-                else if (message.head.STATUS.Equals("COMMAND") && !message.head.STATUSCODE.Equals("UNDEFINED"))
-                {
-                    if (game != null)
+                    # endregion
+                    #region ### Segítség ###
+                    else if (message.head.STATUS.Equals("HELP"))
                     {
-                        if (message.head.STATUSCODE.Equals("HAND"))
+                        if (message.head.STATUSCODE.Equals("COMMAND"))
                         {
-                            foreach (Card card in player.getCardList())
-                            {
-                                sendMessage(new Message("CARD", "SERVER", player.username, card), player);
-                                Thread.Sleep(50);
-                            }
+                            sendMessage(new Message("MSG", "SERVER", player.username, new Help().Commands()), player);
                         }
-                        else if (message.head.STATUSCODE.Equals("TOP"))
-                        {
-                            sendMessage(new Message("MSG", "SILENT", "SERVER", player.username, System.Environment.NewLine + System.Environment.NewLine + "The topcard is: "), player);
-                            Thread.Sleep(100);
-                            sendMessage(new Message("CARD", "SERVER", player.username, game.topDroppedCard()), player);
-                            Thread.Sleep(100);
-                            sendMessage(new Message("MSG", "SILENT","SERVER", player.username, "_______________" + System.Environment.NewLine), player);
-                        }
-                        else if (message.head.STATUSCODE.Equals("DRAW"))
-                        {
-                            if (player == game.currentPlayer() && player.inTrouble == false)
-                            {
-                                game.pullCard(player);
-                                sendMessage(new Message("MSG", "SERVER", player.username, "Card added"), player);
-                                game.nextPlayer();
-                            }
-                            else
-                            {
-                                sendMessage(new Message("ERROR", "SERVER", player.username, "It is not your turn"), player);
-                            }
-                        }
-                        else if (message.head.STATUSCODE.Equals("OK"))
-                        {
-                            if (player == game.currentPlayer() && player.inTrouble == true && game.topDroppedCard().symbol != "colorchanger")
-                            {
-                                sendMessage(new Message("MSG", "SERVER", player.username, "Penalty accepted, you have drawn " + game.cardToPull + " cards"), player);
-                                if (game.topDroppedCard().symbol == "plus2" || game.topDroppedCard().symbol == "plus4")
-                                {
-                                    game.pullCard(player, game.cardToPull);
-                                    game.cardToPull = 0;
-                                    game.nextPlayer();
-                                }
-                                else if (game.topDroppedCard().symbol == "jump")
-                                {
-                                    game.nextPlayer();
-                                }
-
-
-                                player.inTrouble = false;
-                            }
-                            else
-                            {
-                                sendMessage(new Message("ERROR", "SERVER", player.username, "You can not use this command now"), player);
-                            }
-                        }
-                        else if (message.head.STATUSCODE.Equals("COLOR"))
-                        {
-                            if (player == game.currentPlayer() && player.inTrouble == true && (game.topDroppedCard().symbol == "colorchanger" || game.topDroppedCard().symbol == "plus4"))
-                            {
-                                game.currentPlayer().inTrouble = false;
-                                game.setNewColor(message.body.MESSAGE);
-                                BroadcastToGame(game.getPlayerList(), JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", "New color: " + message.body.MESSAGE)));
-
-                                game.nextPlayer();
-                                if (game.topDroppedCard().symbol == "plus4")
-                                {
-                                    game.currentPlayer().inTrouble = true;
-                                    sendMessage(new Message("ERROR", "SERVER", game.currentPlayer().username, "You should place a plus card or you have to pull some cards"), game.currentPlayer());
-                                }
-                            }
-                            else
-                            {
-                                sendMessage(new Message("ERROR", "SERVER", player.username, "You can not use this command now"), player);
-                            }
-                        }
-
                     }
-                    else if (message.head.STATUSCODE.Equals("READY"))
+                    #endregion
+                    #region ### Bejelentkezés ###
+                    else if (message.head.STATUS.Equals("LOGIN"))
                     {
-                        readyPlayers.Add(player);
-                        sendMessage(new Message("MSG", "SERVER", player.username, "Waiting for other players..."), player);
-                        if (readyPlayers.Count == 2)
-                        {
-                            gamePlay(readyPlayers);
-                            BroadcastToGame(readyPlayers, JsonConvert.SerializeObject(new Message("GAMESTARTED", message.head.FROM, "*", "New game started" + System.Environment.NewLine + "First player is: " + readyPlayers[0].username)));
-                            readyPlayers.Clear();
-                        }
-                    }
-                    else
-                    {
-                        sendMessage(new Message("ERROR", "SERVER", player.username, "You have to join for a game first"), player);
-                    }
+                        player.username = message.head.FROM;
 
+                        _Log(System.Environment.NewLine + ">>" + message.head.FROM + " connected" + System.Environment.NewLine);
+                        try
+                        {
+                            sendMessage(new Message(
+                                "MSG",
+                                "SERVER",
+                                player.username,
+                                "If you want to play:" + System.Environment.NewLine + new Help().Generals()
+                            ), player);
+                        }
+                        catch (Exception exc) { }
+
+                    }
+                    #endregion
                 }
-                # endregion
-                #region ### Segítség ###
-                else if (message.head.STATUS.Equals("HELP"))
-                {
-                    if (message.head.STATUSCODE.Equals("COMMAND"))
-                    {
-                        sendMessage(new Message("MSG", "SERVER", player.username, new Help().Commands()), player);
-                    }
-                }
-                #endregion
-                #region ### Bejelentkezés ###
-                else if (message.head.STATUS.Equals("LOGIN"))
-                {
-                    player.username = message.head.FROM;
-
-                    _Log(System.Environment.NewLine + ">>" + message.head.FROM + " connected" + System.Environment.NewLine);
-                    try
-                    {
-                        sendMessage(new Message(
-                            "MSG",
-                            "SERVER",
-                            player.username,
-                            "If you want to play:" + System.Environment.NewLine + new Help().Generals()
-                        ), player);
-                    }
-                    catch (Exception exc) { }
-
-                }
-            }
-            #endregion
-
-                #endregion
-
+               #endregion
 
             }
 
