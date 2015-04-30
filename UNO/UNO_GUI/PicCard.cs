@@ -11,11 +11,14 @@ namespace UNO_GUI
     class PicCard : Card
     {
         public Card card { get; set; }
-        public Image cardImage { get; set; }
+        public Bitmap cardImage { get; set; }
 
-        public PicCard(Card card, Image image)
+        public PicCard(Card card, Bitmap image = null)
         {
+            this.cardImage = UNO_GUI.Properties.Resources.COVER;
             this.card = card;
+
+            if (image != null)
             this.cardImage = image;
         }
     }

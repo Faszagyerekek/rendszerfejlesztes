@@ -76,8 +76,41 @@ namespace UNO_GUI
             {
                 bytesRead = clientStream.Read(msg, 0, 4096);
                 UTF8Encoding encoder = new UTF8Encoding();
-                string json = encoder.GetString(msg, 0, bytesRead);
-                Message message = JsonConvert.DeserializeObject<Message>(json);
+                string csomag = encoder.GetString(msg, 0, bytesRead);
+                string json = null;
+                int jsonHossz = 0;
+                int x = 0, y = 0;
+
+                while (csomag[x] != '¤') x++;
+                if (csomag.Substring(0, x).Contains("BEGINBEGIN"))
+                {
+                    x++;
+                    y = x + 1;
+                    while (csomag[y] != '¤') y++;
+                    jsonHossz = Int32.Parse(csomag.Substring(x, y - x ));
+
+                    x = y + 1;
+                    y = x + 1;
+
+                    while (csomag[y] != '¤') y++;
+
+                    if (csomag.Substring(x, y - x).Length == jsonHossz
+                        && csomag.Contains("ENDEND"))
+                    {
+                        json = csomag.Substring(x, y - x);
+                    }
+                }
+
+                Message message = null;
+                if (json != null)
+                {
+                    message = JsonConvert.DeserializeObject<Message>(json);
+                }
+                else
+                {
+                    MessageBox.Show("Incoming Message Error!");
+                }
+
                 if (message.head != null && message.head.STATUS.Equals("MSG"))
                 {
                     if (message.head.FROM.Equals("SERVER"))
@@ -100,8 +133,8 @@ namespace UNO_GUI
                 }
                 else if (message.head != null && message.head.STATUS != null && message.head.STATUS.Equals("CARD"))
                 {
-                    //if (message.body.MESSAGE == null)
-                    //_Log("   " + message.body.CARD.color + ",\t" + message.body.CARD.symbol);
+                    if (message.body.MESSAGE == null)
+                        _Log("   " + message.body.CARD.color + ",\t" + message.body.CARD.symbol);
 
                     gameWindow.CardPreprocessor(message);
                 }

@@ -565,28 +565,42 @@ namespace server
         /// Ez lesz az a függvény, ami majd az egyes kliensekre hallgatózik, vagyis a játszó szál
         /// lényeges megemlíteni, hogy kell-e és milyen argumentumok (valószínűleg szál, vagy kliens azonosító) ebbe a függvénybe
         /// </summary>
-        private void Broadcast(string msg)
+        private void Broadcast(string json)
         {
             foreach (Player player in playerList)
             {
                 NetworkStream clientStream = player.socket.GetStream();
 
                 UTF8Encoding encoder = new UTF8Encoding();
-                byte[] buffer = encoder.GetBytes(msg);
+                string csomag = "BEGINBEGIN¤"
+                        + json.Length
+                        + "¤"
+                        + json
+                        + "¤"
+                        + "ENDEND"
+                        ;
+                byte[] buffer = encoder.GetBytes(csomag);
 
                 clientStream.Write(buffer, 0, buffer.Length);
                 clientStream.Flush();
             }
         }
 
-        private void BroadcastToGame(List<Player> players, string msg)
+        private void BroadcastToGame(List<Player> players, string json)
         {
             foreach (Player player in players)
             {
                 NetworkStream clientStream = player.socket.GetStream();
 
                 UTF8Encoding encoder = new UTF8Encoding();
-                byte[] buffer = encoder.GetBytes(msg);
+                string csomag = "BEGINBEGIN¤"
+                        + json.Length
+                        + "¤"
+                        + json
+                        + "¤"
+                        + "ENDEND"
+                        ;
+                byte[] buffer = encoder.GetBytes(csomag);
 
                 clientStream.Write(buffer, 0, buffer.Length);
                 clientStream.Flush();
@@ -602,9 +616,17 @@ namespace server
                     NetworkStream clientStream = player.socket.GetStream();
 
                     string json = JsonConvert.SerializeObject(message);
-                    
+
+                    string csomag = "BEGINBEGIN¤"
+                        + json.Length
+                        + "¤"
+                        + json
+                        + "¤"
+                        + "ENDEND"
+                        ;
+
                     UTF8Encoding encoder = new UTF8Encoding();
-                    byte[] buffer = encoder.GetBytes(json);
+                    byte[] buffer = encoder.GetBytes(csomag);
 
                     clientStream.Write(buffer, 0, buffer.Length);
                     clientStream.Flush();

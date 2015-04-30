@@ -27,14 +27,20 @@ namespace UNO_GUI
     {
         TcpClient client = null;
         string username = null;
-        public List<PicCard> handCards { get; set; }
+        private List<PicCard> _handCards;
         public GameWindow(TcpClient client, string username)
         {
             InitializeComponent();
-            handCards = new List<PicCard>();
+            this._handCards = new List<PicCard>();
             this.username = username;
             this.client   = client;
             SendMessage(new Message("COMMAND", "HAND", username, "SERVER", ""));
+        }
+
+        private List<PicCard>handCards
+        {
+            set { this._handCards = value; }
+            get { return this._handCards; }
         }
 
         public void CardPreprocessor(Message message)
@@ -66,7 +72,7 @@ namespace UNO_GUI
 
 
 
-        private System.Drawing.Image picSearch(Card card)
+        private System.Drawing.Bitmap picSearch(Card card)
         {
             switch (card.color)
             {
