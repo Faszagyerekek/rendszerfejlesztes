@@ -98,10 +98,12 @@ namespace UNO_GUI
                     }
 
                 }
-                else if (message.head != null && message.head.STATUS.Equals("CARD"))
+                else if (message.head != null && message.head.STATUS != null && message.head.STATUS.Equals("CARD"))
                 {
-                    _Log("   " + message.body.CARD.color + ",\t" + message.body.CARD.symbol);
-                    gameWindow.handCards.Add(message.body.CARD);
+                    //if (message.body.MESSAGE == null)
+                    //_Log("   " + message.body.CARD.color + ",\t" + message.body.CARD.symbol);
+
+                    gameWindow.CardPreprocessor(message);
                 }
                 else if (message.head != null && message.head.STATUS.Equals("GAMESTARTED"))
                 {

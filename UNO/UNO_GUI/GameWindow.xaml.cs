@@ -27,19 +27,185 @@ namespace UNO_GUI
     {
         TcpClient client = null;
         string username = null;
-        public List<Card> handCards { get; set; }
+        public List<PicCard> handCards { get; set; }
         public GameWindow(TcpClient client, string username)
         {
             InitializeComponent();
-            handCards = new List<Card>();
+            handCards = new List<PicCard>();
             this.username = username;
             this.client   = client;
             SendMessage(new Message("COMMAND", "HAND", username, "SERVER", ""));
+        }
+
+        public void CardPreprocessor(Message message)
+        {
+            if (message.head.STATUSCODE == null)
+            {
+                MessageBox.Show("ERROR - head.statuscode == null");
+            }
+            else
+            {
+                if (message.head.STATUSCODE.Equals("HAND"))
+                {
+                    if (message.body.MESSAGE != null && message.body.MESSAGE.Equals("ß"))
+                    {
+                        handCards.Clear();
+                    }
+                    else
+                    {
+                        handCards.Add(new PicCard(message.body.CARD, picSearch(message.body.CARD)));
+                    }
+                }
+                else if (message.head.STATUSCODE.Equals("TOP"))
+                {
+
+                }
+            }
             
         }
 
 
 
+        private System.Drawing.Image picSearch(Card card)
+        {
+            switch (card.color)
+            {
+                case "BLACK":
+                    switch (card.symbol)
+                    {
+                        case "plus4":
+                            return UNO_GUI.Properties.Resources.PLUS4;
+                        case "colorchanger":
+                            return UNO_GUI.Properties.Resources.COLORCHNAGER;
+                    }
+                    break;
+                case "BLUE":
+                    switch (card.symbol)
+                    {
+                        case "0":
+                            return UNO_GUI.Properties.Resources.B0;
+                        case "1":
+                            return UNO_GUI.Properties.Resources.B1;
+                        case "2":
+                            return UNO_GUI.Properties.Resources.B2;
+                        case "3":
+                            return UNO_GUI.Properties.Resources.B3;
+                        case "4":
+                            return UNO_GUI.Properties.Resources.B4;
+                        case "5":
+                            return UNO_GUI.Properties.Resources.B5;
+                        case "6":
+                            return UNO_GUI.Properties.Resources.B6;
+                        case "7":
+                            return UNO_GUI.Properties.Resources.B7;
+                        case "8":
+                            return UNO_GUI.Properties.Resources.B8;
+                        case "9":
+                            return UNO_GUI.Properties.Resources.B9;
+                        case "plus2":
+                            return UNO_GUI.Properties.Resources.BPLUS2;
+                        case "jump":
+                            return UNO_GUI.Properties.Resources.BJUMP;
+                        case "switcher":
+                            return UNO_GUI.Properties.Resources.BSWITCHER;
+                    }
+                    break;
+                case "YELLOW":
+                    switch (card.symbol)
+                    {
+                        case "0":
+                            return UNO_GUI.Properties.Resources.Y0;
+                        case "1":
+                            return UNO_GUI.Properties.Resources.Y1;
+                        case "2":
+                            return UNO_GUI.Properties.Resources.Y2;
+                        case "3":
+                            return UNO_GUI.Properties.Resources.Y3;
+                        case "4":
+                            return UNO_GUI.Properties.Resources.Y4;
+                        case "5":
+                            return UNO_GUI.Properties.Resources.Y5;
+                        case "6":
+                            return UNO_GUI.Properties.Resources.Y6;
+                        case "7":
+                            return UNO_GUI.Properties.Resources.Y7;
+                        case "8":
+                            return UNO_GUI.Properties.Resources.Y8;
+                        case "9":
+                            return UNO_GUI.Properties.Resources.Y9;
+                        case "plus2":
+                            return UNO_GUI.Properties.Resources.YPLUS2;
+                        case "jump":
+                            return UNO_GUI.Properties.Resources.YJUMP;
+                        case "switcher":
+                            return UNO_GUI.Properties.Resources.YSWITCHER;
+                    }
+                    break;
+                case "RED":
+                    switch (card.symbol)
+                    {
+                        case "0":
+                            return UNO_GUI.Properties.Resources.R0;
+                        case "1":
+                            return UNO_GUI.Properties.Resources.R1;
+                        case "2":
+                            return UNO_GUI.Properties.Resources.R2;
+                        case "3":
+                            return UNO_GUI.Properties.Resources.R3;
+                        case "4":
+                            return UNO_GUI.Properties.Resources.R4;
+                        case "5":
+                            return UNO_GUI.Properties.Resources.R5;
+                        case "6":
+                            return UNO_GUI.Properties.Resources.R6;
+                        case "7":
+                            return UNO_GUI.Properties.Resources.R7;
+                        case "8":
+                            return UNO_GUI.Properties.Resources.R8;
+                        case "9":
+                            return UNO_GUI.Properties.Resources.R9;
+                        case "plus2":
+                            return UNO_GUI.Properties.Resources.RPLUS2;
+                        case "jump":
+                            return UNO_GUI.Properties.Resources.RJUMP;
+                        case "switcher":
+                            return UNO_GUI.Properties.Resources.RSWITCHER;
+                    }
+                    break;
+                case "GREEN":
+                    switch (card.symbol)
+                    {
+                        case "0":
+                            return UNO_GUI.Properties.Resources.G0;
+                        case "1":
+                            return UNO_GUI.Properties.Resources.G1;
+                        case "2":
+                            return UNO_GUI.Properties.Resources.G2;
+                        case "3":
+                            return UNO_GUI.Properties.Resources.G3;
+                        case "4":
+                            return UNO_GUI.Properties.Resources.G4;
+                        case "5":
+                            return UNO_GUI.Properties.Resources.G5;
+                        case "6":
+                            return UNO_GUI.Properties.Resources.G6;
+                        case "7":
+                            return UNO_GUI.Properties.Resources.G7;
+                        case "8":
+                            return UNO_GUI.Properties.Resources.G8;
+                        case "9":
+                            return UNO_GUI.Properties.Resources.G9;
+                        case "plus2":
+                            return UNO_GUI.Properties.Resources.GPLUS2;
+                        case "jump":
+                            return UNO_GUI.Properties.Resources.GJUMP;
+                        case "switcher":
+                            return UNO_GUI.Properties.Resources.GSWITCHER;
+                    }
+                    break;
+            }
+            return null;
+        }
 
         private void SendMessage(Message message)
         {

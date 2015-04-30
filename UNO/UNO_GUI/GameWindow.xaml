@@ -19,8 +19,21 @@
             <RowDefinition Height="75"/>
         </Grid.RowDefinitions>
         
-        <ListView Name="player0" Grid.Column="1" Grid.Row="2" Background="{x:Null}" BorderThickness="5" HorizontalContentAlignment="Center"/>
-        
+        <ListView Name="player0" Grid.Column="1" Grid.Row="2" Background="{x:Null}" BorderThickness="5" HorizontalContentAlignment="Center" ItemsSource="{Binding handCards}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="{Binding cardImage}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+
         <ListView Name="player1" Grid.Column="0" Grid.Row="1" Background="{x:Null}" BorderThickness="5" HorizontalContentAlignment="Center">
         	<ListView.LayoutTransform>
         		<TransformGroup>

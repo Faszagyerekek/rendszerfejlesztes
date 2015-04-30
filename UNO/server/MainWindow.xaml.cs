@@ -379,9 +379,11 @@ namespace server
                         {
                             if (message.head.STATUSCODE.Equals("HAND"))
                             {
+                                sendMessage(new Message("CARD", "HAND", "SERVER", player.username, "ß"), player);
+                                Thread.Sleep(200);
                                 foreach (Card card in player.getCardList())
                                 {
-                                    sendMessage(new Message("CARD", "SERVER", player.username, card), player);
+                                    sendMessage(new Message("CARD","HAND", "SERVER", player.username, card), player);
                                     Thread.Sleep(200);
                                 }
                             }
@@ -389,7 +391,7 @@ namespace server
                             {
                                 sendMessage(new Message("MSG", "SILENT", "SERVER", player.username, System.Environment.NewLine + System.Environment.NewLine + "The topcard is: "), player);
                                 Thread.Sleep(100);
-                                sendMessage(new Message("CARD", "SERVER", player.username, game.topDroppedCard()), player);
+                                sendMessage(new Message("CARD","TOP", "SERVER", player.username, game.topDroppedCard()), player);
                                 Thread.Sleep(100);
                                 sendMessage(new Message("MSG", "SILENT", "SERVER", player.username, "_______________" + System.Environment.NewLine), player);
                             }
