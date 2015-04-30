@@ -5,41 +5,91 @@
          MinHeight="300"
         MinWidth="500"
         MaxHeight="700"
-        MaxWidth="900">
-    <Window.Background>
-        <ImageBrush ImageSource="Pictures/Background.jpg"></ImageBrush>
-    </Window.Background>
+        MaxWidth="900" Background="#FF1D2A3A">
     <Grid>
         <Grid.ColumnDefinitions>
 
             <ColumnDefinition Width="75"/>
-            <ColumnDefinition >
-
-            </ColumnDefinition>
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="75"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="75"/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="75"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Column="1" Grid.Row="2" Fill="Black" Opacity="0.35" />
+        
+        <ListView Name="player0" Grid.Column="1" Grid.Row="2" Background="{x:Null}" BorderThickness="5" HorizontalContentAlignment="Center"/>
+        
+        <ListView Name="player1" Grid.Column="0" Grid.Row="1" Background="{x:Null}" BorderThickness="5" HorizontalContentAlignment="Center">
+        	<ListView.LayoutTransform>
+        		<TransformGroup>
+        			<ScaleTransform/>
+        			<SkewTransform/>
+        			<RotateTransform Angle="90"/>
+        			<TranslateTransform/>
+        		</TransformGroup>
+        	</ListView.LayoutTransform>
+            
+        </ListView>
+        
+        <ListView Name="player2" Grid.Column="1" Grid.Row="0" Background="{x:Null}" BorderThickness="5" HorizontalContentAlignment="Center">
+            
+        </ListView>
+        
+        <ListView Name="player3" Grid.Column="2" Grid.Row="1" Background="{x:Null}" BorderThickness="5" HorizontalContentAlignment="Center">
+        	<ListView.LayoutTransform>
+        		<TransformGroup>
+        			<ScaleTransform/>
+        			<SkewTransform/>
+        			<RotateTransform Angle="-90"/>
+        			<TranslateTransform/>
+        		</TransformGroup>
+        	</ListView.LayoutTransform>
+            
+        </ListView>
+        
+        
+        
         <Grid Grid.Column="1" Grid.Row="1" >
             <Grid.ColumnDefinitions>
 
                 <ColumnDefinition Width="25"/>
-                <ColumnDefinition />
-                <ColumnDefinition/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5px"/>
+                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="25"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="25"/>
             </Grid.RowDefinitions>
-            <Label Grid.Column="1" ></Label>
-            
+        
+            <Label Name="player0Name" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" BorderThickness="3" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label Name="player1Name" Grid.Column="0" Grid.Row="1" BorderBrush="Black" BorderThickness="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            	<Label.LayoutTransform>
+            		<TransformGroup>
+            			<ScaleTransform/>
+            			<SkewTransform/>
+            			<RotateTransform Angle="90"/>
+            			<TranslateTransform/>
+            		</TransformGroup>
+            	</Label.LayoutTransform>
+            </Label>
+            <Label Name="player2Name" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" BorderBrush="Black" BorderThickness="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label Name="player3Name" Grid.Column="4" Grid.Row="1" BorderBrush="Black" BorderThickness="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            	<Label.LayoutTransform>
+            		<TransformGroup>
+            			<ScaleTransform/>
+            			<SkewTransform/>
+            			<RotateTransform Angle="-90"/>
+            			<TranslateTransform/>
+            		</TransformGroup>
+            	</Label.LayoutTransform>
+            </Label>
+
+
         </Grid>
     </Grid>
 

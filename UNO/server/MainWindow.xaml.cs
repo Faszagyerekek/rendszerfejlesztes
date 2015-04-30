@@ -382,7 +382,7 @@ namespace server
                                 foreach (Card card in player.getCardList())
                                 {
                                     sendMessage(new Message("CARD", "SERVER", player.username, card), player);
-                                    Thread.Sleep(50);
+                                    Thread.Sleep(200);
                                 }
                             }
                             else if (message.head.STATUSCODE.Equals("TOP"))
@@ -600,7 +600,7 @@ namespace server
                     NetworkStream clientStream = player.socket.GetStream();
 
                     string json = JsonConvert.SerializeObject(message);
-
+                    
                     UTF8Encoding encoder = new UTF8Encoding();
                     byte[] buffer = encoder.GetBytes(json);
 

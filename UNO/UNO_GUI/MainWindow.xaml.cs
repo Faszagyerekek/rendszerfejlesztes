@@ -35,6 +35,7 @@ namespace UNO_GUI
         private DebugMessageClass Log;
         private volatile bool STOP = false;
         DispatcherTimer inpufocus = new DispatcherTimer();
+        GameWindow gameWindow = null;
 
         public MainWindow()
         {
@@ -73,7 +74,6 @@ namespace UNO_GUI
 
             while (!STOP)
             {
-
                 bytesRead = clientStream.Read(msg, 0, 4096);
                 UTF8Encoding encoder = new UTF8Encoding();
                 string json = encoder.GetString(msg, 0, bytesRead);
@@ -98,16 +98,17 @@ namespace UNO_GUI
                     }
 
                 }
-                else if (message.head.STATUS.Equals("CARD"))
+                else if (message.head != null && message.head.STATUS.Equals("CARD"))
                 {
                     _Log("   " + message.body.CARD.color + ",\t" + message.body.CARD.symbol);
+                    gameWindow.handCards.Add(message.body.CARD);
                 }
-                else if (message.head.STATUS.Equals("GAMESTARTED"))
+                else if (message.head != null && message.head.STATUS.Equals("GAMESTARTED"))
                 {
                     _Log(System.Environment.NewLine + message.body.MESSAGE);
                     GameStart();
                 }
-                else
+                else if(message.head != null)
                 {
                     _Log(message);
                 }
@@ -212,7 +213,6 @@ namespace UNO_GUI
 
         #endregion
 
-
         #region >>> ChatTab <<<
         private void MSGBOX_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -283,7 +283,8 @@ namespace UNO_GUI
         {
             this.Dispatcher.Invoke((Action)(() =>
             {
-                new GameWindow().Show();
+                gameWindow = new GameWindow(client, UserName);
+                gameWindow.Show();
             }));
         }
 
