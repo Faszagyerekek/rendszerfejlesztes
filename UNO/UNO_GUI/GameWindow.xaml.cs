@@ -16,6 +16,10 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Utilities;
 using Newtonsoft.Json.Serialization;
 using game;
+using System.Collections.ObjectModel;
+using System.Threading;
+using System.Windows.Interop;
+using System.Drawing;
 
 namespace UNO_GUI
 {
@@ -27,21 +31,21 @@ namespace UNO_GUI
     {
         TcpClient client = null;
         string username = null;
-        private List<PicCard> _handCards;
+        private ObservableCollection<PicCard> handCards { get; set; }
         public GameWindow(TcpClient client, string username)
         {
+            this.handCards = new ObservableCollection<PicCard>();
+            this.DataContext = handCards;
             InitializeComponent();
-            this._handCards = new List<PicCard>();
+            player0.ItemsSource = handCards;
             this.username = username;
             this.client   = client;
+            SendMessage(new Message("COMMAND", "TOP", username, "SERVER", ""));
+            
             SendMessage(new Message("COMMAND", "HAND", username, "SERVER", ""));
         }
 
-        private List<PicCard>handCards
-        {
-            set { this._handCards = value; }
-            get { return this._handCards; }
-        }
+        
 
         public void CardPreprocessor(Message message)
         {
@@ -55,16 +59,32 @@ namespace UNO_GUI
                 {
                     if (message.body.MESSAGE != null && message.body.MESSAGE.Equals("ß"))
                     {
-                        handCards.Clear();
+                        for (int i = 0; i < handCards.Count; i++)
+                        {
+                            handCards.RemoveAt(i);
+                        }
                     }
                     else
                     {
-                        handCards.Add(new PicCard(message.body.CARD, picSearch(message.body.CARD)));
+                        try
+                        {
+                            handCards.Add(new PicCard(message.body.CARD, picSearch(message.body.CARD)));
+                        }
+                        catch (Exception exc)
+                        {
+                            MessageBox.Show(exc.Message);
+                        }
                     }
                 }
                 else if (message.head.STATUSCODE.Equals("TOP"))
                 {
-
+                    var bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(
+                            picSearch(message.body.CARD).GetHbitmap(),
+                            IntPtr.Zero,
+                            Int32Rect.Empty,
+                            BitmapSizeOptions.FromEmptyOptions()
+                        );
+                    topcardPic.Background = new ImageBrush(bitmapSource);
                 }
             }
             
@@ -225,6 +245,11 @@ namespace UNO_GUI
 
             clientStream.Write(buffer, 0, buffer.Length);
             clientStream.Flush();
+        }
+
+        private void deckPic_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }

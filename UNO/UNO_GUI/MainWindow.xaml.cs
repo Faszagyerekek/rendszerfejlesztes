@@ -136,7 +136,10 @@ namespace UNO_GUI
                     if (message.body.MESSAGE == null)
                         _Log("   " + message.body.CARD.color + ",\t" + message.body.CARD.symbol);
 
-                    gameWindow.CardPreprocessor(message);
+                    this.Dispatcher.BeginInvoke((Action)(() =>
+                        {
+                            gameWindow.CardPreprocessor(message);
+                        }));
                 }
                 else if (message.head != null && message.head.STATUS.Equals("GAMESTARTED"))
                 {
