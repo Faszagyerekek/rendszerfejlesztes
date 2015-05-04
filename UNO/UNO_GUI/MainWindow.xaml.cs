@@ -192,10 +192,16 @@ namespace UNO_GUI
             NetworkStream clientStream = client.GetStream();
             string json = JsonConvert.SerializeObject(message);
 
-            //_Log(json);
+            string csomag = "BEGINBEGIN¤"
+                        + json.Length
+                        + "¤"
+                        + json
+                        + "¤"
+                        + "ENDEND"
+                        ;
 
             UTF8Encoding encoder = new UTF8Encoding();
-            byte[] buffer = encoder.GetBytes(json);
+            byte[] buffer = encoder.GetBytes(csomag);
 
             clientStream.Write(buffer, 0, buffer.Length);
             clientStream.Flush();

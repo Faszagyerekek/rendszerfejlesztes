@@ -80,16 +80,16 @@ namespace UNO
                     x++;
                     y = x + 1;
                     while (csomag[y] != '¤') y++;
-                    jsonHossz = Int32.Parse(csomag.Substring(x, y - x -1));
+                    jsonHossz = Int32.Parse(csomag.Substring(x, y - x));
 
                     x = y + 1;
                     y = x + 1;
 
                     while (csomag[y] != '¤') y++;
-                    if (csomag.Substring(x, y - x - 1).Length == jsonHossz
+                    if (csomag.Substring(x, y - x).Length == jsonHossz
                         && csomag.Contains("ENDEND"))
                     {
-                        json = csomag.Substring(x, y - x - 1);
+                        json = csomag.Substring(x, y - x);
                     }
                 }
 
@@ -100,7 +100,7 @@ namespace UNO
                 }
                 else
                 {
-                    MessageBox.Show("Incoming Message Error!");
+                    MessageBox.Show("Incoming Message Error! client");
                 }
                 
                 if (message.head.STATUS.Equals("MSG"))
@@ -124,6 +124,7 @@ namespace UNO
                 }
                 else if (message.head.STATUS.Equals("CARD"))
                 {
+                    if (message.body.CARD != null)
                     _Log("   " + message.body.CARD.color + ",\t" + message.body.CARD.symbol);
                 }
                 else
@@ -163,10 +164,16 @@ namespace UNO
             
             string json = JsonConvert.SerializeObject(message);
 
-            //_Log(json);
+            string csomag = "BEGINBEGIN¤"
+                        + json.Length
+                        + "¤"
+                        + json
+                        + "¤"
+                        + "ENDEND"
+                        ;
 
             UTF8Encoding encoder = new UTF8Encoding();
-            byte[] buffer = encoder.GetBytes(json);
+            byte[] buffer = encoder.GetBytes(csomag);
 
             clientStream.Write(buffer, 0, buffer.Length);
             clientStream.Flush();

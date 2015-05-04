@@ -124,10 +124,48 @@ namespace server
                 //message has successfully been received
                 //ASCIIEncoding encoder = new ASCIIEncoding();
                 UTF8Encoding encoder = new UTF8Encoding();
-
+                /*
                 // Convert the Bytes received to a string and display it on the Server Screen
                 string json = encoder.GetString(fromClient, 0, bytesRead);
                 Message message = JsonConvert.DeserializeObject<Message>(json);
+                */
+
+                string csomag = encoder.GetString(fromClient, 0, bytesRead);
+                string json = null;
+                int jsonHossz = 0;
+                int x = 0, y = 0;
+
+                while (csomag[x] != '¤') x++;
+                if (csomag.Substring(0, x).Contains("BEGINBEGIN"))
+                {
+                    x++;
+                    y = x + 1;
+                    while (csomag[y] != '¤') y++;
+                    jsonHossz = Int32.Parse(csomag.Substring(x, y - x));
+
+                    x = y + 1;
+                    y = x + 1;
+
+                    while (csomag[y] != '¤') y++;
+
+                    if (csomag.Substring(x, y - x).Length == jsonHossz
+                        && csomag.Contains("ENDEND"))
+                    {
+                        json = csomag.Substring(x, y - x);
+                    }
+                }
+
+                Message message = null;
+                if (json != null)
+                {
+                    message = JsonConvert.DeserializeObject<Message>(json);
+                }
+                else
+                {
+                    MessageBox.Show("Incoming Message Error!");
+                }
+
+
 
                 if (message != null && message.head.STATUS.Equals("COMMAND") && message.body.MESSAGE.Equals("quit"))
                 {
@@ -155,9 +193,9 @@ namespace server
                                 {
                                     if (game.dropCard(player, message.body.CARD))
                                     {
-                                        //sendMessage(new Message("MSG", "SERVER", player.username, "Card dropped"), player);
-                                        sendMessage(new Message("CARD", "REFRESH", player.username, "Card dropped"), player);
-                                        Thread.Sleep(100);
+                                        sendMessage(new Message("MSG", "SERVER", player.username, "Card dropped"), player);
+                                        //sendMessage(new Message("CARD", "REFRESH", "SERVER", player.username, "Card dropped"), player);
+                                        Thread.Sleep(50);
                                         BroadcastToGame(game.getPlayerList(), JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", player.username + " dropped a " + message.body.CARD.color + " " + message.body.CARD.symbol + " card")));
 
                                         if (player.getCardNum() == 0)
