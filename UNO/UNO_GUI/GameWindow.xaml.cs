@@ -86,6 +86,13 @@ namespace UNO_GUI
                         );
                     topcardPic.Background = new ImageBrush(bitmapSource);
                 }
+                else if (message.head.STATUSCODE.Equals("REFRESH"))
+                {
+                    SendMessage(new Message("COMMAND", "TOP", username, "SERVER", ""));
+
+
+                    SendMessage(new Message("COMMAND", "HAND", username, "SERVER", ""));
+                }
             }
             
         }
@@ -247,9 +254,26 @@ namespace UNO_GUI
             clientStream.Flush();
         }
 
+
+        // Events ------------------------------------------------------------------
+
         private void deckPic_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            SendMessage(new Message("COMMAND", "DRAW", username, "SERVER", ""));
+            SendMessage(new Message("COMMAND", "HAND", username, "SERVER", ""));
+        }
 
+        private void player0_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // new Message("CARD", "CARD", username, "SERVER", card)
+
+            PicCard selectedCard = (PicCard)player0.SelectedItem;
+            SendMessage(new Message("CARD", "CARD", username, "SERVER", selectedCard.card));
+
+
+            
+
+            SendMessage(new Message("COMMAND", "HAND", username, "SERVER", ""));
         }
     }
 }

@@ -155,7 +155,8 @@ namespace server
                                 {
                                     if (game.dropCard(player, message.body.CARD))
                                     {
-                                        sendMessage(new Message("MSG", "SERVER", player.username, "Card dropped"), player);
+                                        //sendMessage(new Message("MSG", "SERVER", player.username, "Card dropped"), player);
+                                        sendMessage(new Message("CARD", "REFRESH", player.username, "Card dropped"), player);
                                         Thread.Sleep(100);
                                         BroadcastToGame(game.getPlayerList(), JsonConvert.SerializeObject(new Message("MSG", message.head.FROM, "*", player.username + " dropped a " + message.body.CARD.color + " " + message.body.CARD.symbol + " card")));
 

@@ -19,7 +19,7 @@
             <RowDefinition Height="130"/>
         </Grid.RowDefinitions>
         
-        <ListView Name="player0" Grid.Column="1" Grid.Row="2" Background="{x:Null}" BorderThickness="5" HorizontalContentAlignment="Center">
+        <ListView Name="player0" Grid.Column="1" Grid.Row="2" Background="{x:Null}" BorderThickness="5" HorizontalContentAlignment="Center" MouseDoubleClick="player0_MouseDoubleClick">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"></StackPanel>
